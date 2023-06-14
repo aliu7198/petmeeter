@@ -12,40 +12,40 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    firstName = db.Column(db.String(30))
-    lastName = db.Column(db.String(30))
-    zipCode = db.Column(db.Integer, nullable=False)
+    first_name = db.Column(db.String(30))
+    last_name = db.Column(db.String(30))
+    zip_code = db.Column(db.Integer, nullable=False)
     phone = db.Column(db.Integer)
     country = db.Column(db.String(100))
     address = db.Column(db.String(255))
     city = db.Column(db.String(255))
     state = db.Column(db.String(255))
 
-    adoptionAgency = db.Column(db.Boolean, nullable=False, default=False)
-    orgName = db.Column(db.String(255))
+    adoption_agency = db.Column(db.Boolean, nullable=False, default=False)
+    org_name = db.Column(db.String(255))
 
     # Adopter Profile Fields
-    desiredPet = db.Column(db.String)
-    petOwner = db.Column(db.String)
+    desired_pet = db.Column(db.String)
+    pet_owner = db.Column(db.String)
     kids = db.Column(db.Boolean)
-    ownerType = db.Column(db.String)
-    currentPets = db.Column(db.String)
-    agePref = db.Column(db.String)
-    genderPref = db.Column(db.String)
-    sizePref = db.Column(db.String)
-    specialNeeds = db.Column(db.Boolean)
+    owner_type = db.Column(db.String)
+    current_pets = db.Column(db.String)
+    age_pref = db.Column(db.String)
+    gender_pref = db.Column(db.String)
+    size_pref = db.Column(db.String)
+    special_needs = db.Column(db.Boolean)
     breed = db.Column(db.String)
 
     # Cat Specific
-    coatLengthPref = db.Column(db.String)
+    coat_length_pref = db.Column(db.String)
 
     # Dog Specific
-    privateOutdoor = db.Column(db.String)
-    sharedOutdoor = db.Column(db.String)
-    leaseRestriction = db.Column(db.Boolean)
-    breedRestriction = db.Column(db.String)
-    sizeRestriction = db.Column(db.Integer)
-    activityLevelPref = db.Column(db.String)
+    private_outdoor = db.Column(db.String)
+    shared_outdoor = db.Column(db.String)
+    lease_restriction = db.Column(db.Boolean)
+    breed_restriction = db.Column(db.String)
+    size_restriction = db.Column(db.Integer)
+    activity_level_pref = db.Column(db.String)
 
     animals = db.relationship('Animal', back_populates='user', cascade='all, delete-orphan')
     favorites = db.relationship('Animal', secondary='favorites', back_populates="favorites", cascade='all, delete')
@@ -66,35 +66,35 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'email': self.email,
-            'firstName': self.firstName,
-            'lastName': self.lastName,
-            'zipCode': self.zipCode,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'zip_code': self.zip_code,
             'phone': self.phone,
             'country': self.country,
             'address': self.address,
             'city': self.city,
             'state': self.state,
 
-            'adoptionAgency': self.adoptionAgency,
-            'orgName': self.orgName,
+            'adoption_agency': self.adoption_agency,
+            'org_name': self.org_name,
 
-            'desiredPet': self.desiredPet,
-            'petOwner': self.petOwner,
+            'desired_pet': self.desired_pet,
+            'pet_owner': self.pet_owner,
             'kids': self.kids,
-            'ownerType': self.ownerType,
-            'currentPets': self.currentPets,
-            'agePref': self.agePref,
-            'genderPref': self.genderPref,
-            'sizePref': self.sizePref,
-            'specialNeeds': self.specialNeeds,
+            'owner_type': self.owner_type,
+            'current_pets': self.current_pets,
+            'age_pref': self.age_pref,
+            'gender_pref': self.gender_pref,
+            'size_pref': self.size_pref,
+            'special_needs': self.special_needs,
             'breed': self.breed,
 
-            'coatLengthPref': self.coatLengthPref,
+            'coat_length_pref': self.coat_length_pref,
 
-            'privateOutdoor': self.privateOutdoor,
-            'sharedOutdoor': self.sharedOutdoor,
-            'leaseRestriction': self.leaseRestriction,
-            'breedRestriction': self.breedRestriction,
-            'sizeRestriction': self.sizeRestriction,
-            'activityLevelPref': self.activityLevelPref
+            'private_outdoor': self.private_outdoor,
+            'shared_outdoor': self.shared_outdoor,
+            'lease_restriction': self.lease_restriction,
+            'breed_restriction': self.breed_restriction,
+            'size_restriction': self.size_restriction,
+            'activity_level_pref': self.activity_level_pref
         }

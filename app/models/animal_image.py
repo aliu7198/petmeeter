@@ -7,14 +7,14 @@ class AnimalImage(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    animalId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('animals.id')), nullable=False)
-    imageUrl = db.Column(db.String, nullable=False)
+    animal_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('animals.id')), nullable=False)
+    image_url = db.Column(db.String, nullable=False)
 
     animal = db.relationship('Animal', back_populates='animal_images')
 
     def to_dict(self):
         return {
             'id': self.id,
-            'animalId': self.animalId,
-            'imageUrl': self.imageUrl
+            'animal_id': self.animal_id,
+            'image_url': self.image_url
         }

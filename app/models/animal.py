@@ -8,7 +8,7 @@ class Animal(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     type = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.String, nullable=False)
@@ -17,18 +17,18 @@ class Animal(db.Model):
     breed = db.Column(db.String, nullable=False)
     color = db.Column(db.String)
     characteristics = db.Column(db.String)
-    coatLength = db.Column(db.String)
-    houseTrained = db.Column(db.Boolean)
+    coat_length = db.Column(db.String)
+    house_trained = db.Column(db.Boolean)
     vaccinated = db.Column(db.Boolean)
     fixed = db.Column(db.Boolean)
-    specialNeeds = db.Column(db.Boolean)
-    goodWith = db.Column(db.String)
+    special_needs = db.Column(db.Boolean)
+    good_with = db.Column(db.String)
     description = db.Column(db.String)
-    adoptionFee = db.Column(db.Integer, nullable=False)
+    adoption_fee = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
-    isPet = db.Column(db.Boolean, nullable=False, default=False)
-    birthDate = db.Column(db.Date)
+    is_pet = db.Column(db.Boolean, nullable=False, default=False)
+    birth_date = db.Column(db.Date)
     origin = db.Column(db.String)
 
     user = db.relationship("User", back_populates="animals")
@@ -47,16 +47,16 @@ class Animal(db.Model):
             'breed': self.breed,
             'color': self.color,
             'characteristics': self.characteristics,
-            'coatLength': self.coatLength,
-            'houseTrained': self.houseTrained,
+            'coat_length': self.coat_length,
+            'house_trained': self.house_trained,
             'vaccinated': self.vaccinated,
             'fixed': self.fixed,
-            'specialNeeds': self.specialNeeds,
-            'goodWith': self.goodWith,
+            'special_needs': self.special_needs,
+            'good_with': self.good_with,
             'description': self.description,
-            'adoptionFee': self.adoptionFee,
+            'adoption_fee': self.adoption_fee,
 
-            'isPet': self.isPet,
-            'birthDate': self.birthDate,
+            'is_pet': self.is_pet,
+            'birth_date': self.birth_date,
             'origin': self.origin
         }

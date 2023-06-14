@@ -7,47 +7,47 @@ def seed_users():
     demo = User(
         email='demo@aa.io',
         password='password',
-        firstName='Demo',
-        lastName='User',
-        zipCode=10280
+        first_name='Demo',
+        last_name='User',
+        zip_code=10280
     )
     marnie = User(
         email='marnie@aa.io',
         password='password',
-        firstName='Marnie',
-        lastName='Demo',
-        zipCode=32811
+        first_name='Marnie',
+        last_name='Demo',
+        zip_code=32811
     )
     bobbie = User(
         email='bobbie@aa.io',
         password='password',
-        firstName='Bobbie',
-        lastName='Demo',
-        zipCode=94016
+        first_name='Bobbie',
+        last_name='Demo',
+        zip_code=94016
     )
 
     sunshineRescue = User(
         email='sunshinerescue@aa.io',
         password='password',
-        adoptionAgency=True,
-        orgName='Sunshine Rescue',
-        zipCode=32811
+        adoption_agency=True,
+        org_name='Sunshine Rescue',
+        zip_code=32811
     )
 
     pawsNWhiskers = User(
         email='pawsnwhiskers@aa.io',
         password='password',
-        adoptionAgency=True,
-        orgName='Paws N\' Whiskers',
-        zipCode=10280
+        adoption_agency=True,
+        org_name='Paws N\' Whiskers',
+        zip_code=10280
     )
 
     creatureCompanions = User(
         email='creaturecompanions@aa.io',
         password='password',
-        adoptionAgency=True,
-        orgName='Creature Companions',
-        zipCode=94016
+        adoption_agency=True,
+        org_name='Creature Companions',
+        zip_code=94016
     )
 
     db.session.add(demo)
