@@ -39,13 +39,13 @@ class Animal(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'ownerId': self.ownerId,
+            'ownerId': self.owner_id,
             'type': self.type,
             'name': self.name,
             'age': self.age,
             'gender': self.gender,
             'size': self.size,
-            'primaryBreed': self.priamry_breed,
+            'primaryBreed': self.primary_breed,
             'secondaryBreed': self.secondary_breed,
             'color': self.color,
             'characteristics': self.characteristics,
