@@ -3,16 +3,18 @@ from sqlalchemy.sql import text
 
 
 def seed_animals():
-    # cat1 = Animal(
-    #     ownerId=
-    # )
+    cat1 = Animal(
+        owner_id = 1,
+        type = 'Cat',
+        name = 'Stinky',
+        age = 'Young',
+        gender = 'Male',
+        size = 'Large',
+        breed = 'Domestic Shorthair',
+        adoption_fee = 100.00
+    )
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.add(sunshineRescue)
-    db.session.add(pawsNWhiskers)
-    db.session.add(creatureCompanions)
+    db.session.add(cat1)
     db.session.commit()
 
 
