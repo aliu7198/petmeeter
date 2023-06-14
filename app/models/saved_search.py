@@ -41,7 +41,7 @@ class SavedSearch(db.Model):
             'specialNeeds': self.special_needs,
             'coatLength': self.coat_length,
             'color': self.color,
-            'daysOnSite': self.dayss_on_site,
+            'daysOnSite': self.days_on_site,
             'orgName': self.org_name,
             'petName': self.pet_name,
             'outOfTown': self.out_of_town
