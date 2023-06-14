@@ -14,7 +14,8 @@ class Animal(db.Model):
     age = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     size = db.Column(db.String, nullable=False)
-    breed = db.Column(db.String, nullable=False)
+    primary_breed = db.Column(db.String, nullable=False)
+    secondary_breed = db.Column(db.String)
     color = db.Column(db.String)
     characteristics = db.Column(db.String)
     coat_length = db.Column(db.String)
@@ -23,7 +24,7 @@ class Animal(db.Model):
     fixed = db.Column(db.Boolean)
     special_needs = db.Column(db.Boolean)
     good_with = db.Column(db.String)
-    description = db.Column(db.String)
+    description = db.Column(db.String(2000))
     adoption_fee = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
@@ -44,7 +45,8 @@ class Animal(db.Model):
             'age': self.age,
             'gender': self.gender,
             'size': self.size,
-            'breed': self.breed,
+            'primary_breed': self.priamry_breed,
+            'secondary_breed': self.secondary_breed,
             'color': self.color,
             'characteristics': self.characteristics,
             'coat_length': self.coat_length,

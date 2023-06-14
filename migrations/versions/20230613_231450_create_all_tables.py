@@ -1,7 +1,7 @@
 """create all tables
 
 Revision ID: 847577c78e6a
-Revises: 
+Revises:
 Create Date: 2023-06-13 23:14:50.316507
 
 """
@@ -60,7 +60,8 @@ def upgrade():
     sa.Column('age', sa.String(), nullable=False),
     sa.Column('gender', sa.String(), nullable=False),
     sa.Column('size', sa.String(), nullable=False),
-    sa.Column('breed', sa.String(), nullable=False),
+    sa.Column('primary_breed', sa.String(), nullable=False),
+    sa.Column('secondary_breed', sa.String(), nullable=True),
     sa.Column('color', sa.String(), nullable=True),
     sa.Column('characteristics', sa.String(), nullable=True),
     sa.Column('coat_length', sa.String(), nullable=True),
@@ -69,7 +70,7 @@ def upgrade():
     sa.Column('fixed', sa.Boolean(), nullable=True),
     sa.Column('special_needs', sa.Boolean(), nullable=True),
     sa.Column('good_with', sa.String(), nullable=True),
-    sa.Column('description', sa.String(), nullable=True),
+    sa.Column('description', sa.String(length=2000), nullable=True),
     sa.Column('adoption_fee', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('is_pet', sa.Boolean(), nullable=False),
