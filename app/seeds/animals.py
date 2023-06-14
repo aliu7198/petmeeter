@@ -98,7 +98,7 @@ def seed_animals():
     )
 
     dog2 = Animal(
-        owner_id = 5,
+        owner_id = 4,
         type = 'Dog',
         name = 'Thor',
         age = 'Adult',
@@ -133,7 +133,7 @@ def seed_animals():
     )
 
     dog4 = Animal(
-        owner_id = 6,
+        owner_id = 5,
         type = 'Dog',
         name = 'Pattie',
         age = 'Young',
