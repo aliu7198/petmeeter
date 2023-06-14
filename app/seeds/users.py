@@ -5,15 +5,57 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+        email='demo@aa.io',
+        password='password',
+        first_name='Demo',
+        last_name='User',
+        zip_code=10280
+    )
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        email='marnie@aa.io',
+        password='password',
+        first_name='Marnie',
+        last_name='Demo',
+        zip_code=32811
+    )
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        email='bobbie@aa.io',
+        password='password',
+        first_name='Bobbie',
+        last_name='Demo',
+        zip_code=94016
+    )
+
+    sunshineRescue = User(
+        email='sunshinerescue@aa.io',
+        password='password',
+        adoption_agency=True,
+        org_name='Sunshine Rescue',
+        zip_code=32811
+    )
+
+    pawsNWhiskers = User(
+        email='pawsnwhiskers@aa.io',
+        password='password',
+        adoption_agency=True,
+        org_name='Paws N\' Whiskers',
+        zip_code=10280
+    )
+
+    creatureCompanions = User(
+        email='creaturecompanions@aa.io',
+        password='password',
+        adoption_agency=True,
+        org_name='Creature Companions',
+        zip_code=94016
+    )
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(sunshineRescue)
+    db.session.add(pawsNWhiskers)
+    db.session.add(creatureCompanions)
     db.session.commit()
 
 
@@ -28,5 +70,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()
