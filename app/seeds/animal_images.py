@@ -1,0 +1,217 @@
+from app.models import db, AnimalImage, environment, SCHEMA
+from sqlalchemy.sql import text
+
+
+def seed_animal_images():
+    image1 = AnimalImage(
+        animal_id = 1,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675737583550524/mack1.jpg'
+    )
+
+    image2 = AnimalImage(
+        animal_id = 1,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675737906532492/mack2.jpg'
+    )
+
+    image3 = AnimalImage(
+        animal_id = 1,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675738170757160/mack3.jpg'
+    )
+
+    image4 = AnimalImage(
+        animal_id = 1,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675738476937226/mack4.jpg'
+    )
+
+    image5 = AnimalImage(
+        animal_id = 1,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675737281564672/mack5.jpg'
+    )
+
+    image6 = AnimalImage(
+        animal_id = 2,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675541738926120/catniss1.jpg'
+    )
+
+    image7 = AnimalImage(
+        animal_id = 2,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675541466292294/catniss2.jpg'
+    )
+
+    image8 = AnimalImage(
+        animal_id = 3,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675697544740925/fuzzbucket1.jpg'
+    )
+
+    image9 = AnimalImage(
+        animal_id = 3,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675698316492933/fuzzbucket3.jpg'
+    )
+
+    image10 = AnimalImage(
+        animal_id = 3,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675698769473546/fuzzbucket4.jpg'
+    )
+
+    image11 = AnimalImage(
+        animal_id = 3,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675697972551702/fuzzbucket2.jpg'
+    )
+
+    image12 = AnimalImage(
+        animal_id = 3,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675697217577000/fuzzbucket5.jpg'
+    )
+
+    image13 = AnimalImage(
+        animal_id = 4,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675584340475954/chungus1.jpg'
+    )
+
+    image14 = AnimalImage(
+        animal_id = 4,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675584680218684/chungus2.jpg'
+    )
+
+    image15 = AnimalImage(
+        animal_id = 4,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675583866511410/chungus3.jpg'
+    )
+
+    image16 = AnimalImage(
+        animal_id = 5,
+        image_url = 'https://media.discordapp.net/attachments/1118675490870399017/1118675807150289026/odie1.jpg'
+    )
+
+    image17 = AnimalImage(
+        animal_id = 5,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675807397740704/odie2.jpg'
+    )
+
+    image18 = AnimalImage(
+        animal_id = 5,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675806844100680/odie5.jpg'
+    )
+
+    image19 = AnimalImage(
+        animal_id = 5,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675807976566925/odie4.jpg'
+    )
+
+    image20 = AnimalImage(
+        animal_id = 5,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675807687155833/odie3.jpg'
+    )
+
+    image21 = AnimalImage(
+        animal_id = 6,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675850469056633/thor1.jpg'
+    )
+
+    image22 = AnimalImage(
+        animal_id = 6,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675850095755264/thor2.jpg'
+    )
+
+    image23 = AnimalImage(
+        animal_id = 7,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675703970402334/honey1.jpg'
+    )
+
+    image24 = AnimalImage(
+        animal_id = 7,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675704259817602/honey2.jpg'
+    )
+
+    image25 = AnimalImage(
+        animal_id = 7,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675703689388142/honey3.jpg'
+    )
+
+    image26 = AnimalImage(
+        animal_id = 8,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675831707942912/pattie1.jpg'
+    )
+
+    image27 = AnimalImage(
+        animal_id = 8,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675832051867718/pattie2.jpg'
+    )
+
+    image28 = AnimalImage(
+        animal_id = 8,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675832471293962/pattie3.jpg'
+    )
+
+    image29 = AnimalImage(
+        animal_id = 8,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675831305281536/pattie5.jpg'
+    )
+
+    image30 = AnimalImage(
+        animal_id = 8,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675832991399966/pattie4.jpg'
+    )
+
+    image31 = AnimalImage(
+        animal_id = 9,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675770559172779/mirko1.jpg'
+    )
+
+    image32 = AnimalImage(
+        animal_id = 9,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675770198478960/mirko4.jpg'
+    )
+
+    image33 = AnimalImage(
+        animal_id = 9,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675771347718214/mirko3.jpg'
+    )
+
+    image34 = AnimalImage(
+        animal_id = 9,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675771024752731/mirko2.jpg'
+    )
+
+    image35 = AnimalImage(
+        animal_id = 10,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675633778729021/donatello1.jpg'
+    )
+
+    image36 = AnimalImage(
+        animal_id = 10,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675634063949934/donatello2.jpg'
+    )
+    image37 = AnimalImage(
+        animal_id = 10,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675634382712902/donatello3.jpg'
+    )
+    image38 = AnimalImage(
+        animal_id = 10,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675634693087272/donatello4.jpg'
+    )
+
+    image39 = AnimalImage(
+        animal_id = 10,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675633048928286/donatello5.jpg'
+    )
+
+    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39]
+
+    [db.session.add(image) for image in images]
+    db.session.commit()
+
+
+# Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
+# have a built in function to do this. With postgres in production TRUNCATE
+# removes all the data from the table, and RESET IDENTITY resets the auto
+# incrementing primary key, CASCADE deletes any dependent entities.  With
+# sqlite3 in development you need to instead use DELETE to remove all data and
+# it will reset the primary keys for you as well.
+def undo_animal_images():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.animal_images RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM animal_images"))
+
+    db.session.commit()
