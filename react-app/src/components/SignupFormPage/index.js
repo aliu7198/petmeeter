@@ -9,8 +9,8 @@ function SignupFormPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
-  const [country, setCountry] = useState(undefined)
-  const [zipCode, setZipCode] = useState("")
+  // const [country, setCountry] = useState(undefined)
+  // const [zipCode, setZipCode] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,9 +21,11 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(firstName, lastName, country, zipCode, email, password));
-        console.log("🚀 ~ file: index.js:25 ~ handleSubmit ~ zipCode:", zipCode)
-        console.log("🚀 ~ file: index.js:25 ~ handleSubmit ~ data:", data)
+        const data = await dispatch(signUp(firstName, lastName, email, password));
+        // console.log("🚀 ~ file: index.js:25 ~ handleSubmit ~ lastName:", lastName)
+        // console.log("🚀 ~ file: index.js:25 ~ handleSubmit ~ firstName:", firstName)
+        // console.log("🚀 ~ file: index.js:25 ~ handleSubmit ~ zipCode:", zipCode)
+        // console.log("🚀 ~ file: index.js:25 ~ handleSubmit ~ data:", data)
         if (data) {
           setErrors(data)
         }
@@ -55,7 +57,7 @@ function SignupFormPage() {
             onChange={(e) => setLastName(e.target.value)}
           />
         </label>
-        <label>
+        {/* <label>
           Country of Residence
           <select value={country} onChange={(e) => setCountry(e.target.value)}>
             <option value="" disabled selected>Choose country</option>
@@ -71,7 +73,7 @@ function SignupFormPage() {
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
           />
-        </label>
+        </label> */}
         <label>
           Email
           <input

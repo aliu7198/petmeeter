@@ -62,11 +62,16 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        print("🚀 ~ file: auth_routes.py:65 ~ form:", form.first_name.data)
         user = User(
-            username=form.data['username'],
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name'],
+            # zip_code=form.data['zip_code'],
+            # country=form.data['country'],
             email=form.data['email'],
             password=form.data['password']
         )
+        print("🚀 ~ file: auth_routes.py:66 ~ user:", user)
         db.session.add(user)
         db.session.commit()
         login_user(user)

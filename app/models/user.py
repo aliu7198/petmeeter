@@ -14,7 +14,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(30))
-    zip_code = db.Column(db.Integer, nullable=False)
+    zip_code = db.Column(db.Integer)
+    # eventually nullable=false when i do location services
     phone = db.Column(db.Integer)
     country = db.Column(db.String(100))
     address = db.Column(db.String(255))

@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('first_name', sa.String(length=30), nullable=True),
     sa.Column('last_name', sa.String(length=30), nullable=True),
-    sa.Column('zip_code', sa.Integer(), nullable=False),
+    sa.Column('zip_code', sa.Integer(), nullable=True),
     sa.Column('phone', sa.Integer(), nullable=True),
     sa.Column('country', sa.String(length=100), nullable=True),
     sa.Column('address', sa.String(length=255), nullable=True),
