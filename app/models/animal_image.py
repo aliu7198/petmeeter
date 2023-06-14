@@ -1,7 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_login import UserMixin
-
 
 class AnimalImage(db.Model):
     __tablename__ = 'animal_images'
@@ -10,19 +7,10 @@ class AnimalImage(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    animalId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    animalId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('animals.id')), nullable=False)
     imageUrl = db.Column(db.String, nullable=False)
 
-    @property
-    def password(self):
-        return self.hashed_password
-
-    @password.setter
-    def password(self, password):
-        self.hashed_password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    animal = db.relationship('Animal', back_populates='animal_images')
 
     def to_dict(self):
         return {

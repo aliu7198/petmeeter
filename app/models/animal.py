@@ -1,7 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_login import UserMixin
-
+from datetime import datetime
 
 class Animal(db.Model):
     __tablename__ = 'animals'
@@ -27,22 +25,15 @@ class Animal(db.Model):
     goodWith = db.Column(db.String)
     description = db.Column(db.String)
     adoptionFee = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
     isPet = db.Column(db.Boolean, nullable=False, default=False)
     birthDate = db.Column(db.Date)
     origin = db.Column(db.String)
 
-
-    @property
-    def password(self):
-        return self.hashed_password
-
-    @password.setter
-    def password(self, password):
-        self.hashed_password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    user = db.relationship("User", back_populates="animals")
+    favorites = db.relationship("User", secondary="favorites", back_populates="favorites")
+    animal_images = db.relationship("AnimalImage", back_populates="animal", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

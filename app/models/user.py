@@ -47,6 +47,9 @@ class User(db.Model, UserMixin):
     sizeRestriction = db.Column(db.Integer)
     activityLevelPref = db.Column(db.String)
 
+    animals = db.relationship('Animal', back_populates='user', cascade='all, delete-orphan')
+    favorites = db.relationship('Animal', secondary='favorites', back_populates="favorites", cascade='all, delete')
+    saved_searches = db.relationship('SavedSearch', back_populates='user', cascade='all, delete-orphan')
 
     @property
     def password(self):
