@@ -14,7 +14,8 @@ class Animal(db.Model):
     age = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     size = db.Column(db.String, nullable=False)
-    breed = db.Column(db.String, nullable=False)
+    primary_breed = db.Column(db.String, nullable=False)
+    secondary_breed = db.Column(db.String)
     color = db.Column(db.String)
     characteristics = db.Column(db.String)
     coat_length = db.Column(db.String)
@@ -23,7 +24,7 @@ class Animal(db.Model):
     fixed = db.Column(db.Boolean)
     special_needs = db.Column(db.Boolean)
     good_with = db.Column(db.String)
-    description = db.Column(db.String)
+    description = db.Column(db.String(2000))
     adoption_fee = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
@@ -44,19 +45,20 @@ class Animal(db.Model):
             'age': self.age,
             'gender': self.gender,
             'size': self.size,
-            'breed': self.breed,
+            'primaryBreed': self.priamry_breed,
+            'secondaryBreed': self.secondary_breed,
             'color': self.color,
             'characteristics': self.characteristics,
-            'coat_length': self.coat_length,
-            'house_trained': self.house_trained,
+            'coatLength': self.coat_length,
+            'houseTrained': self.house_trained,
             'vaccinated': self.vaccinated,
             'fixed': self.fixed,
-            'special_needs': self.special_needs,
-            'good_with': self.good_with,
+            'specialNeeds': self.special_needs,
+            'goodWith': self.good_with,
             'description': self.description,
-            'adoption_fee': self.adoption_fee,
+            'adoptionFee': self.adoption_fee,
 
-            'is_pet': self.is_pet,
-            'birth_date': self.birth_date,
+            'isPet': self.is_pet,
+            'birthDate': self.birth_date,
             'origin': self.origin
         }

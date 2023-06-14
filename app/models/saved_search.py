@@ -29,20 +29,20 @@ class SavedSearch(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'title': self.title,
             'type': self.type,
             'breed': self.breed,
             'age': self.age,
             'size': self.size,
             'gender': self.gender,
-            'good_with': self.good_with,
-            'house_trained': self.house_trained,
-            'special_needs': self.special_needs,
-            'coat_length': self.coat_length,
+            'goodWith': self.good_with,
+            'houseTrained': self.house_trained,
+            'specialNeeds': self.special_needs,
+            'coatLength': self.coat_length,
             'color': self.color,
-            'days_on_site': self.dayss_on_site,
-            'org_name': self.org_name,
-            'pet_name': self.pet_name,
-            'out_of_town': self.out_of_town
+            'daysOnSite': self.dayss_on_site,
+            'orgName': self.org_name,
+            'petName': self.pet_name,
+            'outOfTown': self.out_of_town
         }
