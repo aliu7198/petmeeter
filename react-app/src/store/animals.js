@@ -13,7 +13,7 @@ const createAnimalAction = (animal) => ({
 
 
 export const getAnimalsThunk = () => async(dispatch) => {
-    const res = await fetch(`/api/animals`)
+    const res = await fetch(`/api/animals/`)
     if (res.ok) {
         const animals = await res.json()
         // console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)
@@ -27,7 +27,7 @@ export const getAnimalsThunk = () => async(dispatch) => {
 }
 
 export const createAnimalThunk = (animal) => async(dispatch) => {
-    const res = await fetch(`/api/animals`, {
+    const res = await fetch(`/api/animals/new`, {
         method: 'POST',
         body: animal
     })

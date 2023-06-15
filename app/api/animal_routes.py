@@ -109,20 +109,21 @@ def single_animal(id):
 
 #     return filtered_animals
 
-# CREATE ANIMAL - NEEDS TESTING
-@animal_routes.route('/', methods=['POST'])
+# CREATE ANIMAL - WORKS
+@animal_routes.route('/new', methods=['POST'])
 @login_required
 def create_search():
     """
-    Create a new saved animal
+    Create a new animal
     """
     form = AnimalForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # animal = {}
+    # print("🚀 ~ file: animal_routes.py:127 ~ form.data:", form.data)
 
     if form.validate_on_submit():
         new_animal = Animal(
             owner_id = current_user.id,
+            type = form.data['type'],
             name = form.data['name'],
             age = form.data['age'],
             gender = form.data['gender'],
@@ -162,6 +163,10 @@ def create_search():
 
             image_dict = new_image.to_dict()
             animal['animalImages'].append(image_dict)
+            # print("🚀 ~ file: animal_routes.py:167 ~ animal:", animal)
 
-        if form.errors:
-            return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+        return animal
+
+    if form.errors:
+        # print("🚀 ~ file: animal_routes.py:168 ~ form.errors:", form.errors)
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
