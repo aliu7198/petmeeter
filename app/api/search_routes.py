@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from app.models import User, Animal, SavedSearch
+from app.forms import SearchForm
 
 search_routes = Blueprint('searches', __name__)
 
@@ -11,7 +12,6 @@ def searches():
     """
     Query for all saved searches and return them in a dictionary
     """
-
     searches = SavedSearch.query.all()
     return [search.to_dict() for search in searches]
 
@@ -36,10 +36,11 @@ def user_searches():
     searches = user.saved_searches
     return [search.to_dict() for search in searches]
 
-# CREATE SEARCH
-@search_routes.route('/new', methods=['POST'])
-@login_required
-def create_search():
-    """
-    Create a new saved search
-    """
+# # CREATE SEARCH
+# @search_routes.route('/new', methods=['POST'])
+# @login_required
+# def create_search():
+#     """
+#     Create a new saved search
+#     """
+#     form = SearchForm()

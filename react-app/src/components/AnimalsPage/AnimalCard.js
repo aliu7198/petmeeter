@@ -17,10 +17,6 @@ function AnimalCard({ animal }) {
     ? `${animal.primaryBreed} & ${animal.secondaryBreed}`
     : animal.primaryBreed;
 
-  const launchAnimal = () => {
-    history.push(`/animal/${animal.id}`);
-  };
-
   return (
     <>
       <div className="animal-card__wrapper">
