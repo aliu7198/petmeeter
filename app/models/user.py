@@ -14,7 +14,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(30))
-    zip_code = db.Column(db.Integer, nullable=False)
+    zip_code = db.Column(db.Integer)
+    # eventually nullable=false when i do location services
     phone = db.Column(db.Integer)
     country = db.Column(db.String(100))
     address = db.Column(db.String(255))
@@ -66,35 +67,35 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'email': self.email,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'zip_code': self.zip_code,
+            'firstName': self.first_name,
+            'lastName': self.last_name,
+            'zipCode': self.zip_code,
             'phone': self.phone,
             'country': self.country,
             'address': self.address,
             'city': self.city,
             'state': self.state,
 
-            'adoption_agency': self.adoption_agency,
-            'org_name': self.org_name,
+            'adoptionAgency': self.adoption_agency,
+            'orgName': self.org_name,
 
-            'desired_pet': self.desired_pet,
-            'pet_owner': self.pet_owner,
+            'desiredPet': self.desired_pet,
+            'petOwner': self.pet_owner,
             'kids': self.kids,
-            'owner_type': self.owner_type,
-            'current_pets': self.current_pets,
-            'age_pref': self.age_pref,
-            'gender_pref': self.gender_pref,
-            'size_pref': self.size_pref,
-            'special_needs': self.special_needs,
+            'ownerType': self.owner_type,
+            'currentPets': self.current_pets,
+            'agePref': self.age_pref,
+            'genderPref': self.gender_pref,
+            'sizePref': self.size_pref,
+            'specialNeeds': self.special_needs,
             'breed': self.breed,
 
-            'coat_length_pref': self.coat_length_pref,
+            'coatLengthPref': self.coat_length_pref,
 
-            'private_outdoor': self.private_outdoor,
-            'shared_outdoor': self.shared_outdoor,
-            'lease_restriction': self.lease_restriction,
-            'breed_restriction': self.breed_restriction,
-            'size_restriction': self.size_restriction,
-            'activity_level_pref': self.activity_level_pref
+            'privateOutdoor': self.private_outdoor,
+            'sharedOutdoor': self.shared_outdoor,
+            'leaseRestriction': self.lease_restriction,
+            'breedRestriction': self.breed_restriction,
+            'sizeRestriction': self.size_restriction,
+            'activityLevelPref': self.activity_level_pref
         }

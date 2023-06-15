@@ -67,14 +67,28 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+// export const signUp = (firstName, lastName, country, zipCode, email, password) => async (dispatch) => {
+export const signUp = (first_name, last_name, email, password) => async (dispatch) => {
+	// console.log("🚀 ~ file: session.js:72 ~ signUp ~ password:", password)
+	// console.log("🚀 ~ file: session.js:72 ~ signUp ~ email:", email)
+	// console.log("🚀 ~ file: session.js:72 ~ signUp ~ lastName:", lastName)
+	// console.log("🚀 ~ file: session.js:72 ~ signUp ~ firstName:", firstName)
+	// console.log(JSON.stringify({
+	// 	first_name,
+	// 	last_name,
+	// 	email,
+	// 	password,
+	// }))
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			username,
+			first_name,
+			last_name,
+			// country,
+			// zipCode,
 			email,
 			password,
 		}),
@@ -82,6 +96,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
+		console.log("🚀 ~ file: session.js:93 ~ signUp ~ data:", data)
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {

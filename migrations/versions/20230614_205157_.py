@@ -1,8 +1,8 @@
-"""create all tables
+"""empty message
 
-Revision ID: 847577c78e6a
+Revision ID: f528804553cb
 Revises: 
-Create Date: 2023-06-13 23:14:50.316507
+Create Date: 2023-06-14 20:51:57.580632
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '847577c78e6a'
+revision = 'f528804553cb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('first_name', sa.String(length=30), nullable=True),
     sa.Column('last_name', sa.String(length=30), nullable=True),
-    sa.Column('zip_code', sa.Integer(), nullable=False),
+    sa.Column('zip_code', sa.Integer(), nullable=True),
     sa.Column('phone', sa.Integer(), nullable=True),
     sa.Column('country', sa.String(length=100), nullable=True),
     sa.Column('address', sa.String(length=255), nullable=True),
@@ -60,7 +60,8 @@ def upgrade():
     sa.Column('age', sa.String(), nullable=False),
     sa.Column('gender', sa.String(), nullable=False),
     sa.Column('size', sa.String(), nullable=False),
-    sa.Column('breed', sa.String(), nullable=False),
+    sa.Column('primary_breed', sa.String(), nullable=False),
+    sa.Column('secondary_breed', sa.String(), nullable=True),
     sa.Column('color', sa.String(), nullable=True),
     sa.Column('characteristics', sa.String(), nullable=True),
     sa.Column('coat_length', sa.String(), nullable=True),
@@ -68,8 +69,11 @@ def upgrade():
     sa.Column('vaccinated', sa.Boolean(), nullable=True),
     sa.Column('fixed', sa.Boolean(), nullable=True),
     sa.Column('special_needs', sa.Boolean(), nullable=True),
-    sa.Column('good_with', sa.String(), nullable=True),
-    sa.Column('description', sa.String(), nullable=True),
+    sa.Column('good_with_cats', sa.Boolean(), nullable=True),
+    sa.Column('good_with_dogs', sa.Boolean(), nullable=True),
+    sa.Column('good_with_children', sa.Boolean(), nullable=True),
+    sa.Column('good_with_other_animals', sa.Boolean(), nullable=True),
+    sa.Column('description', sa.String(length=2000), nullable=True),
     sa.Column('adoption_fee', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('is_pet', sa.Boolean(), nullable=False),
@@ -87,7 +91,10 @@ def upgrade():
     sa.Column('age', sa.String(), nullable=True),
     sa.Column('size', sa.String(), nullable=True),
     sa.Column('gender', sa.String(), nullable=True),
-    sa.Column('good_with', sa.String(), nullable=True),
+    sa.Column('good_with_cats', sa.Boolean(), nullable=True),
+    sa.Column('good_with_dogs', sa.Boolean(), nullable=True),
+    sa.Column('good_with_children', sa.Boolean(), nullable=True),
+    sa.Column('good_with_other_animals', sa.Boolean(), nullable=True),
     sa.Column('house_trained', sa.Boolean(), nullable=True),
     sa.Column('special_needs', sa.Boolean(), nullable=True),
     sa.Column('coat_length', sa.String(), nullable=True),
