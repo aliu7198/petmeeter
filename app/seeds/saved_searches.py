@@ -6,14 +6,15 @@ from sqlalchemy.sql import text
 def seed_saved_searches():
     search1 = SavedSearch(
         user_id = 1,
-        title = "Cat Search",
+        title = "Cats | House-Trained - Good with dogs",
         type = "Cat",
-        house_trained = True
+        house_trained = True,
+        good_with_dogs = True
     )
 
     search2 = SavedSearch(
         user_id = 2,
-        title = "Dog Search",
+        title = "Dogs | Large",
         type = "Dog",
         size = "Large"
     )

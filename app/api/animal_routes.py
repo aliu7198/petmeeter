@@ -43,7 +43,12 @@ def get_animals_by_search(id):
     color = search.color
     days_on_site = search.days_on_site
     gender = search.gender
-    good_with = search.good_with
+
+    good_with_cats = search.good_with_cats
+    good_with_dogs = search.good_with_dogs
+    good_with_children = search.good_with_children
+    good_with_other_animals = search.good_with_other_animals
+
     house_trained = search.house_trained
     org_name = search.org_name
     out_of_town = search.out_of_town
@@ -60,7 +65,10 @@ def get_animals_by_search(id):
             (not color or animal.color == color) and \
             (not days_on_site or animal.days_on_site == days_on_site) and \
             (not gender or animal.gender == gender) and \
-            (not good_with or animal.good_with == good_with) and \
+            (not good_with_cats or animal.good_with_cats == good_with_cats) and \
+            (not good_with_dogs or animal.good_with_dogs == good_with_dogs) and \
+            (not good_with_children or animal.good_with_children == good_with_children) and \
+            (not good_with_other_animals or animal.good_with_other_animals == good_with_children) and \
             (not house_trained or animal.house_trained == house_trained) and \
             (not org_name or animal.org_name == org_name) and \
             (not out_of_town or animal.out_of_town == out_of_town) and \

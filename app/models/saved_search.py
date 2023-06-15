@@ -14,7 +14,10 @@ class SavedSearch(db.Model):
     age = db.Column(db.String)
     size = db.Column(db.String)
     gender = db.Column(db.String)
-    good_with = db.Column(db.String)
+    good_with_cats = db.Column(db.Boolean)
+    good_with_dogs = db.Column(db.Boolean)
+    good_with_children = db.Column(db.Boolean)
+    good_with_other_animals = db.Column(db.Boolean)
     house_trained = db.Column(db.Boolean)
     special_needs = db.Column(db.Boolean)
     coat_length = db.Column(db.String)
@@ -36,7 +39,10 @@ class SavedSearch(db.Model):
             'age': self.age,
             'size': self.size,
             'gender': self.gender,
-            'goodWith': self.good_with,
+            'goodWithCats': self.good_with_cats,
+            'goodWithDogs': self.good_with_dogs,
+            'goodWithChildren': self.good_with_children,
+            'goodWithOtherAnimals': self.good_with_other_animals,
             'houseTrained': self.house_trained,
             'specialNeeds': self.special_needs,
             'coatLength': self.coat_length,
