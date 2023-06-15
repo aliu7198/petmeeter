@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
         {isLoaded && (
           <li>
             <button>
-              <i class="fas fa-heart"></i>
+              <i className="fas fa-heart"></i>
             </button>
           </li>
         )}

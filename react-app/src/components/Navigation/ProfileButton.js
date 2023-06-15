@@ -41,8 +41,12 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   const redirectSignup = () => {
-    history.push('/signup')
-  }
+    history.push("/signup");
+  };
+
+  const redirectSavedSearches = () => {
+    history.push("/user/searches");
+  };
 
   return (
     <>
@@ -53,7 +57,9 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>My Saved Searches</li>
+            <li>
+              <button onClick={redirectSavedSearches}>My Saved Searches</button>
+            </li>
             <li>
               <button onClick={handleLogout}>Sign Out</button>
             </li>
@@ -65,9 +71,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
-            <button onClick={redirectSignup}>
-              Sign Up
-            </button>
+            <button onClick={redirectSignup}>Sign Up</button>
             {/* <OpenModalButton
               buttonText="Sign Up"
               onItemClick={closeMenu}

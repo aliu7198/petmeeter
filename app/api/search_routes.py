@@ -13,7 +13,7 @@ def searches():
     """
 
     searches = SavedSearch.query.all()
-    return {'searches': [search.to_dict() for search in searches]}
+    return [search.to_dict() for search in searches]
 
 # GET SEARCH BY ID
 @search_routes.route('/<int:id>')
@@ -34,7 +34,7 @@ def user_searches():
     """
     user = User.query.get(current_user.id)
     searches = user.saved_searches
-    return {'searches': [search.to_dict() for search in searches]}
+    return [search.to_dict() for search in searches]
 
 # CREATE SEARCH
 @search_routes.route('/new', methods=['POST'])
