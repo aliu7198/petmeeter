@@ -9,7 +9,8 @@ def seed_saved_searches():
         title = "Cats | House-Trained - Good with dogs",
         type = "Cat",
         house_trained = True,
-        good_with_dogs = True
+        good_with_dogs = True,
+        good_with_children = True
     )
 
     search2 = SavedSearch(

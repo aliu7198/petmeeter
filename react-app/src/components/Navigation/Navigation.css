@@ -5,3 +5,18 @@
 .hidden {
   display: none;
 }
+
+.nav {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid red */
+}
+
+.nav__right-side {
+  display: flex;
+}
+
+.profile-dropdown {
+  list-style: none;
+}
