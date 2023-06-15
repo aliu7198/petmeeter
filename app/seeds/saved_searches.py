@@ -14,13 +14,20 @@ def seed_saved_searches():
     )
 
     search2 = SavedSearch(
+        user_id = 1,
+        title = "Cats | Female",
+        type = "Cat",
+        gender = "Female"
+    )
+
+    search3 = SavedSearch(
         user_id = 2,
         title = "Dogs | Large",
         type = "Dog",
         size = "Large"
     )
 
-    searches = [search1, search2]
+    searches = [search1, search2, search3]
     [db.session.add(search) for search in searches]
 
     db.session.commit()

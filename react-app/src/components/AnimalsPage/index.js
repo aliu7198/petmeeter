@@ -18,11 +18,11 @@ function AnimalsPage() {
   }, [dispatch, searchId]);
 
   return (
-    <>
+    <div className="animals-page__wrapper">
         {animalsArr.map((animal) => (
             <AnimalCard animal={animal} />
         ))}
-    </>
+    </div>
   );
 }
 

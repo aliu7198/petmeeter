@@ -59,6 +59,10 @@ def get_animals_by_search(id):
 
     filtered_animals = []
     for animal in animals:
+        animal_dict = animal.to_dict()
+        previewImage = animal.animal_images[0].to_dict()
+        animal_dict["previewImage"] = previewImage["imageUrl"]
+
         if (not age or animal.age == age) and \
             (not breed or animal.breed == breed) and \
             (not coat_length or animal.coat_length == coat_length) and \
@@ -76,7 +80,7 @@ def get_animals_by_search(id):
             (not size or animal.size == size) and \
             (not special_needs or animal.special_needs == special_needs) and \
             (not type or animal.type == type):
-                filtered_animals.append(animal.to_dict())
+                filtered_animals.append(animal_dict)
 
     return filtered_animals
 
