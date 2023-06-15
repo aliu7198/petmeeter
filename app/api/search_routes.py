@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, Animal, SavedSearch
 from app.forms import SearchForm
@@ -36,11 +36,34 @@ def user_searches():
     searches = user.saved_searches
     return [search.to_dict() for search in searches]
 
-# # CREATE SEARCH
-# @search_routes.route('/new', methods=['POST'])
-# @login_required
-# def create_search():
-#     """
-#     Create a new saved search
-#     """
-#     form = SearchForm()
+# CREATE SEARCH
+@search_routes.route('/new', methods=['POST'])
+@login_required
+def create_search():
+    """
+    Create a new saved search
+    """
+    form = SearchForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_search = SavedSearch(
+            user_id = current_user.id,
+            title = '',
+            type = form.data['type'],
+            breed = form.data['breed'],
+            age = form.data['age'],
+            size = form.data['size'],
+            gender = form.data['gender'],
+            good_with_cats = form.data['good_with_cats'],
+            good_with_dogs = form.data['good_with_dogs'],
+            good_with_children = form.data['good_with_children'],
+            good_with_other_animals = form.data['good_with_other_animals'],
+            house_trained = form.data['house_trained'],
+            special_needs = form.data['special_needs'],
+            coat_length = form.data['coat_length'],
+            color = form.data['color'],
+            days_on_site = form.data['days_on_site'],
+            org_name = form.data['org_name'],
+            pet_name = form.data['pet_name'],
+            out_of_town = form.data['out_of_town']
+        )

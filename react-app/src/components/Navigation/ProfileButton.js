@@ -55,7 +55,7 @@ function ProfileButton({ user }) {
         {user.firstName} {user.lastName}
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        {user ? (
+        {user && (
           <>
             <li>
               <button onClick={redirectSavedSearches}>My Saved Searches</button>
@@ -63,20 +63,6 @@ function ProfileButton({ user }) {
             <li>
               <button onClick={handleLogout}>Sign Out</button>
             </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-            <button onClick={redirectSignup}>Sign Up</button>
-            {/* <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            /> */}
           </>
         )}
       </ul>
