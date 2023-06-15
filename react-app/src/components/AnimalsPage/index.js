@@ -17,6 +17,9 @@ function AnimalsPage() {
     dispatch(getAnimalsThunk());
   }, [dispatch]);
 
+  // const queryParams = new URLSearchParams().toString();
+  // console.log("🚀 ~ file: index.js:21 ~ AnimalsPage ~ queryParams:", queryParams)
+
   return (
     <>
       <div className="animals-page__outer">

@@ -107,10 +107,56 @@ def get_animals_by_search(id):
 
     return filtered_animals
 
-# # CREATE ANIMAL
-# @animal_routes.route('/', methods=['POST'])
-# @login_required
-# def create_search():
-#     """
-#     Create a new saved animal
-#     """
+# CREATE ANIMAL
+@animal_routes.route('/', methods=['POST'])
+@login_required
+def create_search():
+    """
+    Create a new saved animal
+    """
+    form = AnimalForm()
+
+## Create New Post - FINISHED
+@post_routes.route("/new", methods=['POST'])
+@login_required
+def create_post():
+    """
+    Create a post
+    """
+    postForm = PostForm()
+    postForm['csrf_token'].data = request.cookies['csrf_token']
+    post = {}
+
+    err_obj = {}
+    if postForm.validate_on_submit():
+        new_post = Post(
+            content = postForm.data['content'],
+            user_id = current_user.id
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        post = new_post.to_dict()
+
+        post["postImages"] = []
+
+        images = postForm.data["images"]
+        for image in images:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            new_image = PostImage(
+                post_id = post["id"],
+                image_url = upload["url"]
+            )
+
+            db.session.add(new_image)
+            db.session.commit()
+
+            image_dict = new_image.to_dict()
+            post["postImages"].append(image_dict)
+
+
+    if postForm.errors:
+        return postForm.errors
+
+    return post
