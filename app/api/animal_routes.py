@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Animal, SavedSearch
 
@@ -6,13 +6,36 @@ animal_routes = Blueprint('animals', __name__)
 
 # GET ALL ANIMALS
 @animal_routes.route('/')
-@login_required
-def searches():
+def animals():
     """
     Query for all animals and return them in a dictionary
     """
+    # print("🚀 ~ file: animal_routes.py:16 ~ current_user:", current_user)
+    type = request.args.get('type')
+    age = request.args.get('age')
+    size = request.args.get('size')
+    gender = request.args.get('gender')
+    color = request.args.get('color')
+
     animals = Animal.query.all()
-    return {'animals': [animal.to_dict() for animal in animals]}
+    filtered_animals = []
+
+    for animal in animals:
+        animal_dict = animal.to_dict()
+        previewImage = animal.animal_images[0].to_dict()
+        animal_dict["previewImage"] = previewImage["imageUrl"]
+
+        if (not age or animal.age == age) and \
+            (not type or animal.type == type) and \
+            (not size or animal.size == size) and \
+            (not gender or animal.gender == gender) and \
+            (not color or animal.color == color):
+                filtered_animals.append(animal_dict)
+
+    return filtered_animals
+
+
+    # return [animal.to_dict() for animal in animals]
 
 # GET ANIMAL BY ID
 @animal_routes.route('/<int:id>')
@@ -85,7 +108,7 @@ def get_animals_by_search(id):
     return filtered_animals
 
 # # CREATE ANIMAL
-# @animal_routes.route('/new', methods=['POST'])
+# @animal_routes.route('/', methods=['POST'])
 # @login_required
 # def create_search():
 #     """

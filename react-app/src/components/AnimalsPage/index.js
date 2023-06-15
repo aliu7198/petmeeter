@@ -1,28 +1,33 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchAnimalsThunk } from "../../store/animals";
+import { getAnimalsThunk } from "../../store/animals";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import './AnimalsPage.css'
+import "./AnimalsPage.css";
 import AnimalCard from "./AnimalCard";
+// import SearchFiltersBar from "../SearchFiltersBar";
 
 function AnimalsPage() {
   const dispatch = useDispatch();
-  const {searchId} = useParams()
-//   console.log("🚀 ~ file: index.js:11 ~ AnimalsPage ~ searchId:", searchId)
+  // const { searchId } = useParams();
   const animals = useSelector((state) => state.animals.allAnimals);
-//   console.log("🚀 ~ file: index.js:13 ~ AnimalsPage ~ animals:", animals)
   const animalsArr = Object.values(animals);
+  // const numAnimals = animalsArr.length;
 
   useEffect(() => {
-    dispatch(searchAnimalsThunk(searchId));
-  }, [dispatch, searchId]);
+    dispatch(getAnimalsThunk());
+  }, [dispatch]);
 
   return (
-    <div className="animals-page__wrapper">
-        {animalsArr.map((animal) => (
+    <>
+      <div className="animals-page__outer">
+        {/* <SearchFiltersBar /> */}
+        <div className="animals-page__wrapper">
+          {animalsArr.map((animal) => (
             <AnimalCard animal={animal} />
-        ))}
-    </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 

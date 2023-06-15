@@ -1,20 +1,26 @@
-const SEARCH_ANIMALS = "animals/searchAnimals"
+const GET_ANIMALS = "animals/getAnimals"
 
 
-const searchAnimalsAction = (animals) => ({
-    type: SEARCH_ANIMALS,
+const getAnimalsAction = (animals) => ({
+    type: GET_ANIMALS,
     animals
 })
 
 
-export const searchAnimalsThunk = (searchId) => async(dispatch) => {
-    const res = await fetch(`/api/animals/search/${searchId}`)
+export const getAnimalsThunk = () => async(dispatch) => {
+    const res = await fetch(`/api/animals`, {
+        headers: {
+			"Content-Type": "application/json",
+		}
+    })
     if (res.ok) {
         const animals = await res.json()
-        dispatch(searchAnimalsAction(animals))
+        console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)
+        dispatch(getAnimalsAction(animals))
         return animals
     } else {
         const errors = await res.json()
+        console.log("🚀 ~ file: animals.js:18 ~ getAnimalsThunk ~ errors:", errors)
         return errors
     }
 }
@@ -24,7 +30,7 @@ const initialState = {allAnimals: {}, singleAnimal: {}}
 const animalsReducer = (state = initialState, action) => {
     let newState = {}
     switch(action.type) {
-        case SEARCH_ANIMALS: {
+        case GET_ANIMALS: {
             newState = {...state, allAnimals: {}, singleAnimal: {}}
             for (let animal of action.animals) {
                 newState.allAnimals[animal.id] = animal

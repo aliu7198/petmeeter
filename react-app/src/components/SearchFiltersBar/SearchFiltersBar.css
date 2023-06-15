@@ -1,0 +1,9 @@
+.animal-dropdown {
+  position: absolute;
+  background-color: white;
+}
+
+.search-filter__top-bar {
+    width: 100vw;
+    border: 1px solid red;
+}

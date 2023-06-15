@@ -1,9 +1,17 @@
+.animals-page__outer {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+}
+
 .animals-page__wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     justify-items: center;
     align-items: center;
+    width: 90%;
+    /* border: 1px solid green; */
 }
 
 @media screen and (max-width: 1023px) {
