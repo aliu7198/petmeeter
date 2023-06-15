@@ -66,7 +66,6 @@ def create_search():
             good_with_other_animals = form.data['good_with_other_animals'],
             house_trained = form.data['house_trained'],
             special_needs = form.data['special_needs'],
-            coat_length = form.data['coat_length'],
             color = form.data['color'],
             days_on_site = form.data['days_on_site'],
             org_name = form.data['org_name'],

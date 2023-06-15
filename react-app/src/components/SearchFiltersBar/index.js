@@ -23,7 +23,6 @@ function SearchFiltersBar() {
   const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(false);
   const [houseTrained, setHouseTrained] = useState(false);
   const [specialNeeds, setSpecialNeeds] = useState(false);
-  const [coatLength, setCoatLength] = useState("");
   const [color, setColor] = useState("");
   const [daysOnSite, setdaysOnSite] = useState(0);
   const [orgName, setOrgName] = useState("");

@@ -32,12 +32,15 @@ export const createAnimalThunk = (animal) => async(dispatch) => {
         body: animal
     })
 
+    console.log("🚀 ~ file: animals.js:32 ~ createAnimalThunk ~ res:", res)
     if (res.ok) {
         const newAnimal = await res.json()
+        console.log("🚀 ~ file: animals.js:37 ~ createAnimalThunk ~ newAnimal:", newAnimal)
         dispatch(createAnimalAction())
         return newAnimal
     } else {
         const errors = await res.json()
+        console.log("🚀 ~ file: animals.js:42 ~ createAnimalThunk ~ errors:", errors)
         return errors
     }
 }

@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SavedSearchesPage from "./components/SavedSearchesPage";
 import AnimalsPage from "./components/AnimalsPage";
+import CreateAnimalForm from "./components/CreateAnimalForm";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route exact path="/animals">
             <AnimalsPage />
+          </Route>
+          <Route exact path="/animals/new">
+            <CreateAnimalForm />
           </Route>
           <Route exact path="/user/searches">
             <SavedSearchesPage />

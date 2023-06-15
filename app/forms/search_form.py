@@ -10,7 +10,6 @@ class SearchForm(FlaskForm):
     size = StringField("Size")
     gender = StringField("Gender")
     color = StringField("Color")
-    coat_length = StringField("Coat Length")
     # breed = StringField("Breed")
     # good_with_cats = BooleanField("Good With Cats")
     # good_with_dogs = BooleanField("Good With Dogs")

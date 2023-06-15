@@ -17,8 +17,6 @@ class Animal(db.Model):
     primary_breed = db.Column(db.String, nullable=False)
     secondary_breed = db.Column(db.String)
     color = db.Column(db.String)
-    characteristics = db.Column(db.String)
-    coat_length = db.Column(db.String)
     house_trained = db.Column(db.Boolean)
     vaccinated = db.Column(db.Boolean)
     fixed = db.Column(db.Boolean)
@@ -51,8 +49,6 @@ class Animal(db.Model):
             'primaryBreed': self.primary_breed,
             'secondaryBreed': self.secondary_breed,
             'color': self.color,
-            'characteristics': self.characteristics,
-            'coatLength': self.coat_length,
             'houseTrained': self.house_trained,
             'vaccinated': self.vaccinated,
             'fixed': self.fixed,
