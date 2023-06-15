@@ -41,21 +41,27 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   const redirectSignup = () => {
-    history.push('/signup')
-  }
+    history.push("/signup");
+  };
+
+  const redirectSavedSearches = () => {
+    history.push("/user/searches");
+  };
 
   return (
     <>
       <button onClick={openMenu}>
         <i className="fas fa-user-circle" />
+        {user.firstName} {user.lastName}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
             <li>
-              <button onClick={handleLogout}>Log Out</button>
+              <button onClick={redirectSavedSearches}>My Saved Searches</button>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Sign Out</button>
             </li>
           </>
         ) : (
@@ -65,9 +71,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
-            <button onClick={redirectSignup}>
-              Sign Up
-            </button>
+            <button onClick={redirectSignup}>Sign Up</button>
             {/* <OpenModalButton
               buttonText="Sign Up"
               onItemClick={closeMenu}

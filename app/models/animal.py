@@ -23,7 +23,10 @@ class Animal(db.Model):
     vaccinated = db.Column(db.Boolean)
     fixed = db.Column(db.Boolean)
     special_needs = db.Column(db.Boolean)
-    good_with = db.Column(db.String)
+    good_with_cats = db.Column(db.Boolean)
+    good_with_dogs = db.Column(db.Boolean)
+    good_with_children = db.Column(db.Boolean)
+    good_with_other_animals = db.Column(db.Boolean)
     description = db.Column(db.String(2000))
     adoption_fee = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
@@ -39,13 +42,13 @@ class Animal(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'ownerId': self.ownerId,
+            'ownerId': self.owner_id,
             'type': self.type,
             'name': self.name,
             'age': self.age,
             'gender': self.gender,
             'size': self.size,
-            'primaryBreed': self.priamry_breed,
+            'primaryBreed': self.primary_breed,
             'secondaryBreed': self.secondary_breed,
             'color': self.color,
             'characteristics': self.characteristics,
@@ -54,7 +57,10 @@ class Animal(db.Model):
             'vaccinated': self.vaccinated,
             'fixed': self.fixed,
             'specialNeeds': self.special_needs,
-            'goodWith': self.good_with,
+            'goodWithCats': self.good_with_cats,
+            'goodWithDogs': self.good_with_dogs,
+            'goodWithChildren': self.good_with_children,
+            'goodWithOtherAnimals': self.good_with_other_animals,
             'description': self.description,
             'adoptionFee': self.adoption_fee,
 

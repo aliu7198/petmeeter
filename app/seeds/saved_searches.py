@@ -6,19 +6,28 @@ from sqlalchemy.sql import text
 def seed_saved_searches():
     search1 = SavedSearch(
         user_id = 1,
-        title = "Cat Search",
+        title = "Cats | House-Trained - Good with dogs, children",
         type = "Cat",
-        house_trained = True
+        house_trained = True,
+        good_with_dogs = True,
+        good_with_children = True
     )
 
     search2 = SavedSearch(
+        user_id = 1,
+        title = "Cats | Female",
+        type = "Cat",
+        gender = "Female"
+    )
+
+    search3 = SavedSearch(
         user_id = 2,
-        title = "Dog Search",
+        title = "Dogs | Large",
         type = "Dog",
         size = "Large"
     )
 
-    searches = [search1, search2]
+    searches = [search1, search2, search3]
     [db.session.add(search) for search in searches]
 
     db.session.commit()
