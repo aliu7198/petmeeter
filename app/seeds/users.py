@@ -11,6 +11,7 @@ def seed_users():
         last_name='User',
         zip_code=10280
     )
+
     marnie = User(
         email='marnie@aa.io',
         password='password',
@@ -18,6 +19,7 @@ def seed_users():
         last_name='Demo',
         zip_code=32811
     )
+
     bobbie = User(
         email='bobbie@aa.io',
         password='password',
@@ -26,36 +28,54 @@ def seed_users():
         zip_code=94016
     )
 
-    sunshineRescue = User(
-        email='sunshinerescue@aa.io',
+    adanna = User(
+        email='adanna@aa.io',
         password='password',
-        adoption_agency=True,
-        org_name='Sunshine Rescue',
+        first_name='Adanna',
+        last_name='Liu',
         zip_code=32811
     )
 
-    pawsNWhiskers = User(
-        email='pawsnwhiskers@aa.io',
+    sam = User(
+        email='sam@aa.io',
         password='password',
-        adoption_agency=True,
-        org_name='Paws N\' Whiskers',
-        zip_code=10280
-    )
-
-    creatureCompanions = User(
-        email='creaturecompanions@aa.io',
-        password='password',
-        adoption_agency=True,
-        org_name='Creature Companions',
+        first_name='Sam',
+        last_name='Spam',
         zip_code=94016
     )
+
+    # sunshineRescue = User(
+    #     email='sunshinerescue@aa.io',
+    #     password='password',
+    #     adoption_agency=True,
+    #     org_name='Sunshine Rescue',
+    #     zip_code=32811
+    # )
+
+    # pawsNWhiskers = User(
+    #     email='pawsnwhiskers@aa.io',
+    #     password='password',
+    #     adoption_agency=True,
+    #     org_name='Paws N\' Whiskers',
+    #     zip_code=10280
+    # )
+
+    # creatureCompanions = User(
+    #     email='creaturecompanions@aa.io',
+    #     password='password',
+    #     adoption_agency=True,
+    #     org_name='Creature Companions',
+    #     zip_code=94016
+    # )
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
-    db.session.add(sunshineRescue)
-    db.session.add(pawsNWhiskers)
-    db.session.add(creatureCompanions)
+    db.session.add(adanna)
+    db.session.add(sam)
+    # db.session.add(sunshineRescue)
+    # db.session.add(pawsNWhiskers)
+    # db.session.add(creatureCompanions)
     db.session.commit()
 
 

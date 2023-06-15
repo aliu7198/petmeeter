@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 
 def seed_animals():
     cat1 = Animal(
-        owner_id = 4,
+        owner_id = 1,
         type = 'Cat',
         name = 'Mack Truck',
         age = 'Young',
@@ -24,7 +24,7 @@ def seed_animals():
     )
 
     cat2 = Animal(
-        owner_id = 5,
+        owner_id = 2,
         type = 'Cat',
         name = 'Catniss Everqueen',
         age = 'Senior',
@@ -43,7 +43,7 @@ def seed_animals():
     )
 
     cat3 = Animal(
-        owner_id = 6,
+        owner_id = 5,
         type = 'Cat',
         name = 'Fuzzbucket',
         age = 'Kitten',
@@ -64,7 +64,7 @@ def seed_animals():
     )
 
     cat4 = Animal(
-        owner_id = 6,
+        owner_id = 4,
         type = 'Cat',
         name = 'Chungus',
         age = 'Adult',
@@ -106,7 +106,7 @@ def seed_animals():
     )
 
     dog2 = Animal(
-        owner_id = 4,
+        owner_id = 5,
         type = 'Dog',
         name = 'Thor',
         age = 'Adult',
@@ -125,7 +125,7 @@ def seed_animals():
     )
 
     dog3 = Animal(
-        owner_id = 5,
+        owner_id = 2,
         type = 'Dog',
         name = 'Honey',
         age = 'Adult',
@@ -144,7 +144,7 @@ def seed_animals():
     )
 
     dog4 = Animal(
-        owner_id = 5,
+        owner_id = 3,
         type = 'Dog',
         name = 'Pattie',
         age = 'Young',
@@ -167,7 +167,7 @@ def seed_animals():
     )
 
     rabbit1 = Animal(
-        owner_id = 6,
+        owner_id = 2,
         type = 'Rabbit',
         name = 'Mirko',
         age = 'Adult',
@@ -181,7 +181,7 @@ def seed_animals():
     )
 
     turtle1 = Animal(
-        owner_id = 6,
+        owner_id = 3,
         type = 'Scales, Fins, & Other',
         name = 'Donatello',
         age = 'Adult',
