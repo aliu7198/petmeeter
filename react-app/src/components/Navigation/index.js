@@ -1,11 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+  const history = useHistory();
+
+  const redirectSignup = () => {
+    history.push("/signup");
+  };
+
+  const redirectLogin = () => {
+    history.push("/login");
+  };
 
   return (
     <ul className="nav">
@@ -23,7 +35,22 @@ function Navigation({ isLoaded }) {
             </button>
           </li>
         )}
-        {isLoaded && (
+        {isLoaded && !sessionUser && (
+          <>
+            {/* <OpenModalButton
+              buttonText="Log In"
+              modalComponent={<LoginFormModal />}
+            /> */}
+            <button onClick={redirectSignup}>Sign Up</button>
+            <button onClick={redirectLogin}>Log In</button>
+            {/* <OpenModalButton
+            buttonText="Sign Up"
+            onItemClick={closeMenu}
+            modalComponent={<SignupFormModal />}
+          /> */}
+          </>
+        )}
+        {isLoaded && sessionUser && (
           <li>
             <ProfileButton user={sessionUser} />
           </li>
