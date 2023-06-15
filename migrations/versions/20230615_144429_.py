@@ -1,16 +1,19 @@
 """empty message
 
-Revision ID: f528804553cb
-Revises: 
-Create Date: 2023-06-14 20:51:57.580632
+Revision ID: 33475b22b449
+Revises:
+Create Date: 2023-06-15 14:44:29.633126
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'f528804553cb'
+revision = '33475b22b449'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,6 +55,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('animals',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
@@ -76,12 +83,13 @@ def upgrade():
     sa.Column('description', sa.String(length=2000), nullable=True),
     sa.Column('adoption_fee', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('is_pet', sa.Boolean(), nullable=False),
-    sa.Column('birth_date', sa.Date(), nullable=True),
-    sa.Column('origin', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE animals SET SCHEMA {SCHEMA};")
+
     op.create_table('saved_searches',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -106,6 +114,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE saved_searches SET SCHEMA {SCHEMA};")
+
     op.create_table('animal_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('animal_id', sa.Integer(), nullable=False),
@@ -113,6 +125,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['animal_id'], ['animals.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE animal_images SET SCHEMA {SCHEMA};")
+
     op.create_table('favorites',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('animal_id', sa.Integer(), nullable=False),
@@ -120,6 +136,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'animal_id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
