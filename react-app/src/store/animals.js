@@ -1,26 +1,43 @@
 const GET_ANIMALS = "animals/getAnimals"
-
+const CREATE_ANIMAL = "animals/createAnimal"
 
 const getAnimalsAction = (animals) => ({
     type: GET_ANIMALS,
     animals
 })
 
+const createAnimalAction = (animal) => ({
+    type: CREATE_ANIMAL,
+    animal
+})
+
 
 export const getAnimalsThunk = () => async(dispatch) => {
-    const res = await fetch(`/api/animals`, {
-        headers: {
-			"Content-Type": "application/json",
-		}
-    })
+    const res = await fetch(`/api/animals`)
     if (res.ok) {
         const animals = await res.json()
-        console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)
+        // console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)
         dispatch(getAnimalsAction(animals))
         return animals
     } else {
         const errors = await res.json()
-        console.log("🚀 ~ file: animals.js:18 ~ getAnimalsThunk ~ errors:", errors)
+        // console.log("🚀 ~ file: animals.js:18 ~ getAnimalsThunk ~ errors:", errors)
+        return errors
+    }
+}
+
+export const createAnimalThunk = (animal) => async(dispatch) => {
+    const res = await fetch(`/api/animals`, {
+        method: 'POST',
+        body: animal
+    })
+
+    if (res.ok) {
+        const newAnimal = await res.json()
+        dispatch(createAnimalAction())
+        return newAnimal
+    } else {
+        const errors = await res.json()
         return errors
     }
 }
@@ -35,6 +52,11 @@ const animalsReducer = (state = initialState, action) => {
             for (let animal of action.animals) {
                 newState.allAnimals[animal.id] = animal
             }
+            return newState
+        }
+        case CREATE_ANIMAL: {
+            newState = {...state, allAnimals: {}, singleAnimal: {}}
+            newState.allAnimals[action.animal.id] = action.animal
             return newState
         }
         default:

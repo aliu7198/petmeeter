@@ -1,7 +1,10 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Animal, SavedSearch
+from app.models import db, Animal, SavedSearch, AnimalImage
 from app.forms import AnimalForm
+from .AWS_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+from .auth_routes import validation_errors_to_error_messages
+
 
 animal_routes = Blueprint('animals', __name__)
 
@@ -48,7 +51,7 @@ def single_animal(id):
     animal = Animal.query.get(id)
     return animal.to_dict()
 
-# GET ANIMAL BY SEARCH
+# GET ANIMAL BY SEARCH - NOT IN USE
 @animal_routes.route('/search/<int:id>')
 @login_required
 def get_animals_by_search(id):
@@ -108,7 +111,7 @@ def get_animals_by_search(id):
 
     return filtered_animals
 
-# CREATE ANIMAL
+# CREATE ANIMAL - NEEDS TESTING
 @animal_routes.route('/', methods=['POST'])
 @login_required
 def create_search():
@@ -116,3 +119,53 @@ def create_search():
     Create a new saved animal
     """
     form = AnimalForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    animal = {}
+
+    if form.validate_on_submit():
+        new_animal = Animal(
+            owner_id = current_user.id,
+            name = form.data['name'],
+            age = form.data['age'],
+            gender = form.data['gender'],
+            size = form.data['size'],
+            primary_breed = form.data['primary_breed'],
+            secondary_breed = form.data['secondary_breed'],
+            color = form.data['color'],
+            characteristics = form.data['characteristics'],
+            coat_length = form.data['coat_length'],
+            house_trained = form.data['house_trained'],
+            vaccinated = form.data['vaccinated'],
+            fixed = form.data['fixed'],
+            special_needs = form.data['special_needs'],
+            good_with_cats = form.data['good_with_cats'],
+            good_with_dogs = form.data['good_with_dogs'],
+            good_with_children = form.data['good_with_children'],
+            good_with_other_animals = form.data['good_with_other_animals'],
+            description = form.data['description'],
+            adoption_fee = form.data['adoption_fee'],
+        )
+
+        db.session.add(new_animal)
+        db.session.commit()
+        animal = new_animal.to_dict()
+        animal["animalImages"] = []
+
+        images = form.data['images']
+        for image in images:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            new_image = AnimalImage(
+                animal_id = animal["id"],
+                image_url = upload["url"]
+            )
+
+            db.session.add(new_image)
+            db.session.commit()
+
+            image_dict = new_image.to_dict()
+            animal['animalImages'].append(image_dict)
+
+        if form.errors:
+            return {'errors': validation_errors_to_error_messages(form.errors)}, 400
