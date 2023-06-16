@@ -178,3 +178,58 @@ def create_search():
     if form.errors:
         # print("🚀 ~ file: animal_routes.py:168 ~ form.errors:", form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+# UPDATE ANIMAL - NEEDS TESTING
+@animal_routes.route('/<int:id>', methods=["PUT"])
+@login_required
+def update_animal(id):
+    """
+    Update an animal
+    """
+    animal = Animal.query.get(id)
+
+    form = AnimalForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        animal.type = form.data['type']
+        animal.name = form.data['name']
+        animal.age = form.data['age']
+        animal.gender = form.data['gender']
+        animal.size = form.data['size']
+        animal.primary_breed = form.data['primary_breed']
+        animal.secondary_breed = form.data['secondary_breed']
+        animal.color = form.data['color']
+        animal.house_trained = form.data['house_trained']
+        animal.vaccinated = form.data['vaccinated']
+        animal.fixed = form.data['fixed']
+        animal.special_needs = form.data['special_needs']
+        animal.good_with_cats = form.data['good_with_cats']
+        animal.good_with_dogs = form.data['good_with_dogs']
+        animal.good_with_children = form.data['good_with_children']
+        animal.good_with_other_animals = form.data['good_with_other_animals']
+        animal.description = form.data['description']
+        animal.adoption_fee = form.data['adoption_fee']
+
+        db.session.commit()
+        return animal.to_dict()
+
+    if form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@animal_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_animal(id):
+    """
+    Delete an animal
+    """
+    animal = Animal.query.get(id)
+
+    images_list = [animal.animal_image.to_dict() for animal.animal_image in animal.animal_images]
+
+    [remove_file_from_s3(image["imageUrl"]) for image in images_list]
+
+    db.session.delete(animal)
+    db.session.commit()
+    return {'message': 'Post successfully deleted'}

@@ -59,6 +59,9 @@ function ProfileButton({ user }) {
               <button onClick={redirectSavedSearches}>My Saved Searches</button>
             </li>
             <li>
+              <button onClick={()=>{history.push("/user/animals")}}>My Animals</button>
+            </li>
+            <li>
               <button onClick={redirectAnimalForm}>Post Animal for Adoption</button>
             </li>
             <li>

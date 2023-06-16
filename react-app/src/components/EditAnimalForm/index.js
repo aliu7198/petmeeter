@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import "./CreateAnimalForm.css";
 import { createAnimalThunk } from "../../store/animals";
+import "../CreateAnimalForm/CreateAnimalForm.css"
 
-const CreateAnimalForm = () => {
+const EditAnimalForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -69,11 +69,11 @@ const CreateAnimalForm = () => {
         formData.append("description", description)
         formData.append("adoption_fee", adoptionFee)
 
-        for (let image of images) {
-            formData.append("images", image);
-        }
+        // for (let image of images) {
+        //     formData.append("images", image);
+        // }
 
-        console.log("🚀 ~ file: index.js:71 ~ handleSubmit ~ formData:", formData.values())
+        // console.log("🚀 ~ file: index.js:71 ~ handleSubmit ~ formData:", formData.values())
 
         const newAnimal = await dispatch(createAnimalThunk(formData))
 
@@ -84,15 +84,15 @@ const CreateAnimalForm = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length <= 5) {
-      setImages(selectedFiles);
-    } else {
-      alert(`Maximum 5 images allowed on a post.`);
-      e.target.value = null;
-    }
-  };
+//   const handleImageChange = (e) => {
+//     const selectedFiles = Array.from(e.target.files);
+//     if (selectedFiles.length <= 5) {
+//       setImages(selectedFiles);
+//     } else {
+//       alert(`Maximum 5 images allowed on a post.`);
+//       e.target.value = null;
+//     }
+//   };
 
   return (
     <div>
@@ -273,7 +273,7 @@ const CreateAnimalForm = () => {
           />
           <p className="errors">{hasSubmitted && errors?.adoptionFee}</p>
         </label>
-        <div>
+        {/* <div>
           <p>Add Photos:</p>
           <input
             id="image"
@@ -283,11 +283,11 @@ const CreateAnimalForm = () => {
             onChange={handleImageChange}
           />
           <p className="errors">{hasSubmitted && errors?.images}</p>
-        </div>
-        <button onClick={handleSubmit}>Post Animal</button>
+        </div> */}
+        <button onClick={handleSubmit}>Update Animal</button>
       </form>
     </div>
   );
 };
 
-export default CreateAnimalForm;
+export default EditAnimalForm;

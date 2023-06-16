@@ -9,6 +9,8 @@ import SavedSearchesPage from "./components/SavedSearchesPage";
 import AnimalsList from "./components/AnimalsList";
 import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
+import UserAnimalsList from "./components/UserAnimalsList";
+import EditAnimalForm from "./components/EditAnimalForm";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -36,11 +38,17 @@ function App() {
           <Route exact path="/animals">
             <AnimalsList />
           </Route>
+          <Route exact path="/user/animals">
+            <UserAnimalsList />
+          </Route>
           <Route exact path="/animals/new">
             <CreateAnimalForm />
           </Route>
           <Route exact path="/animals/:animalId">
             <AnimalDetailsPage />
+          </Route>
+          <Route exact path="/animals/:animalId/edit">
+            <EditAnimalForm />
           </Route>
           <Route exact path="/user/searches">
             <SavedSearchesPage />
