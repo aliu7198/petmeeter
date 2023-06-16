@@ -1,30 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimalsThunk } from "../../store/animals";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import AnimalCard from "../AnimalsList/AnimalCard";
 import "../AnimalsList/AnimalsList.css";
-// import SearchFiltersBar from "../SearchFiltersBar";
+import Loading from "../Loading";
 
 function UserAnimalsList() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user)
-  // const { searchId } = useParams();
+  const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
-  const animalsArr = Object.values(animals).filter((animal) => animal.ownerId === user.id)
+  const animalsArr = Object.values(animals).filter(
+    (animal) => animal.ownerId === user.id
+  );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(getAnimalsThunk());
+    const fetchData = async () => {
+      await dispatch(getAnimalsThunk());
+      setIsLoading(false);
+    };
+    fetchData();
   }, [dispatch]);
 
-  // const queryParams = new URLSearchParams().toString();
-  // console.log("🚀 ~ file: index.js:21 ~ AnimalsPage ~ queryParams:", queryParams)
-  if (!animals) return null;
+  if (isLoading) return <Loading />;
 
   return (
     <>
-      <div className="animals-list__outer">
-        {/* <SearchFiltersBar /> */}
+      <div className="animals-list__outer body">
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
             <AnimalCard animal={animal} key={animal.id} />

@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+import logo from "../../assets/logo.png"
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 
@@ -23,7 +24,7 @@ function Navigation({ isLoaded }) {
     <ul className="nav">
       <li>
         <NavLink exact to="/">
-          petfinder
+          <img className="nav__logo" src={logo} alt="logo" />
         </NavLink>
       </li>
 
@@ -31,7 +32,7 @@ function Navigation({ isLoaded }) {
         {isLoaded && (
           <li>
             <button>
-              <i className="fas fa-heart"></i>
+              <i className="fas fa-heart fa-2xl"></i>
             </button>
           </li>
         )}

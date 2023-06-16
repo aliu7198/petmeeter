@@ -27,10 +27,15 @@ function AnimalDetailsPage() {
   }, [dispatch])
 
   const getBreed = () => {
-    let breed = animal.secondaryBreed
-      ? `${animal.primaryBreed} & ${animal.secondaryBreed}`
-      : animal.primaryBreed;
-      return breed
+    let breed = animal.primaryBreed;
+    if (animal.secondaryBreed) {
+      if (animal.secondaryBreed === "Unknown") {
+        breed += " Mix"
+      } else {
+        breed += ` & ${animal.secondaryBreed}`
+      }
+    }
+    return breed;
   }
 
   const getAge = () => {
