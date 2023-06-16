@@ -6,11 +6,9 @@ from sqlalchemy.sql import text
 def seed_saved_searches():
     search1 = SavedSearch(
         user_id = 1,
-        title = "Cats | House-Trained - Good with dogs, children",
+        title = "Cats | Senior",
         type = "Cat",
-        house_trained = True,
-        good_with_dogs = True,
-        good_with_children = True
+        age = "Senior"
     )
 
     search2 = SavedSearch(

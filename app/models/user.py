@@ -37,9 +37,6 @@ class User(db.Model, UserMixin):
     special_needs = db.Column(db.Boolean)
     breed = db.Column(db.String)
 
-    # Cat Specific
-    coat_length_pref = db.Column(db.String)
-
     # Dog Specific
     private_outdoor = db.Column(db.String)
     shared_outdoor = db.Column(db.String)
@@ -89,8 +86,6 @@ class User(db.Model, UserMixin):
             'sizePref': self.size_pref,
             'specialNeeds': self.special_needs,
             'breed': self.breed,
-
-            'coatLengthPref': self.coat_length_pref,
 
             'privateOutdoor': self.private_outdoor,
             'sharedOutdoor': self.shared_outdoor,

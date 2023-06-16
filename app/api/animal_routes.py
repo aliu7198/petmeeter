@@ -1,18 +1,52 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Animal, SavedSearch
+from app.models import db, Animal, SavedSearch, AnimalImage
+from app.forms import AnimalForm
+from .AWS_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+from .auth_routes import validation_errors_to_error_messages
+
 
 animal_routes = Blueprint('animals', __name__)
 
 # GET ALL ANIMALS
 @animal_routes.route('/')
-@login_required
-def searches():
+def animals():
     """
     Query for all animals and return them in a dictionary
     """
+    # print("🚀 ~ file: animal_routes.py:16 ~ current_user:", current_user)
+    type = request.args.get('type')
+    age = request.args.get('age')
+    size = request.args.get('size')
+    gender = request.args.get('gender')
+    color = request.args.get('color')
+
     animals = Animal.query.all()
-    return {'animals': [animal.to_dict() for animal in animals]}
+    filtered_animals = []
+
+    for animal in animals:
+        animal_dict = animal.to_dict()
+
+        images = animal.animal_images
+
+        previewImage = animal.animal_images[0].to_dict()
+        animal_dict["previewImage"] = previewImage["imageUrl"]
+
+        animal_dict["images"] = []
+        for image in images:
+            animal_dict["images"].append(image.to_dict())
+
+        if (not age or animal.age == age) and \
+            (not type or animal.type == type) and \
+            (not size or animal.size == size) and \
+            (not gender or animal.gender == gender) and \
+            (not color or animal.color == color):
+                filtered_animals.append(animal_dict)
+
+    return filtered_animals
+
+
+    # return [animal.to_dict() for animal in animals]
 
 # GET ANIMAL BY ID
 @animal_routes.route('/<int:id>')
@@ -22,72 +56,188 @@ def single_animal(id):
     Query for an animal by id and returns that animal in a dictionary
     """
     animal = Animal.query.get(id)
-    return animal.to_dict()
+    images = animal.animal_images
 
-# GET ANIMAL BY SEARCH
-@animal_routes.route('/search/<int:id>')
-@login_required
-def get_animals_by_search(id):
-    """
-    Query for animals matching saved search criteria and return them in a dictionary
-    """
-    search = SavedSearch.query.get(id)
-    animals = Animal.query.all()
+    animal_dict = animal.to_dict()
+    animal_dict["images"] = []
 
-    if not search:
-        return {"error": "Invalid search ID"}, 404
+    for image in images:
+        animal_dict["images"].append(image.to_dict())
 
-    age = search.age
-    breed = search.breed
-    coat_length = search.coat_length
-    color = search.color
-    days_on_site = search.days_on_site
-    gender = search.gender
+    return animal_dict
 
-    good_with_cats = search.good_with_cats
-    good_with_dogs = search.good_with_dogs
-    good_with_children = search.good_with_children
-    good_with_other_animals = search.good_with_other_animals
-
-    house_trained = search.house_trained
-    org_name = search.org_name
-    out_of_town = search.out_of_town
-    pet_name = search.pet_name
-    size = search.size
-    special_needs = search.special_needs
-    type = search.type
-
-    filtered_animals = []
-    for animal in animals:
-        animal_dict = animal.to_dict()
-        previewImage = animal.animal_images[0].to_dict()
-        animal_dict["previewImage"] = previewImage["imageUrl"]
-
-        if (not age or animal.age == age) and \
-            (not breed or animal.breed == breed) and \
-            (not coat_length or animal.coat_length == coat_length) and \
-            (not color or animal.color == color) and \
-            (not days_on_site or animal.days_on_site == days_on_site) and \
-            (not gender or animal.gender == gender) and \
-            (not good_with_cats or animal.good_with_cats == good_with_cats) and \
-            (not good_with_dogs or animal.good_with_dogs == good_with_dogs) and \
-            (not good_with_children or animal.good_with_children == good_with_children) and \
-            (not good_with_other_animals or animal.good_with_other_animals == good_with_children) and \
-            (not house_trained or animal.house_trained == house_trained) and \
-            (not org_name or animal.org_name == org_name) and \
-            (not out_of_town or animal.out_of_town == out_of_town) and \
-            (not pet_name or animal.pet_name == pet_name) and \
-            (not size or animal.size == size) and \
-            (not special_needs or animal.special_needs == special_needs) and \
-            (not type or animal.type == type):
-                filtered_animals.append(animal_dict)
-
-    return filtered_animals
-
-# # CREATE ANIMAL
-# @animal_routes.route('/new', methods=['POST'])
+# # GET ANIMAL BY SEARCH - NOT IN USE
+# @animal_routes.route('/search/<int:id>')
 # @login_required
-# def create_search():
+# def get_animals_by_search(id):
 #     """
-#     Create a new saved animal
+#     Query for animals matching saved search criteria and return them in a dictionary
 #     """
+#     search = SavedSearch.query.get(id)
+#     animals = Animal.query.all()
+
+#     if not search:
+#         return {"error": "Invalid search ID"}, 404
+
+#     age = search.age
+#     breed = search.breed
+#     color = search.color
+#     days_on_site = search.days_on_site
+#     gender = search.gender
+
+#     good_with_cats = search.good_with_cats
+#     good_with_dogs = search.good_with_dogs
+#     good_with_children = search.good_with_children
+#     good_with_other_animals = search.good_with_other_animals
+
+#     house_trained = search.house_trained
+#     org_name = search.org_name
+#     out_of_town = search.out_of_town
+#     pet_name = search.pet_name
+#     size = search.size
+#     special_needs = search.special_needs
+#     type = search.type
+
+#     filtered_animals = []
+#     for animal in animals:
+#         animal_dict = animal.to_dict()
+#         previewImage = animal.animal_images[0].to_dict()
+#         animal_dict["previewImage"] = previewImage["imageUrl"]
+
+#         if (not age or animal.age == age) and \
+#             (not breed or animal.breed == breed) and \
+#             (not color or animal.color == color) and \
+#             (not days_on_site or animal.days_on_site == days_on_site) and \
+#             (not gender or animal.gender == gender) and \
+#             (not good_with_cats or animal.good_with_cats == good_with_cats) and \
+#             (not good_with_dogs or animal.good_with_dogs == good_with_dogs) and \
+#             (not good_with_children or animal.good_with_children == good_with_children) and \
+#             (not good_with_other_animals or animal.good_with_other_animals == good_with_children) and \
+#             (not house_trained or animal.house_trained == house_trained) and \
+#             (not org_name or animal.org_name == org_name) and \
+#             (not out_of_town or animal.out_of_town == out_of_town) and \
+#             (not pet_name or animal.pet_name == pet_name) and \
+#             (not size or animal.size == size) and \
+#             (not special_needs or animal.special_needs == special_needs) and \
+#             (not type or animal.type == type):
+#                 filtered_animals.append(animal_dict)
+
+#     return filtered_animals
+
+# CREATE ANIMAL - WORKS
+@animal_routes.route('/new', methods=['POST'])
+@login_required
+def create_search():
+    """
+    Create a new animal
+    """
+    form = AnimalForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    # print("🚀 ~ file: animal_routes.py:127 ~ form.data:", form.data)
+
+    if form.validate_on_submit():
+        new_animal = Animal(
+            owner_id = current_user.id,
+            type = form.data['type'],
+            name = form.data['name'],
+            age = form.data['age'],
+            gender = form.data['gender'],
+            size = form.data['size'],
+            primary_breed = form.data['primary_breed'],
+            secondary_breed = form.data['secondary_breed'],
+            color = form.data['color'],
+            house_trained = form.data['house_trained'],
+            vaccinated = form.data['vaccinated'],
+            fixed = form.data['fixed'],
+            special_needs = form.data['special_needs'],
+            good_with_cats = form.data['good_with_cats'],
+            good_with_dogs = form.data['good_with_dogs'],
+            good_with_children = form.data['good_with_children'],
+            good_with_other_animals = form.data['good_with_other_animals'],
+            description = form.data['description'],
+            adoption_fee = form.data['adoption_fee'],
+        )
+
+        db.session.add(new_animal)
+        db.session.commit()
+        animal = new_animal.to_dict()
+        animal["animalImages"] = []
+
+        images = form.data['images']
+        for image in images:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+            new_image = AnimalImage(
+                animal_id = animal["id"],
+                image_url = upload["url"]
+            )
+
+            db.session.add(new_image)
+            db.session.commit()
+
+            image_dict = new_image.to_dict()
+            animal['animalImages'].append(image_dict)
+            # print("🚀 ~ file: animal_routes.py:167 ~ animal:", animal)
+
+        return animal
+
+    if form.errors:
+        # print("🚀 ~ file: animal_routes.py:168 ~ form.errors:", form.errors)
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+# UPDATE ANIMAL - NEEDS TESTING
+@animal_routes.route('/<int:id>', methods=["PUT"])
+@login_required
+def update_animal(id):
+    """
+    Update an animal
+    """
+    animal = Animal.query.get(id)
+
+    form = AnimalForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print("🚀 ~ file: animal_routes.py:193 ~ form:", form.data)
+
+    if form.validate_on_submit():
+        animal.type = form.data['type']
+        animal.name = form.data['name']
+        animal.age = form.data['age']
+        animal.gender = form.data['gender']
+        animal.size = form.data['size']
+        animal.primary_breed = form.data['primary_breed']
+        animal.secondary_breed = form.data['secondary_breed']
+        animal.color = form.data['color']
+        animal.house_trained = form.data['house_trained']
+        animal.vaccinated = form.data['vaccinated']
+        animal.fixed = form.data['fixed']
+        animal.special_needs = form.data['special_needs']
+        animal.good_with_cats = form.data['good_with_cats']
+        animal.good_with_dogs = form.data['good_with_dogs']
+        animal.good_with_children = form.data['good_with_children']
+        animal.good_with_other_animals = form.data['good_with_other_animals']
+        animal.description = form.data['description']
+        animal.adoption_fee = form.data['adoption_fee']
+
+        db.session.commit()
+        return animal.to_dict()
+
+    if form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@animal_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_animal(id):
+    """
+    Delete an animal
+    """
+    animal = Animal.query.get(id)
+
+    images_list = [animal.animal_image.to_dict() for animal.animal_image in animal.animal_images]
+
+    [remove_file_from_s3(image["imageUrl"]) for image in images_list]
+
+    db.session.delete(animal)
+    db.session.commit()
+    return {'message': 'Post successfully deleted'}

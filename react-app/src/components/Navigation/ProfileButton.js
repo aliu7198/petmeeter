@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
@@ -40,12 +38,12 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
-  const redirectSignup = () => {
-    history.push("/signup");
-  };
-
   const redirectSavedSearches = () => {
     history.push("/user/searches");
+  };
+
+  const redirectAnimalForm = () => {
+    history.push("/animals/new");
   };
 
   return (
@@ -59,6 +57,12 @@ function ProfileButton({ user }) {
           <>
             <li>
               <button onClick={redirectSavedSearches}>My Saved Searches</button>
+            </li>
+            <li>
+              <button onClick={()=>{history.push("/user/animals")}}>My Animals</button>
+            </li>
+            <li>
+              <button onClick={redirectAnimalForm}>Post Animal for Adoption</button>
             </li>
             <li>
               <button onClick={handleLogout}>Sign Out</button>

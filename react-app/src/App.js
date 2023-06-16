@@ -6,7 +6,12 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SavedSearchesPage from "./components/SavedSearchesPage";
-import AnimalsPage from "./components/AnimalsPage";
+import AnimalsList from "./components/AnimalsList";
+import CreateAnimalForm from "./components/CreateAnimalForm";
+import AnimalDetailsPage from "./components/AnimalDetailsPage";
+import UserAnimalsList from "./components/UserAnimalsList";
+import EditAnimalForm from "./components/EditAnimalForm";
+// import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
   const dispatch = useDispatch();
@@ -14,23 +19,39 @@ function App() {
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+          // <Route path="/search/:searchId">
+          //   {/* <SearchFiltersBar /> */}
+          //   <AnimalsPage />
+          // </Route>
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login" >
+          <Route exact path="/login" >
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/user/searches">
-            <SavedSearchesPage />
+          <Route exact path="/animals">
+            <AnimalsList />
           </Route>
-          <Route path="/search/:searchId">
-            <AnimalsPage />
+          <Route exact path="/user/animals">
+            <UserAnimalsList />
+          </Route>
+          <Route exact path="/animals/new">
+            <CreateAnimalForm />
+          </Route>
+          <Route exact path="/animals/:animalId">
+            <AnimalDetailsPage />
+          </Route>
+          <Route exact path="/animals/:animalId/edit">
+            <EditAnimalForm />
+          </Route>
+          <Route exact path="/user/searches">
+            <SavedSearchesPage />
           </Route>
         </Switch>
       )}
