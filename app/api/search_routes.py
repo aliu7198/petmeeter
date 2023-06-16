@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Animal, SavedSearch
+from app.models import db, User, Animal, SavedSearch
 from app.forms import SearchForm
+from .auth_routes import validation_errors_to_error_messages
 
 search_routes = Blueprint('searches', __name__)
 
@@ -46,9 +47,14 @@ def create_search():
     form = SearchForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+
+        title = f"{form.data['type']} | "
+
+        # TODO: generate a title based on search criteria put in
+
         new_search = SavedSearch(
             user_id = current_user.id,
-            title = '',
+            title = title,
             type = form.data['type'],
             breed = form.data['breed'],
             age = form.data['age'],
@@ -60,10 +66,15 @@ def create_search():
             good_with_other_animals = form.data['good_with_other_animals'],
             house_trained = form.data['house_trained'],
             special_needs = form.data['special_needs'],
-            coat_length = form.data['coat_length'],
             color = form.data['color'],
             days_on_site = form.data['days_on_site'],
             org_name = form.data['org_name'],
             pet_name = form.data['pet_name'],
             out_of_town = form.data['out_of_town']
         )
+
+        db.session.add(new_search)
+        db.session.commit()
+
+    if form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400

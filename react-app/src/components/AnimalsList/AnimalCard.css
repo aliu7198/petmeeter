@@ -7,6 +7,10 @@
     flex-direction: column; */
 }
 
+.animal-card__wrapper:hover {
+    cursor:pointer;
+}
+
 .animal-card__top {
     position: relative;
     height: 70%;

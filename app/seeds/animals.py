@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 
 def seed_animals():
     cat1 = Animal(
-        owner_id = 4,
+        owner_id = 1,
         type = 'Cat',
         name = 'Mack Truck',
         age = 'Young',
@@ -12,8 +12,6 @@ def seed_animals():
         size = 'Large',
         primary_breed = 'Domestic Short Hair',
         color = 'Black & White / Tuxedo',
-        characteristics = 'Friendly, Affectionate, Playful, Loyal, Funny, Curious',
-        coat_length = "Short",
         house_trained = True,
         vaccinated = True,
         fixed = True,
@@ -24,7 +22,7 @@ def seed_animals():
     )
 
     cat2 = Animal(
-        owner_id = 5,
+        owner_id = 2,
         type = 'Cat',
         name = 'Catniss Everqueen',
         age = 'Senior',
@@ -32,8 +30,6 @@ def seed_animals():
         size = 'Medium',
         primary_breed = 'Domestic Short Hair',
         color = 'Calico',
-        characteristics = 'Smart, Independent, Curious, Couch potato, Dignified, Quiet',
-        coat_length = "Short",
         house_trained = True,
         vaccinated = True,
         fixed = True,
@@ -43,16 +39,15 @@ def seed_animals():
     )
 
     cat3 = Animal(
-        owner_id = 6,
+        owner_id = 5,
         type = 'Cat',
         name = 'Fuzzbucket',
-        age = 'Kitten',
+        age = 'Baby',
         gender = 'Female',
         size = 'Small',
         primary_breed = 'Maine Coon',
         secondary_breed = "Domestic Long Hair",
         color = 'Gray / Blue / Silver',
-        coat_length = "Long",
         house_trained = True,
         vaccinated = True,
         fixed = True,
@@ -64,7 +59,7 @@ def seed_animals():
     )
 
     cat4 = Animal(
-        owner_id = 6,
+        owner_id = 4,
         type = 'Cat',
         name = 'Chungus',
         age = 'Adult',
@@ -72,7 +67,6 @@ def seed_animals():
         size = 'Extra Large',
         primary_breed = 'Domestic Short Hair',
         color = 'Tabby (Brown / Chocolate)',
-        coat_length = "Short",
         house_trained = True,
         fixed = True,
         good_with_cats = True,
@@ -86,14 +80,12 @@ def seed_animals():
         owner_id = 4,
         type = 'Dog',
         name = 'Odie',
-        age = 'Puppy',
+        age = 'Baby',
         gender = 'Male',
         size = 'Large',
         primary_breed = 'American Foxhound',
         secondary_breed = 'Beagle',
         color = 'Tricolor (Brown, Black, & White), Red / Chestnut / Orange',
-        characteristics = 'Friendly, Affectionate, Loyal, Gentle, Playful, Smart, Brave, Curious, Funny, Athletic, Couch potato, Loves kisses',
-        coat_length = "Short",
         house_trained = True,
         vaccinated = True,
         fixed = True,
@@ -106,7 +98,7 @@ def seed_animals():
     )
 
     dog2 = Animal(
-        owner_id = 4,
+        owner_id = 5,
         type = 'Dog',
         name = 'Thor',
         age = 'Adult',
@@ -125,7 +117,7 @@ def seed_animals():
     )
 
     dog3 = Animal(
-        owner_id = 5,
+        owner_id = 2,
         type = 'Dog',
         name = 'Honey',
         age = 'Adult',
@@ -144,7 +136,7 @@ def seed_animals():
     )
 
     dog4 = Animal(
-        owner_id = 5,
+        owner_id = 3,
         type = 'Dog',
         name = 'Pattie',
         age = 'Young',
@@ -153,8 +145,6 @@ def seed_animals():
         primary_breed = 'Pit Bull Terrier',
         secondary_breed = 'Unknown',
         color = 'White / Cream, Black',
-        characteristics = 'Friendly, Affectionate, Loyal, Gentle, Playful, Smart, Quiet, Athletic, Funny, Curious, Couch potato, Loves kisses',
-        coat_length = "Short",
         house_trained = True,
         vaccinated = True,
         fixed = True,
@@ -167,7 +157,7 @@ def seed_animals():
     )
 
     rabbit1 = Animal(
-        owner_id = 6,
+        owner_id = 2,
         type = 'Rabbit',
         name = 'Mirko',
         age = 'Adult',
@@ -175,13 +165,12 @@ def seed_animals():
         size = 'Medium',
         primary_breed = 'English Spot Mix',
         color = 'White, Tan',
-        coat_length = "Short",
         description = "Meet Mirko, the adorable and independent female rabbit who prefers a calm and serene environment. With her beautiful fur and captivating presence, Mirko is a true gem. While she may not be the best fit for households with young children, she thrives in a quiet and peaceful setting. Mirko enjoys exploring her surroundings and indulging in her favorite treats. She appreciates gentle interactions and prefers to observe from a cozy spot. Mirko's independent nature makes her a low-maintenance companion who appreciates her own space and personal time. If you're seeking a rabbit companion for a tranquil and adult-oriented home, Mirko is the perfect match. Embrace her unique personality and give her the loving and understanding environment she deserves. Adopt Mirko and experience the joy of having a charming and independent rabbit companion by your side.",
         adoption_fee = 25.00,
     )
 
     turtle1 = Animal(
-        owner_id = 6,
+        owner_id = 3,
         type = 'Scales, Fins, & Other',
         name = 'Donatello',
         age = 'Adult',

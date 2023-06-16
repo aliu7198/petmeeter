@@ -20,7 +20,6 @@ class SavedSearch(db.Model):
     good_with_other_animals = db.Column(db.Boolean)
     house_trained = db.Column(db.Boolean)
     special_needs = db.Column(db.Boolean)
-    coat_length = db.Column(db.String)
     color = db.Column(db.String)
     days_on_site = db.Column(db.String)
     org_name = db.Column(db.String)
@@ -45,7 +44,6 @@ class SavedSearch(db.Model):
             'goodWithOtherAnimals': self.good_with_other_animals,
             'houseTrained': self.house_trained,
             'specialNeeds': self.special_needs,
-            'coatLength': self.coat_length,
             'color': self.color,
             'daysOnSite': self.days_on_site,
             'orgName': self.org_name,
