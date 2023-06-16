@@ -6,17 +6,25 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { getAnimalsThunk } from "../../store/animals";
+import Loading from "../Loading";
 
 function AnimalDetailsPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { animalId } = useParams();
+
+  const [isLoading, setIsLoading] = useState(true)
+
   const animals = useSelector((state) => state.animals.allAnimals);
   const animal = animals[animalId]
 
   useEffect(() => {
-    dispatch(getAnimalsThunk());
-  }, [dispatch]);
+    const fetchData = async () => {
+      await dispatch(getAnimalsThunk())
+      setIsLoading(false)
+    }
+    fetchData()
+  }, [dispatch])
 
   const getBreed = () => {
     let breed = animal.secondaryBreed
@@ -53,7 +61,7 @@ function AnimalDetailsPage() {
     return goodWithStringUpper;
   }
 
-  if (!animal) return null;
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -71,7 +79,7 @@ function AnimalDetailsPage() {
         </div>
         <div className="animal-details__2">
           <p>
-            {getAge()} ‧ {animal.gender} ‧ {animal.size} ‧ {animal.color && animal.color}
+            {getAge()} ‧ {animal.gender} ‧ {animal.size} {animal.color && `‧ ${animal.color}`}
           </p>
         </div>
         <div className="animal-details__3">

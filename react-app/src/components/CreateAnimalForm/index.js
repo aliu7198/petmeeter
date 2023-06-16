@@ -79,7 +79,10 @@ const CreateAnimalForm = () => {
 
         setErrors({})
         setHasSubmitted(false)
-        history.push(`/animals/${newAnimal.id}`)
+
+        if (newAnimal) {
+          history.push(`/animals/${newAnimal.id}`)
+        }
         // history.push(`/animals`)
     }
   };
