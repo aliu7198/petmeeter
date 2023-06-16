@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        <i className="fas fa-user fa-2xl"></i>
         {user.firstName} {user.lastName}
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -59,10 +59,18 @@ function ProfileButton({ user }) {
               <button onClick={redirectSavedSearches}>My Saved Searches</button>
             </li>
             <li>
-              <button onClick={()=>{history.push("/user/animals")}}>My Animals</button>
+              <button
+                onClick={() => {
+                  history.push("/user/animals");
+                }}
+              >
+                My Animals
+              </button>
             </li>
             <li>
-              <button onClick={redirectAnimalForm}>Post Animal for Adoption</button>
+              <button onClick={redirectAnimalForm}>
+                Post Animal for Adoption
+              </button>
             </li>
             <li>
               <button onClick={handleLogout}>Sign Out</button>

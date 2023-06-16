@@ -18,15 +18,23 @@ function AnimalCard({ animal }) {
   //     dispatch(getAnimalsThunk());
   // }, [dispatch])
 
-  let breed = animal.secondaryBreed
-    ? `${animal.primaryBreed} & ${animal.secondaryBreed}`
-    : animal.primaryBreed;
+  const getBreed = () => {
+    let breed = animal.primaryBreed;
+    if (animal.secondaryBreed) {
+      if (animal.secondaryBreed === "Unknown") {
+        breed += " Mix"
+      } else {
+        breed += ` & ${animal.secondaryBreed}`
+      }
+    }
+    return breed;
+  }
 
-  let age = animal.age;
-  if (animal.type === "Cat" && animal.age === "Baby") {
-    age = "Kitten";
-  } else if (animal.type === "Dog" && animal.age === "Baby") {
-    age = "Puppy";
+  const getAge = () => {
+    let age = animal.age;
+    if (animal.type === "Cat" && animal.age === "Baby") age = "Kitten";
+    if (animal.type === "Dog" && animal.age === "Baby") age = "Puppy"
+    return age
   }
 
   const redirectAnimalDetailPage = () => {
@@ -55,7 +63,7 @@ function AnimalCard({ animal }) {
           <div className="animal-card__info">
             <h3 className="animal-card__name">{animal.name}</h3>
             <p>
-              {age} ‧ {breed}
+              {getAge()} ‧ {getBreed()}
             </p>
           </div>
         </div>
@@ -65,13 +73,15 @@ function AnimalCard({ animal }) {
               onClick={() => {
                 history.push(`/animals/${animal.id}/edit`);
               }}
+              className="animal-card__edit-btn"
             >
-              Edit
+              <i className="fa-solid fa-pen"></i>
             </button>
             <OpenModalButton
-              buttonText="Delete"
+              buttonText={<i className="fa-solid fa-trash"/>}
               onItemClick={closeModal}
               modalComponent={<DeleteAnimalModal animal={animal} />}
+              className="animal-card__delete-btn"
             />
           </div>
         )}

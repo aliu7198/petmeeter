@@ -10,7 +10,13 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
-  /* border: 1px solid red */
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--purple);
+}
+
+.nav__logo {
+  width: 10rem;
 }
 
 .nav__right-side {

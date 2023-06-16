@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimalsThunk } from "../../store/animals";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import "./AnimalsList.css";
 import AnimalCard from "./AnimalCard";
+import Loading from "../Loading";
 // import SearchFiltersBar from "../SearchFiltersBar";
 
 function AnimalsPage() {
@@ -13,17 +14,23 @@ function AnimalsPage() {
   const animals = useSelector((state) => state.animals.allAnimals);
   const animalsArr = Object.values(animals).filter(animal => animal.ownerId !== user.id)
 
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
-    dispatch(getAnimalsThunk());
-  }, [dispatch]);
+    const fetchData = async () => {
+      await dispatch(getAnimalsThunk())
+      setIsLoading(false)
+    }
+    fetchData()
+  }, [dispatch])
 
   // const queryParams = new URLSearchParams().toString();
   // console.log("🚀 ~ file: index.js:21 ~ AnimalsPage ~ queryParams:", queryParams)
-  if (!animals) return null;
+  if (isLoading) return <Loading />;
 
   return (
     <>
-      <div className="animals-list__outer">
+      <div className="animals-list__outer body">
         {/* <SearchFiltersBar /> */}
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
