@@ -9,9 +9,9 @@ import AnimalCard from "./AnimalCard";
 function AnimalsPage() {
   const dispatch = useDispatch();
   // const { searchId } = useParams();
+  const user = useSelector(state => state.session.user)
   const animals = useSelector((state) => state.animals.allAnimals);
-  const animalsArr = Object.values(animals);
-  // const numAnimals = animalsArr.length;
+  const animalsArr = Object.values(animals).filter(animal => animal.ownerId !== user.id)
 
   useEffect(() => {
     dispatch(getAnimalsThunk());

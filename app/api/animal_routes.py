@@ -26,8 +26,15 @@ def animals():
 
     for animal in animals:
         animal_dict = animal.to_dict()
+
+        images = animal.animal_images
+
         previewImage = animal.animal_images[0].to_dict()
         animal_dict["previewImage"] = previewImage["imageUrl"]
+
+        animal_dict["images"] = []
+        for image in images:
+            animal_dict["images"].append(image.to_dict())
 
         if (not age or animal.age == age) and \
             (not type or animal.type == type) and \

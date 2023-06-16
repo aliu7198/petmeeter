@@ -5,26 +5,31 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { singleAnimalThunk } from "../../store/animals";
+import { getAnimalsThunk } from "../../store/animals";
 
 function AnimalDetailsPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { animalId } = useParams();
-  const animal = useSelector((state) => state.animals.singleAnimal);
-  // console.log("🚀 ~ file: index.js:15 ~ AnimalDetailsPage ~ animal:", animal);
+  const animals = useSelector((state) => state.animals.allAnimals);
+  const animal = animals[animalId]
 
   useEffect(() => {
-    dispatch(singleAnimalThunk(animalId));
+    dispatch(getAnimalsThunk());
   }, [dispatch]);
 
-  let breed = animal.secondaryBreed
-    ? `${animal.primaryBreed} & ${animal.secondaryBreed}`
-    : animal.primaryBreed;
+  const getBreed = () => {
+    let breed = animal.secondaryBreed
+      ? `${animal.primaryBreed} & ${animal.secondaryBreed}`
+      : animal.primaryBreed;
+      return breed
+  }
 
-  let age = animal.age;
-  if (animal.type === "Cat" && animal.age === "Baby") {
-    age = "Kitten";
+  const getAge = () => {
+    let age = animal.age;
+    if (animal.type === "Cat" && animal.age === "Baby") age = "Kitten";
+    if (animal.type === "Dog" && animal.age === "Baby") age = "Puppy"
+    return age
   }
 
   const createHealthString = () => {
@@ -48,26 +53,25 @@ function AnimalDetailsPage() {
     return goodWithStringUpper;
   }
 
-  // console.log(animal.images.length)
-
   if (!animal) return null;
 
   return (
     <>
       <button onClick={() => {history.push('/animals')}}>Back to search</button>
-      {/* <div className="animal-images">
-        {animal.images.length && animal.images.map((image) => {
-          <img key={image.id} src={image.url} alt={image.imageUrl}/>
-        })}
-      </div> */}
+      <div className="animal-images">
+        {animal.images.length && (animal.images.map((image) => (
+          // console.log(image.imageUrl);
+          <img key={image.id} src={image.imageUrl} alt={animal.name}/>
+        )))}
+      </div>
       <div className="animal-details__wrapper">
         <div className="animal-details__1">
           <h1>{animal.name}</h1>
-          <p>{breed}</p>
+          <p>{getBreed()}</p>
         </div>
         <div className="animal-details__2">
           <p>
-            {age} ‧ {animal.gender} ‧ {animal.size} ‧ {animal.color && animal.color}
+            {getAge()} ‧ {animal.gender} ‧ {animal.size} ‧ {animal.color && animal.color}
           </p>
         </div>
         <div className="animal-details__3">
