@@ -17,9 +17,22 @@ function AnimalCard({ animal }) {
     ? `${animal.primaryBreed} & ${animal.secondaryBreed}`
     : animal.primaryBreed;
 
+  let age = animal.age
+  if (animal.type === "Cat" && animal.age === "Baby") {
+    age = "Kitten"
+  } else if (animal.type === "Dog" && animal.age === "Baby") {
+    age = "Puppy"
+  }
+
+  const redirectAnimalDetailPage = () => {
+    history.push(`/animals/${animal.id}`)
+  }
+
+  if (!animal) return null;
+
   return (
     <>
-      <div className="animal-card__wrapper">
+      <div className="animal-card__wrapper" onClick={redirectAnimalDetailPage}>
         <div className="animal-card__top">
           <img className="animal-card__img" src={animal.previewImage} alt={animal.name}/>
           <button className="animal-card__fave">
@@ -29,7 +42,7 @@ function AnimalCard({ animal }) {
         <div className="animal-card__info">
           <h3 className="animal-card__name">{animal.name}</h3>
           <p>
-            {animal.age} ‧ {breed}
+            {age} ‧ {breed}
           </p>
         </div>
       </div>

@@ -49,7 +49,15 @@ def single_animal(id):
     Query for an animal by id and returns that animal in a dictionary
     """
     animal = Animal.query.get(id)
-    return animal.to_dict()
+    images = animal.animal_images
+
+    animal_dict = animal.to_dict()
+    animal_dict["images"] = []
+
+    for image in images:
+        animal_dict["images"].append(image.to_dict())
+
+    return animal_dict
 
 # # GET ANIMAL BY SEARCH - NOT IN USE
 # @animal_routes.route('/search/<int:id>')

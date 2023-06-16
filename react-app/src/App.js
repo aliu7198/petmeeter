@@ -6,8 +6,9 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SavedSearchesPage from "./components/SavedSearchesPage";
-import AnimalsPage from "./components/AnimalsPage";
+import AnimalsList from "./components/AnimalsList";
 import CreateAnimalForm from "./components/CreateAnimalForm";
+import AnimalDetailsPage from "./components/AnimalDetailsPage";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -33,10 +34,13 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route exact path="/animals">
-            <AnimalsPage />
+            <AnimalsList />
           </Route>
           <Route exact path="/animals/new">
             <CreateAnimalForm />
+          </Route>
+          <Route exact path="/animals/:animalId">
+            <AnimalDetailsPage />
           </Route>
           <Route exact path="/user/searches">
             <SavedSearchesPage />

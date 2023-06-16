@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimalsThunk } from "../../store/animals";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import "./AnimalsPage.css";
+import "./AnimalsList.css";
 import AnimalCard from "./AnimalCard";
 // import SearchFiltersBar from "../SearchFiltersBar";
 
@@ -19,12 +19,13 @@ function AnimalsPage() {
 
   // const queryParams = new URLSearchParams().toString();
   // console.log("🚀 ~ file: index.js:21 ~ AnimalsPage ~ queryParams:", queryParams)
+  if (!animals) return null;
 
   return (
     <>
-      <div className="animals-page__outer">
+      <div className="animals-list__outer">
         {/* <SearchFiltersBar /> */}
-        <div className="animals-page__wrapper">
+        <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
             <AnimalCard animal={animal} />
           ))}
