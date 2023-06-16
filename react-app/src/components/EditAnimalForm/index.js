@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { editAnimalThunk } from "../../store/animals";
+import Loading from "../Loading";
 import "../CreateAnimalForm/CreateAnimalForm.css";
 
 const EditAnimalForm = () => {
@@ -10,8 +11,7 @@ const EditAnimalForm = () => {
   const { animalId } = useParams();
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
-  const animal = animals[animalId]
-  console.log("🚀 ~ file: index.js:13 ~ EditAnimalForm ~ animal:", animal)
+  const animal = animals[animalId];
 
   const [type, setType] = useState(animal?.type);
   const [name, setName] = useState(animal?.name);
@@ -38,7 +38,6 @@ const EditAnimalForm = () => {
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
-
 
   useEffect(() => {
     const formErrors = {};
@@ -104,196 +103,200 @@ const EditAnimalForm = () => {
   //     }
   //   };
 
-  if (!animal) return null;
+  if (!animal) return <Loading />;
 
   return (
-    <div>
-      <h1>Update Animal Listing</h1>
-      <form className="animal-form__form">
-        <label>
-          Type
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="" disabled>
-              Choose type
-            </option>
-            <option value="Dog">Dog</option>
-            <option value="Cat">Cat</option>
-            <option value="Rabbit">Rabbit</option>
-            <option value="Small & Furry">Small & Furry</option>
-            <option value="Horse">Horse</option>
-            <option value="Bird">Bird</option>
-            <option value="Scales, Fins, & Other">Scales, Fins, & Other</option>
-            <option value="Barnyard">Barnyard</option>
-          </select>
-          <p className="errors">{hasSubmitted && errors?.type}</p>
-        </label>
-        <label>
-          Name
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <p className="errors">{hasSubmitted && errors?.name}</p>
-        </label>
-        <label>
-          Age
-          <select value={age} onChange={(e) => setAge(e.target.value)}>
-            <option value="" disabled>
-              Choose age
-            </option>
-            <option value="Baby">Baby</option>
-            <option value="Young">Young</option>
-            <option value="Adult">Adult</option>
-            <option value="Senior">Senior</option>
-          </select>
-          <p className="errors">{hasSubmitted && errors?.age}</p>
-        </label>
-        <label>
-          Gender
-          <select value={gender} onChange={(e) => setGender(e.target.value)}>
-            <option value="" disabled>
-              Choose gender
-            </option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          <p className="errors">{hasSubmitted && errors?.gender}</p>
-        </label>
-        <label>
-          Size
-          <select value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="" disabled>
-              Choose size
-            </option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-            <option value="Senior">Senior</option>
-          </select>
-          <p className="errors">{hasSubmitted && errors?.size}</p>
-        </label>
-        <label>
-          Primary Breed
-          <input
-            type="text"
-            value={primaryBreed}
-            onChange={(e) => setPrimaryBreed(e.target.value)}
-          />
-          <p className="errors">{hasSubmitted && errors?.primaryBreed}</p>
-        </label>
-        <label>
-          Secondary Breed
-          <input
-            type="text"
-            value={secondaryBreed}
-            onChange={(e) => setSecondaryBreed(e.target.value)}
-          />
-        </label>
-        <label>
-          Color
-          <input
-            type="text"
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-          />
-        </label>
-        <div>
+    <div className="body-white animal-form__outer">
+      <div className="animal-form__wrapper">
+        <h1 className="animal-form__title">Update Animal Listing</h1>
+        <p className="animal-form__sub">Fields marked with * are required.</p>
+        <form className="animal-form__form">
           <label>
-            House Trained?
+            Type*
+            <select value={type} onChange={(e) => setType(e.target.value)}>
+              <option value="" disabled>
+                Choose type
+              </option>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+              <option value="Rabbit">Rabbit</option>
+              <option value="Small & Furry">Small & Furry</option>
+              <option value="Horse">Horse</option>
+              <option value="Bird">Bird</option>
+              <option value="Scales, Fins, & Other">
+                Scales, Fins, & Other
+              </option>
+              <option value="Barnyard">Barnyard</option>
+            </select>
+            <p className="errors">{hasSubmitted && errors?.type}</p>
+          </label>
+          <label>
+            Name*
             <input
-              type="checkbox"
-              value={houseTrained}
-              onChange={(e) => setHouseTrained(!houseTrained)}
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <p className="errors">{hasSubmitted && errors?.name}</p>
+          </label>
+          <label>
+            Age*
+            <select value={age} onChange={(e) => setAge(e.target.value)}>
+              <option value="" disabled>
+                Choose age
+              </option>
+              <option value="Baby">Baby</option>
+              <option value="Young">Young</option>
+              <option value="Adult">Adult</option>
+              <option value="Senior">Senior</option>
+            </select>
+            <p className="errors">{hasSubmitted && errors?.age}</p>
+          </label>
+          <label>
+            Gender*
+            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+              <option value="" disabled>
+                Choose gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <p className="errors">{hasSubmitted && errors?.gender}</p>
+          </label>
+          <label>
+            Size*
+            <select value={size} onChange={(e) => setSize(e.target.value)}>
+              <option value="" disabled>
+                Choose size
+              </option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+              <option value="Senior">Senior</option>
+            </select>
+            <p className="errors">{hasSubmitted && errors?.size}</p>
+          </label>
+          <label>
+            Primary Breed*
+            <input
+              type="text"
+              value={primaryBreed}
+              onChange={(e) => setPrimaryBreed(e.target.value)}
+            />
+            <p className="errors">{hasSubmitted && errors?.primaryBreed}</p>
+          </label>
+          <label>
+            Secondary Breed
+            <input
+              type="text"
+              value={secondaryBreed}
+              onChange={(e) => setSecondaryBreed(e.target.value)}
             />
           </label>
           <label>
-            Vaccinations up to date?
+            Color
             <input
-              type="checkbox"
-              value={vaccinated}
-              checked={vaccinated}
-              onChange={(e) => setVaccinated(!vaccinated)}
+              type="text"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
             />
           </label>
-        </div>
-        <div>
+          <div>
+            <label>
+              House Trained?
+              <input
+                type="checkbox"
+                value={houseTrained}
+                onChange={(e) => setHouseTrained(!houseTrained)}
+              />
+            </label>
+            <label>
+              Vaccinations up to date?
+              <input
+                type="checkbox"
+                value={vaccinated}
+                checked={vaccinated}
+                onChange={(e) => setVaccinated(!vaccinated)}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Spayed/Neutered?
+              <input
+                type="checkbox"
+                value={fixed}
+                checked={fixed}
+                onChange={(e) => setFixed(!fixed)}
+              />
+            </label>
+            <label>
+              Special Needs?
+              <input
+                type="checkbox"
+                value={specialNeeds}
+                checked={specialNeeds}
+                onChange={(e) => setSpecialNeeds(!specialNeeds)}
+              />
+            </label>
+          </div>
+          <div>
+            Good With:
+            <label>
+              Cats
+              <input
+                type="checkbox"
+                value={goodWithCats}
+                checked={goodWithCats}
+                onChange={(e) => setGoodWithCats(!goodWithCats)}
+              />
+            </label>
+            <label>
+              Dogs
+              <input
+                type="checkbox"
+                value={goodWithDogs}
+                checked={goodWithDogs}
+                onChange={(e) => setGoodWithDogs(!goodWithDogs)}
+              />
+            </label>
+            <label>
+              Children
+              <input
+                type="checkbox"
+                value={goodWithChildren}
+                checked={goodWithChildren}
+                onChange={(e) => setGoodWithChildren(!goodWithChildren)}
+              />
+            </label>
+            <label>
+              Other Animals
+              <input
+                type="checkbox"
+                value={goodWithOtherAnimals}
+                checked={goodWithOtherAnimals}
+                onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
+              />
+            </label>
+          </div>
           <label>
-            Spayed/Neutered?
-            <input
-              type="checkbox"
-              value={fixed}
-              checked={fixed}
-              onChange={(e) => setFixed(!fixed)}
+            Description
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </label>
           <label>
-            Special Needs?
+            Adoption Fee*
             <input
-              type="checkbox"
-              value={specialNeeds}
-              checked={specialNeeds}
-              onChange={(e) => setSpecialNeeds(!specialNeeds)}
+              type="text"
+              value={adoptionFee}
+              onChange={(e) => setAdoptionFee(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.adoptionFee}</p>
           </label>
-        </div>
-        <div>
-          Good With:
-          <label>
-            Cats
-            <input
-              type="checkbox"
-              value={goodWithCats}
-              checked={goodWithCats}
-              onChange={(e) => setGoodWithCats(!goodWithCats)}
-            />
-          </label>
-          <label>
-            Dogs
-            <input
-              type="checkbox"
-              value={goodWithDogs}
-              checked={goodWithDogs}
-              onChange={(e) => setGoodWithDogs(!goodWithDogs)}
-            />
-          </label>
-          <label>
-            Children
-            <input
-              type="checkbox"
-              value={goodWithChildren}
-              checked={goodWithChildren}
-              onChange={(e) => setGoodWithChildren(!goodWithChildren)}
-            />
-          </label>
-          <label>
-            Other Animals
-            <input
-              type="checkbox"
-              value={goodWithOtherAnimals}
-              checked={goodWithOtherAnimals}
-              onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
-            />
-          </label>
-        </div>
-        <label>
-          Description
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-        <label>
-          Adoption Fee
-          <input
-            type="text"
-            value={adoptionFee}
-            onChange={(e) => setAdoptionFee(e.target.value)}
-          />
-          <p className="errors">{hasSubmitted && errors?.adoptionFee}</p>
-        </label>
-        {/* <div>
-          <p>Add Photos:</p>
+          {/* <div>
+          <p>Add Photos:*</p>
           <input
             id="image"
             type="file"
@@ -303,8 +306,9 @@ const EditAnimalForm = () => {
           />
           <p className="errors">{hasSubmitted && errors?.images}</p>
         </div> */}
-        <button onClick={handleSubmit}>Update Animal</button>
-      </form>
+          <button className="animal-form__submit-btn" onClick={handleSubmit}>UPDATE ANIMAL</button>
+        </form>
+      </div>
     </div>
   );
 };

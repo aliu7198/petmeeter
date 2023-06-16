@@ -3,6 +3,7 @@
   --purple: #6504b5;
   --white: #ffffff;
   --light-grey: #efeef1;
+  --medium-grey: #dbdadc;
   --dark-grey: #4d4751;
   --light-blue: #b0e9f8;
   --dark-blue: #004c81;
@@ -17,16 +18,21 @@
 }
 
 footer {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .root {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .body {
-    min-height: 100vh;
-    background-color: var(--light-grey);
-    padding-bottom: 3rem;
+  min-height: 100vh;
+  background-color: var(--light-grey);
+  padding-bottom: 3rem;
+}
+
+.body-white {
+  min-height: 100vh;
+  padding-bottom: 3rem;
 }

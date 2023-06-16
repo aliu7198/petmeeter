@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  /* border: 1px solid red */
+  border-bottom: 1px solid var(--purple);
 }
 
 .nav__logo {
