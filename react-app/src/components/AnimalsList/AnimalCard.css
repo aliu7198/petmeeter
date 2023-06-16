@@ -2,9 +2,10 @@
     width: 15rem;
     height: 20rem;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px lightgrey
-    /* display: flex;
-    flex-direction: column; */
+    box-shadow: 0px 0px 5px lightgrey;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .animal-card__wrapper:hover {
@@ -13,14 +14,14 @@
 
 .animal-card__top {
     position: relative;
-    height: 70%;
+    height: 100%;
 }
 
 .animal-card__img {
     width: 100%;
-    height: 100%;
+    height: 90%;
     object-fit: cover;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
 }
 
 .animal-card__fave {
@@ -38,6 +39,35 @@
 }
 
 .animal-card__info {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     text-align: center;
     padding: 1rem;
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+    border-radius: 0 0 10px 10px;
+}
+
+.animal-card__info::before {
+    content: "";
+    display: block;
+    height: 18px;
+    width: 100%;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    bottom: calc(100% - 10px);
+    left: 0px;
+    background-color: #fff;
+}
+
+.animal-card__name {
+    color: var(--purple)
+}
+
+.animal-card__outer {
+    position:relative;
 }

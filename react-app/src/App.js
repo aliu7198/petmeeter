@@ -11,6 +11,8 @@ import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
 import EditAnimalForm from "./components/EditAnimalForm";
+import Loading from "./components/Loading";
+import Footer from "./components/Footer";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -19,17 +21,17 @@ function App() {
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
-          // <Route path="/search/:searchId">
-          //   {/* <SearchFiltersBar /> */}
-          //   <AnimalsPage />
-          // </Route>
+  // <Route path="/search/:searchId">
+  //   {/* <SearchFiltersBar /> */}
+  //   <AnimalsPage />
+  // </Route>
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path="/login" >
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
           <Route exact path="/signup">
@@ -53,8 +55,12 @@ function App() {
           <Route exact path="/user/searches">
             <SavedSearchesPage />
           </Route>
+          {/* <Route exact path="/loading">
+            <Loading />
+          </Route> */}
         </Switch>
       )}
+      <Footer isLoaded={isLoaded} />
     </>
   );
 }
