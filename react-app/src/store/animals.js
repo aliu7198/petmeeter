@@ -65,6 +65,22 @@ export const createAnimalThunk = (animal) => async (dispatch) => {
   }
 };
 
+export const editAnimalThunk = (animal, animalId) => async (dispatch) => {
+  const res = await fetch(`/api/animals/${animalId}`, {
+    method: 'PUT',
+    body: animal
+  });
+
+  if (res.ok) {
+    const editedAnimal = await res.json()
+    await dispatch(createAnimalAction(editedAnimal));
+    return editedAnimal;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
 export const deleteAnimalThunk = (animalId) => async (dispatch) => {
   const res = await fetch(`/api/animals/${animalId}`, {
     method: "DELETE",

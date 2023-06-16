@@ -27,7 +27,7 @@ function UserAnimalsList() {
         {/* <SearchFiltersBar /> */}
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
-            <AnimalCard animal={animal} />
+            <AnimalCard animal={animal} key={animal.id} />
           ))}
         </div>
       </div>

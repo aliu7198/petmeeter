@@ -12,7 +12,7 @@ function AnimalDetailsPage() {
   const dispatch = useDispatch();
   const { animalId } = useParams();
   const animal = useSelector((state) => state.animals.singleAnimal);
-  console.log("🚀 ~ file: index.js:15 ~ AnimalDetailsPage ~ animal:", animal);
+  // console.log("🚀 ~ file: index.js:15 ~ AnimalDetailsPage ~ animal:", animal);
 
   useEffect(() => {
     dispatch(singleAnimalThunk(animalId));

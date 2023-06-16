@@ -190,6 +190,7 @@ def update_animal(id):
 
     form = AnimalForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("🚀 ~ file: animal_routes.py:193 ~ form:", form.data)
 
     if form.validate_on_submit():
         animal.type = form.data['type']

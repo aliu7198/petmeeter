@@ -1,102 +1,134 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { createAnimalThunk } from "../../store/animals";
-import "../CreateAnimalForm/CreateAnimalForm.css"
+import { useHistory, useParams } from "react-router-dom";
+import { editAnimalThunk, singleAnimalThunk } from "../../store/animals";
+import "../CreateAnimalForm/CreateAnimalForm.css";
 
 const EditAnimalForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { animalId } = useParams();
   const user = useSelector((state) => state.session.user);
-  const [type, setType] = useState("");
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [size, setSize] = useState("");
-  const [primaryBreed, setPrimaryBreed] = useState("");
-  const [secondaryBreed, setSecondaryBreed] = useState("");
-  const [color, setColor] = useState("");
-  const [houseTrained, setHouseTrained] = useState(false);
-  const [vaccinated, setVaccinated] = useState(false);
-  const [fixed, setFixed] = useState(false);
-  const [specialNeeds, setSpecialNeeds] = useState(false);
-  const [goodWithCats, setGoodWithCats] = useState(false);
-  const [goodWithDogs, setGoodWithDogs] = useState(false);
-  const [goodWithChildren, setGoodWithChildren] = useState(false);
-  const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(false);
-  const [description, setDescription] = useState("");
-  const [adoptionFee, setAdoptionFee] = useState(0);
+  const animal = useSelector((state) => state.animals.singleAnimal);
+
+  useEffect(() => {
+    dispatch(singleAnimalThunk(animalId));
+  }, [dispatch]);
+
+  const [type, setType] = useState(animal.type);
+  console.log("🚀 ~ file: index.js:15 ~ EditAnimalForm ~ type:", type)
+  const [name, setName] = useState(animal.name);
+  console.log("🚀 ~ file: index.js:16 ~ EditAnimalForm ~ name:", name)
+  const [age, setAge] = useState(animal.age);
+  console.log("🚀 ~ file: index.js:18 ~ EditAnimalForm ~ age:", age)
+  const [gender, setGender] = useState(animal.gender);
+  console.log("🚀 ~ file: index.js:20 ~ EditAnimalForm ~ gender:", gender)
+  const [size, setSize] = useState(animal.size);
+  console.log("🚀 ~ file: index.js:22 ~ EditAnimalForm ~ size:", size)
+  const [primaryBreed, setPrimaryBreed] = useState(animal.primaryBreed);
+  console.log("🚀 ~ file: index.js:25 ~ EditAnimalForm ~ primaryBreed:", primaryBreed)
+  const [secondaryBreed, setSecondaryBreed] = useState(animal.secondaryBreed);
+  console.log("🚀 ~ file: index.js:27 ~ EditAnimalForm ~ secondaryBreed:", secondaryBreed)
+  const [color, setColor] = useState(animal.color);
+  console.log("🚀 ~ file: index.js:29 ~ EditAnimalForm ~ color:", color)
+  const [houseTrained, setHouseTrained] = useState(animal.houseTrained);
+  console.log("🚀 ~ file: index.js:31 ~ EditAnimalForm ~ houseTrained:", houseTrained)
+  const [vaccinated, setVaccinated] = useState(animal.vaccinated);
+  console.log("🚀 ~ file: index.js:33 ~ EditAnimalForm ~ vaccinated:", vaccinated)
+  const [fixed, setFixed] = useState(animal.fixed);
+  console.log("🚀 ~ file: index.js:35 ~ EditAnimalForm ~ fixed:", fixed)
+  const [specialNeeds, setSpecialNeeds] = useState(animal.specialNeeds);
+  console.log("🚀 ~ file: index.js:37 ~ EditAnimalForm ~ specialNeeds:", specialNeeds)
+  const [goodWithCats, setGoodWithCats] = useState(animal.goodWithCats);
+  console.log("🚀 ~ file: index.js:39 ~ EditAnimalForm ~ goodWithCats:", goodWithCats)
+  const [goodWithDogs, setGoodWithDogs] = useState(animal.goodWithDogs);
+  console.log("🚀 ~ file: index.js:41 ~ EditAnimalForm ~ goodWithDogs:", goodWithDogs)
+  const [goodWithChildren, setGoodWithChildren] = useState(
+    animal.goodWithChildren
+  );
+  console.log("🚀 ~ file: index.js:45 ~ EditAnimalForm ~ goodWithChildren:", goodWithChildren)
+  const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(
+    animal.goodWithOtherAnimals
+  );
+  console.log("🚀 ~ file: index.js:49 ~ EditAnimalForm ~ goodWithOtherAnimals:", goodWithOtherAnimals)
+  const [description, setDescription] = useState(animal.description);
+  console.log("🚀 ~ file: index.js:51 ~ EditAnimalForm ~ description:", description)
+  const [adoptionFee, setAdoptionFee] = useState(animal.adoptionFee);
+  console.log("🚀 ~ file: index.js:53 ~ EditAnimalForm ~ adoptionFee:", adoptionFee)
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
+
   useEffect(() => {
     const formErrors = {};
     type || (formErrors.type = "Type is required");
-    name.length || (formErrors.name = "Name is required");
+    name || (formErrors.name = "Name is required");
     age || (formErrors.age = "Age is required");
     gender || (formErrors.gender = "Gender is required");
     size || (formErrors.size = "Size is required");
     primaryBreed || (formErrors.primaryBreed = "Primary breed is required");
     adoptionFee >= 1 || (formErrors.adoptionFee = "Adoption fee is required");
-    images.length >= 1 ||
-      (formErrors.images = "At least one image is required");
+    // images.length >= 1 ||
+    //   (formErrors.images = "At least one image is required");
     setErrors(formErrors);
-  }, [type, name, age, gender, size, primaryBreed, adoptionFee, images]);
+  }, [type, name, age, gender, size, primaryBreed, adoptionFee]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
 
     if (!Object.values(errors).length) {
-        const formData = new FormData()
-        formData.append("type", type)
-        formData.append("name", name)
-        formData.append("age", age)
-        formData.append("gender", gender)
-        formData.append("size", size)
-        formData.append("primary_breed", primaryBreed)
-        formData.append("secondary_breed", secondaryBreed)
-        formData.append("color", color)
-        formData.append("house_trained", houseTrained)
-        formData.append("vaccinated", vaccinated)
-        formData.append("fixed", fixed)
-        formData.append("special_needs", specialNeeds)
-        formData.append("good_with_cats", goodWithCats)
-        formData.append("good_with_dogs", goodWithDogs)
-        formData.append("good_with_children", goodWithChildren)
-        formData.append("good_with_other_animals", goodWithOtherAnimals)
-        formData.append("description", description)
-        formData.append("adoption_fee", adoptionFee)
+      const formData = new FormData();
+      formData.append("type", type);
+      formData.append("name", name);
+      formData.append("age", age);
+      formData.append("gender", gender);
+      formData.append("size", size);
+      formData.append("primary_breed", primaryBreed);
+      formData.append("secondary_breed", secondaryBreed);
+      formData.append("color", color);
+      formData.append("house_trained", houseTrained);
+      formData.append("vaccinated", vaccinated);
+      formData.append("fixed", fixed);
+      formData.append("special_needs", specialNeeds);
+      formData.append("good_with_cats", goodWithCats);
+      formData.append("good_with_dogs", goodWithDogs);
+      formData.append("good_with_children", goodWithChildren);
+      formData.append("good_with_other_animals", goodWithOtherAnimals);
+      formData.append("description", description);
+      formData.append("adoption_fee", adoptionFee);
 
-        // for (let image of images) {
-        //     formData.append("images", image);
-        // }
+      // for (let image of images) {
+      //     formData.append("images", image);
+      // }
 
-        // console.log("🚀 ~ file: index.js:71 ~ handleSubmit ~ formData:", formData.values())
+      // console.log("🚀 ~ file: index.js:71 ~ handleSubmit ~ formData:", formData.values())
 
-        const newAnimal = await dispatch(createAnimalThunk(formData))
+      const editedAnimal = await dispatch(editAnimalThunk(formData, animalId));
 
-        setErrors({})
-        setHasSubmitted(false)
-        history.push(`/animals/${newAnimal.id}`)
-        // history.push(`/animals`)
+      setErrors({});
+      setHasSubmitted(false);
+      history.push(`/animals/${editedAnimal.id}`);
+      // history.push(`/animals`)
     }
   };
 
-//   const handleImageChange = (e) => {
-//     const selectedFiles = Array.from(e.target.files);
-//     if (selectedFiles.length <= 5) {
-//       setImages(selectedFiles);
-//     } else {
-//       alert(`Maximum 5 images allowed on a post.`);
-//       e.target.value = null;
-//     }
-//   };
+  //   const handleImageChange = (e) => {
+  //     const selectedFiles = Array.from(e.target.files);
+  //     if (selectedFiles.length <= 5) {
+  //       setImages(selectedFiles);
+  //     } else {
+  //       alert(`Maximum 5 images allowed on a post.`);
+  //       e.target.value = null;
+  //     }
+  //   };
+
+  if (!animal) return null;
 
   return (
     <div>
-      <h1>List an Animal for Adoption</h1>
+      <h1>Update Animal Listing</h1>
       <form className="animal-form__form">
         <label>
           Type
