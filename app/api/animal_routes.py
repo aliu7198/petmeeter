@@ -12,7 +12,7 @@ animal_routes = Blueprint('animals', __name__)
 @animal_routes.route('/')
 def animals():
     """
-    Query for all animals and return them in a dictionary
+    Query for all animals and return them in a list of dictionaries
     """
     # print("🚀 ~ file: animal_routes.py:16 ~ current_user:", current_user)
     type = request.args.get('type')
