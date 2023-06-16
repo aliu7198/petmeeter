@@ -67,8 +67,7 @@ function AnimalDetailsPage() {
         </div>
         <div className="animal-details__2">
           <p>
-            {age} ‧ {animal.gender} ‧ {animal.size}
-            {animal.color && animal.color}
+            {age} ‧ {animal.gender} ‧ {animal.size} ‧ {animal.color && animal.color}
           </p>
         </div>
         <div className="animal-details__3">
@@ -87,11 +86,19 @@ function AnimalDetailsPage() {
           )}
           {(animal.goodWithCats || animal.goodWithDogs|| animal.goodWithChildren || animal.goodWithOtherAnimals) && (
             <>
-              <h4>GOOD WITH</h4>
+              <h4>GOOD IN A HOME WITH</h4>
               <p>{createGoodWith()}</p>
             </>
           )}
+          <div>
+            <h4>ADOPTION FEE</h4>
+            <p>{animal.adoptionFee}</p>
+          </div>
         </div>
+        {animal.description && <div className="animal-details__4">
+          <h2>Meet {animal.name}</h2>
+          <p>{animal.description}</p>
+        </div>}
       </div>
       {/* <div className="animal-card__wrapper">
         <div className="animal-card__top">

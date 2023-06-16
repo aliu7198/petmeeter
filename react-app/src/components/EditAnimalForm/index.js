@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { editAnimalThunk, singleAnimalThunk } from "../../store/animals";
+import { editAnimalThunk } from "../../store/animals";
 import "../CreateAnimalForm/CreateAnimalForm.css";
 
 const EditAnimalForm = () => {
@@ -9,52 +9,32 @@ const EditAnimalForm = () => {
   const dispatch = useDispatch();
   const { animalId } = useParams();
   const user = useSelector((state) => state.session.user);
-  const animal = useSelector((state) => state.animals.singleAnimal);
+  const animals = useSelector((state) => state.animals.allAnimals);
+  const animal = animals[animalId]
+  console.log("🚀 ~ file: index.js:13 ~ EditAnimalForm ~ animal:", animal)
 
-  useEffect(() => {
-    dispatch(singleAnimalThunk(animalId));
-  }, [dispatch]);
-
-  const [type, setType] = useState(animal.type);
-  console.log("🚀 ~ file: index.js:15 ~ EditAnimalForm ~ type:", type)
-  const [name, setName] = useState(animal.name);
-  console.log("🚀 ~ file: index.js:16 ~ EditAnimalForm ~ name:", name)
-  const [age, setAge] = useState(animal.age);
-  console.log("🚀 ~ file: index.js:18 ~ EditAnimalForm ~ age:", age)
-  const [gender, setGender] = useState(animal.gender);
-  console.log("🚀 ~ file: index.js:20 ~ EditAnimalForm ~ gender:", gender)
-  const [size, setSize] = useState(animal.size);
-  console.log("🚀 ~ file: index.js:22 ~ EditAnimalForm ~ size:", size)
-  const [primaryBreed, setPrimaryBreed] = useState(animal.primaryBreed);
-  console.log("🚀 ~ file: index.js:25 ~ EditAnimalForm ~ primaryBreed:", primaryBreed)
-  const [secondaryBreed, setSecondaryBreed] = useState(animal.secondaryBreed);
-  console.log("🚀 ~ file: index.js:27 ~ EditAnimalForm ~ secondaryBreed:", secondaryBreed)
-  const [color, setColor] = useState(animal.color);
-  console.log("🚀 ~ file: index.js:29 ~ EditAnimalForm ~ color:", color)
-  const [houseTrained, setHouseTrained] = useState(animal.houseTrained);
-  console.log("🚀 ~ file: index.js:31 ~ EditAnimalForm ~ houseTrained:", houseTrained)
-  const [vaccinated, setVaccinated] = useState(animal.vaccinated);
-  console.log("🚀 ~ file: index.js:33 ~ EditAnimalForm ~ vaccinated:", vaccinated)
-  const [fixed, setFixed] = useState(animal.fixed);
-  console.log("🚀 ~ file: index.js:35 ~ EditAnimalForm ~ fixed:", fixed)
-  const [specialNeeds, setSpecialNeeds] = useState(animal.specialNeeds);
-  console.log("🚀 ~ file: index.js:37 ~ EditAnimalForm ~ specialNeeds:", specialNeeds)
-  const [goodWithCats, setGoodWithCats] = useState(animal.goodWithCats);
-  console.log("🚀 ~ file: index.js:39 ~ EditAnimalForm ~ goodWithCats:", goodWithCats)
-  const [goodWithDogs, setGoodWithDogs] = useState(animal.goodWithDogs);
-  console.log("🚀 ~ file: index.js:41 ~ EditAnimalForm ~ goodWithDogs:", goodWithDogs)
+  const [type, setType] = useState(animal?.type);
+  const [name, setName] = useState(animal?.name);
+  const [age, setAge] = useState(animal?.age);
+  const [gender, setGender] = useState(animal?.gender);
+  const [size, setSize] = useState(animal?.size);
+  const [primaryBreed, setPrimaryBreed] = useState(animal?.primaryBreed);
+  const [secondaryBreed, setSecondaryBreed] = useState(animal?.secondaryBreed);
+  const [color, setColor] = useState(animal?.color);
+  const [houseTrained, setHouseTrained] = useState(animal?.houseTrained);
+  const [vaccinated, setVaccinated] = useState(animal?.vaccinated);
+  const [fixed, setFixed] = useState(animal?.fixed);
+  const [specialNeeds, setSpecialNeeds] = useState(animal?.specialNeeds);
+  const [goodWithCats, setGoodWithCats] = useState(animal?.goodWithCats);
+  const [goodWithDogs, setGoodWithDogs] = useState(animal?.goodWithDogs);
   const [goodWithChildren, setGoodWithChildren] = useState(
-    animal.goodWithChildren
+    animal?.goodWithChildren
   );
-  console.log("🚀 ~ file: index.js:45 ~ EditAnimalForm ~ goodWithChildren:", goodWithChildren)
   const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(
-    animal.goodWithOtherAnimals
+    animal?.goodWithOtherAnimals
   );
-  console.log("🚀 ~ file: index.js:49 ~ EditAnimalForm ~ goodWithOtherAnimals:", goodWithOtherAnimals)
-  const [description, setDescription] = useState(animal.description);
-  console.log("🚀 ~ file: index.js:51 ~ EditAnimalForm ~ description:", description)
-  const [adoptionFee, setAdoptionFee] = useState(animal.adoptionFee);
-  console.log("🚀 ~ file: index.js:53 ~ EditAnimalForm ~ adoptionFee:", adoptionFee)
+  const [description, setDescription] = useState(animal?.description);
+  const [adoptionFee, setAdoptionFee] = useState(animal?.adoptionFee);
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -232,6 +212,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={vaccinated}
+              checked={vaccinated}
               onChange={(e) => setVaccinated(!vaccinated)}
             />
           </label>
@@ -242,6 +223,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={fixed}
+              checked={fixed}
               onChange={(e) => setFixed(!fixed)}
             />
           </label>
@@ -250,6 +232,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={specialNeeds}
+              checked={specialNeeds}
               onChange={(e) => setSpecialNeeds(!specialNeeds)}
             />
           </label>
@@ -261,6 +244,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={goodWithCats}
+              checked={goodWithCats}
               onChange={(e) => setGoodWithCats(!goodWithCats)}
             />
           </label>
@@ -269,6 +253,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={goodWithDogs}
+              checked={goodWithDogs}
               onChange={(e) => setGoodWithDogs(!goodWithDogs)}
             />
           </label>
@@ -277,6 +262,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={goodWithChildren}
+              checked={goodWithChildren}
               onChange={(e) => setGoodWithChildren(!goodWithChildren)}
             />
           </label>
@@ -285,6 +271,7 @@ const EditAnimalForm = () => {
             <input
               type="checkbox"
               value={goodWithOtherAnimals}
+              checked={goodWithOtherAnimals}
               onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
             />
           </label>
