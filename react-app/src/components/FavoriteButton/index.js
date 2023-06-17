@@ -23,6 +23,14 @@ const FavoriteButton = ({ animal }) => {
     }
   };
 
+  // TODO: sometimes receive an error about needing a cleanup function, research this.
+
+  //   useEffect(() => {
+  //     return () => {
+
+  //     };
+  //   }, []);
+
   return (
     <button className="animal-card__fave" onClick={handleFavorite}>
       {favorited ? (

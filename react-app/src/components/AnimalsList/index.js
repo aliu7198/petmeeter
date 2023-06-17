@@ -7,7 +7,7 @@ import AnimalCard from "./AnimalCard";
 import Loading from "../Loading";
 // import SearchFiltersBar from "../SearchFiltersBar";
 
-function AnimalsPage() {
+function AnimalsList() {
   const dispatch = useDispatch();
   // const { searchId } = useParams();
   const user = useSelector(state => state.session.user)
@@ -34,7 +34,7 @@ function AnimalsPage() {
         {/* <SearchFiltersBar /> */}
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
-            <AnimalCard animal={animal} />
+            <AnimalCard animal={animal} key={animal.id}/>
           ))}
         </div>
       </div>
@@ -42,4 +42,4 @@ function AnimalsPage() {
   );
 }
 
-export default AnimalsPage;
+export default AnimalsList;
