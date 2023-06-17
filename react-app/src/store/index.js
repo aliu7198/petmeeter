@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import searchesReducer from './searches';
 import animalsReducer from './animals';
+import favoritesReducer from './favorites';
 
 const rootReducer = combineReducers({
   session,
   searches: searchesReducer,
-  animals: animalsReducer
+  animals: animalsReducer,
+  favorites: favoritesReducer
 });
 
 

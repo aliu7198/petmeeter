@@ -11,6 +11,7 @@ import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
 import EditAnimalForm from "./components/EditAnimalForm";
+import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
 import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
@@ -51,6 +52,9 @@ function App() {
           </Route>
           <Route exact path="/animals/:animalId/edit">
             <EditAnimalForm />
+          </Route>
+          <Route exact path="/user/favorites">
+            <FavoriteAnimalsList />
           </Route>
           <Route exact path="/user/searches">
             <SavedSearchesPage />
