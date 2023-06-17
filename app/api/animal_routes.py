@@ -32,6 +32,11 @@ def animals():
         previewImage = animal.animal_images[0].to_dict()
         animal_dict["previewImage"] = previewImage["imageUrl"]
 
+        user_favorites = animal.favorites
+        animal_dict["favoritedBy"] = []
+        for user in user_favorites:
+            animal_dict["favoritedBy"].append(user.id)
+
         animal_dict["images"] = []
         for image in images:
             animal_dict["images"].append(image.to_dict())

@@ -28,6 +28,12 @@ def user_favorites():
         previewImage = animal.animal_images[0].to_dict()
         animal_dict["previewImage"] = previewImage["imageUrl"]
 
+        user_favorites = animal.favorites
+        animal_dict["favoritedBy"] = []
+        for user in user_favorites:
+            animal_dict["favoritedBy"].append(user.id)
+
+
         animal_dict["images"] = []
         for image in images:
             animal_dict["images"].append(image.to_dict())
@@ -43,12 +49,14 @@ def create_favorite(id):
     """
     Add an animal to favorites
     """
+    print("🚀 ~ file: favorite_routes.py:52 ~  HITTING BACKEND:")
     user = User.query.get(current_user.id)
     animal = Animal.query.get(id)
 
     user.favorites.append(animal)
     db.session.commit()
-    return {'message': 'Successfully added animal to favorites!'}
+    # return {'message': 'Successfully added animal to favorites!'}
+    return animal.to_dict()
 
 # REMOVE ANIMAL FROM FAVORITES
 @favorite_routes.route('/animals/<int:id>', methods=["DELETE"])

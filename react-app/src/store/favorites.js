@@ -1,9 +1,15 @@
 const GET_FAVORITES = "favorites/getFavorites";
+const CREATE_FAVORITE = "favorites/createFavorite";
 
 const getFavoritesAction = (favorites) => ({
   type: GET_FAVORITES,
   favorites,
 });
+
+const createFavoriteAction = (animal) => ({
+  type: CREATE_FAVORITE,
+  animal
+})
 
 export const getFavoritesThunk = () => async (dispatch) => {
   const res = await fetch(`/api/favorites/`);
@@ -17,6 +23,22 @@ export const getFavoritesThunk = () => async (dispatch) => {
   }
 };
 
+export const createFavoriteThunk = (animalId) => async dispatch => {
+  const res = await fetch(`/api/favorites/animals/${animalId}`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(animalId),
+  })
+  if (res.ok) {
+    const animal = await res.json()
+    await dispatch(createFavoriteAction(animal))
+    return animal;
+  } else {
+    const errors = await res.json()
+    return errors;
+  }
+}
+
 const initialState = { allFavorites: {}, singleFavorite: {} };
 const favoritesReducer = (state = initialState, action) => {
   let newState = {};
@@ -26,6 +48,11 @@ const favoritesReducer = (state = initialState, action) => {
       for (let favorite of action.favorites) {
         newState.allFavorites[favorite.id] = favorite;
       }
+      return newState;
+    }
+    case CREATE_FAVORITE: {
+      newState = {...state, allFavorites: {...state.allFavorites}, singleFavorite: {}};
+      newState.allFavorites[action.animal.id] = action.animal;
       return newState;
     }
     default:

@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAnimalModal from "../DeleteAnimalModal";
+import FavoriteButton from "../FavoriteButton";
 import "./AnimalCard.css";
 
 function AnimalCard({ animal }) {
@@ -22,20 +23,20 @@ function AnimalCard({ animal }) {
     let breed = animal.primaryBreed;
     if (animal.secondaryBreed) {
       if (animal.secondaryBreed === "Unknown") {
-        breed += " Mix"
+        breed += " Mix";
       } else {
-        breed += ` & ${animal.secondaryBreed}`
+        breed += ` & ${animal.secondaryBreed}`;
       }
     }
     return breed;
-  }
+  };
 
   const getAge = () => {
     let age = animal.age;
     if (animal.type === "Cat" && animal.age === "Baby") age = "Kitten";
-    if (animal.type === "Dog" && animal.age === "Baby") age = "Puppy"
-    return age
-  }
+    if (animal.type === "Dog" && animal.age === "Baby") age = "Puppy";
+    return age;
+  };
 
   const redirectAnimalDetailPage = () => {
     history.push(`/animals/${animal.id}`);
@@ -46,6 +47,9 @@ function AnimalCard({ animal }) {
   return (
     <>
       <div className="animal-card__outer">
+        <div className="animal-card__btn">
+          {animal.ownerId !== user.id && <FavoriteButton animal={animal} />}
+        </div>
         <div
           className="animal-card__wrapper"
           onClick={redirectAnimalDetailPage}
@@ -56,9 +60,6 @@ function AnimalCard({ animal }) {
               src={animal.previewImage}
               alt={animal.name}
             />
-            <button className="animal-card__fave">
-              <i className="far fa-heart fa-lg"></i>
-            </button>
           </div>
           <div className="animal-card__info">
             <h3 className="animal-card__name">{animal.name}</h3>
@@ -78,7 +79,7 @@ function AnimalCard({ animal }) {
               <i className="fa-solid fa-pen"></i>
             </button>
             <OpenModalButton
-              buttonText={<i className="fa-solid fa-trash"/>}
+              buttonText={<i className="fa-solid fa-trash" />}
               onItemClick={closeModal}
               modalComponent={<DeleteAnimalModal animal={animal} />}
               className="animal-card__delete-btn"

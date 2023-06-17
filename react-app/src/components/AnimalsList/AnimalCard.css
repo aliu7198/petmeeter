@@ -24,18 +24,11 @@
     border-radius: 10px;
 }
 
-.animal-card__fave {
+.animal-card__btn {
     position: absolute;
+    z-index: 1;
     right: 10px;
     top: 10px;
-    border: none;
-    border-radius: 50%;
-    padding: 0.5rem;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .animal-card__info {
