@@ -55,9 +55,9 @@ function App() {
           <Route exact path="/user/searches">
             <SavedSearchesPage />
           </Route>
-          {/* <Route exact path="/loading">
+          <Route exact path="/loading">
             <Loading />
-          </Route> */}
+          </Route>
         </Switch>
       )}
       <Footer isLoaded={isLoaded} />

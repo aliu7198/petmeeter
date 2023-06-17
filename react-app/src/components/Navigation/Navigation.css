@@ -11,8 +11,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0 0 0 2rem;
   border-bottom: 1px solid var(--purple);
+  height: 80px;
+}
+
+.nav__auth-links {
+  display: flex;
+  width: 250px;
+  height: 100%;
+  padding: 0 5rem 0 1rem;
+}
+
+.nav__auth-links > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: var(--dark-grey);
+  height: 100%;
+  width: 50%;
+}
+
+.nav__heart {
+  color: var(--dark-grey);
+}
+
+.nav__favorites {
+  border-right: 2px solid var(--medium-grey);
+  width: 70px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark-grey)
 }
 
 .nav__logo {
@@ -21,8 +53,7 @@
 
 .nav__right-side {
   display: flex;
-}
-
-.profile-dropdown {
-  list-style: none;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
