@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./FavoriteButton.css";
-import { createFavoriteThunk } from "../../store/favorites";
+import {
+  createFavoriteThunk,
+  deleteFavoriteThunk,
+} from "../../store/favorites";
 
 const FavoriteButton = ({ animal }) => {
   const dispatch = useDispatch();
@@ -15,6 +18,8 @@ const FavoriteButton = ({ animal }) => {
       setFavorited(true);
     }
     if (favorited) {
+      await dispatch(deleteFavoriteThunk(animal.id));
+      setFavorited(false);
     }
   };
 

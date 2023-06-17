@@ -55,7 +55,6 @@ def create_favorite(id):
 
     user.favorites.append(animal)
     db.session.commit()
-    # return {'message': 'Successfully added animal to favorites!'}
     return animal.to_dict()
 
 # REMOVE ANIMAL FROM FAVORITES
