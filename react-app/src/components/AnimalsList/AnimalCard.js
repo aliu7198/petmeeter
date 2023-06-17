@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { useModal } from "../../context/Modal";
+
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import OpenModalButton from "../OpenModalButton";
-import DeleteAnimalModal from "../DeleteAnimalModal";
+
 import FavoriteButton from "../FavoriteButton";
 import "./AnimalCard.css";
+import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
 
 function AnimalCard({ animal }) {
   //   console.log("🚀 ~ file: AnimalCard.js:7 ~ AnimalCard ~ animal:", animal);
   const history = useHistory();
-  const { closeModal } = useModal();
   const user = useSelector((state) => state.session.user);
   // const dispatch = useDispatch();
   // // console.log("🚀 ~ file: index.js:11 ~ SavedAnimalesPage ~ savedAnimales:", savedAnimales)
@@ -47,8 +46,11 @@ function AnimalCard({ animal }) {
   return (
     <>
       <div className="animal-card__outer">
-        <div className="animal-card__btn">
+        <div className="animal-card__btn-wrapper">
           {animal.ownerId !== user.id && <FavoriteButton animal={animal} />}
+          {animal.ownerId === user.id && (
+            <EditDeleteAnimalButton animal={animal} />
+          )}
         </div>
         <div
           className="animal-card__wrapper"
@@ -68,24 +70,6 @@ function AnimalCard({ animal }) {
             </p>
           </div>
         </div>
-        {animal.ownerId === user.id && (
-          <div>
-            <button
-              onClick={() => {
-                history.push(`/animals/${animal.id}/edit`);
-              }}
-              className="animal-card__edit-btn"
-            >
-              <i className="fa-solid fa-pen"></i>
-            </button>
-            <OpenModalButton
-              buttonText={<i className="fa-solid fa-trash" />}
-              onItemClick={closeModal}
-              modalComponent={<DeleteAnimalModal animal={animal} />}
-              className="animal-card__delete-btn"
-            />
-          </div>
-        )}
       </div>
     </>
   );

@@ -32,7 +32,7 @@ const FavoriteButton = ({ animal }) => {
   //   }, []);
 
   return (
-    <button className="animal-card__fave" onClick={handleFavorite}>
+    <button className="animal-card__btn" onClick={handleFavorite}>
       {favorited ? (
         <i className="fa-solid fa-heart fa-2xl" />
       ) : (

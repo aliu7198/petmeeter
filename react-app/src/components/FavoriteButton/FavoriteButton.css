@@ -1,4 +1,4 @@
-.animal-card__fave {
+.animal-card__btn {
     background-color: hsla(0,0%,100%,.75);
     border: none;
     border-radius: 50%;
@@ -11,7 +11,8 @@
     color: var(--purple);
 }
 
-.animal-card__fave:hover {
+
+.animal-card__btn:hover {
     cursor: pointer;
     background-color: var(--white);
 }

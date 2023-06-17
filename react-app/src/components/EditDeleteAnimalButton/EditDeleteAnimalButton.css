@@ -1,0 +1,12 @@
+.animal-card__btn > button {
+    border:none;
+    color: var(--purple);
+    width: 100px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.animal-card__btn > button:hover {
+    cursor: pointer;
+}
