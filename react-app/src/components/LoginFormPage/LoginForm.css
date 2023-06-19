@@ -1,0 +1,28 @@
+.login-form__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 2px solid var(--light-grey);
+    background-color: var(--white);
+    padding: 2rem;
+    gap: 1rem;
+}
+
+.demo-user {
+    color: var(--purple)
+}
+
+.demo-user:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
