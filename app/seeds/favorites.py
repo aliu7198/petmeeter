@@ -7,7 +7,7 @@ def seed_favorites():
     animals = Animal.query.all()
 
     #user1
-    users[0].favorites.append(animals[0])
+    users[0].favorites.append(animals[1])
     users[0].favorites.append(animals[2])
 
     #user2

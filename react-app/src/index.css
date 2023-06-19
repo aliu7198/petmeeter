@@ -1,12 +1,13 @@
 /* TODO Add site wide styles */
 :root {
-  --purple: #6504b5;
   --white: #ffffff;
   --light-grey: #efeef1;
   --medium-grey: #dbdadc;
   --dark-grey: #4d4751;
   --light-blue: #b0e9f8;
   --dark-blue: #004c81;
+  --purple: #6504b5;
+  --medium-purple: #410078;
   --dark-purple: #2e0152;
 }
 
@@ -14,7 +15,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 footer {

@@ -11,6 +11,7 @@ import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
 import EditAnimalForm from "./components/EditAnimalForm";
+import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
 import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
@@ -52,12 +53,15 @@ function App() {
           <Route exact path="/animals/:animalId/edit">
             <EditAnimalForm />
           </Route>
+          <Route exact path="/user/favorites">
+            <FavoriteAnimalsList />
+          </Route>
           <Route exact path="/user/searches">
             <SavedSearchesPage />
           </Route>
-          {/* <Route exact path="/loading">
+          <Route exact path="/loading">
             <Loading />
-          </Route> */}
+          </Route>
         </Switch>
       )}
       <Footer isLoaded={isLoaded} />

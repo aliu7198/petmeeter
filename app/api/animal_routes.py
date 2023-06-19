@@ -12,7 +12,7 @@ animal_routes = Blueprint('animals', __name__)
 @animal_routes.route('/')
 def animals():
     """
-    Query for all animals and return them in a dictionary
+    Query for all animals and return them in a list of dictionaries
     """
     # print("🚀 ~ file: animal_routes.py:16 ~ current_user:", current_user)
     type = request.args.get('type')
@@ -31,6 +31,11 @@ def animals():
 
         previewImage = animal.animal_images[0].to_dict()
         animal_dict["previewImage"] = previewImage["imageUrl"]
+
+        user_favorites = animal.favorites
+        animal_dict["favoritedBy"] = []
+        for user in user_favorites:
+            animal_dict["favoritedBy"].append(user.id)
 
         animal_dict["images"] = []
         for image in images:
