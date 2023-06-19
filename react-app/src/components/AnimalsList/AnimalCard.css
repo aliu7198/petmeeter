@@ -58,7 +58,16 @@
 }
 
 .animal-card__name {
-    color: var(--purple)
+    color: var(--purple);
+    text-overflow: ellipsis;
+    overflow: clip;
+}
+
+.animal-card__sub {
+    color: var(--dark-grey);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .animal-card__outer {

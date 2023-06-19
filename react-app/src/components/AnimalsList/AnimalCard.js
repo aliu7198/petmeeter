@@ -69,9 +69,9 @@ function AnimalCard({ animal }) {
           </div>
           <div className="animal-card__info">
             <h3 className="animal-card__name">{animal.name}</h3>
-            <p>
+            <div className="animal-card__sub">
               {getAge()} ‧ {getBreed()}
-            </p>
+            </div>
           </div>
         </div>
       </div>
