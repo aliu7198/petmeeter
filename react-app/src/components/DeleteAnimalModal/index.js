@@ -20,7 +20,7 @@ const DeleteAnimalModal = ({ animal }) => {
           className="close-modal animal-form__close-modal"
           onClick={closeModal}
         >
-          <i class="fas fa-times fa-lg" />
+          <i className="fas fa-times fa-lg" />
         </button>
       </h3>
       <div className="modal__wrapper">

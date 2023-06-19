@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
-  // console.log("🚀 ~ file: ProfileButton.js:10 ~ ProfileButton ~ user:", user)
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
@@ -35,6 +35,8 @@ function ProfileButton({ user }) {
     dispatch(logout());
   };
 
+  const profileClassName = "profile-button" + (showMenu ? " profile-button__open" : " profile-button__closed");
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
@@ -48,32 +50,28 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user fa-2xl"></i>
-        {user.firstName} {user.lastName}
-      </button>
+      <div onClick={openMenu} className={profileClassName}>
+        <i className="fas fa-user fa-2xl profile-icon" />
+        <div>
+          {user.firstName} {user.lastName}
+        </div>
+      </div>
       <ul className={ulClassName} ref={ulRef}>
         {user && (
           <>
             <li>
-              <button onClick={redirectSavedSearches}>My Saved Searches</button>
+              <NavLink exact to="/user/searches">
+                My Saved Searches
+              </NavLink>
             </li>
             <li>
-              <button
-                onClick={() => {
-                  history.push("/user/animals");
-                }}
-              >
-                My Animals
-              </button>
+              <NavLink exact to="/user/animals">My Listed Animals</NavLink>
             </li>
             <li>
-              <button onClick={redirectAnimalForm}>
-                Post Animal for Adoption
-              </button>
+              <NavLink exact to="/animals/new">Post New Animal</NavLink>
             </li>
-            <li>
-              <button onClick={handleLogout}>Sign Out</button>
+            <li onClick={handleLogout} className="logout">
+              Sign Out
             </li>
           </>
         )}

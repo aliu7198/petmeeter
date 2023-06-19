@@ -73,11 +73,6 @@ const CreateAnimalForm = () => {
         formData.append("images", image);
       }
 
-      console.log(
-        "🚀 ~ file: index.js:71 ~ handleSubmit ~ formData:",
-        formData.values()
-      );
-
       const newAnimal = await dispatch(createAnimalThunk(formData));
 
       setErrors({});
