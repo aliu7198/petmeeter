@@ -8,22 +8,22 @@ class SavedSearch(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    title = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-    breed = db.Column(db.String)
-    age = db.Column(db.String)
-    size = db.Column(db.String)
-    gender = db.Column(db.String)
+    title = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(50), nullable=False)
+    breed = db.Column(db.String(50))
+    age = db.Column(db.String(10))
+    size = db.Column(db.String(15))
+    gender = db.Column(db.String(10))
     good_with_cats = db.Column(db.Boolean)
     good_with_dogs = db.Column(db.Boolean)
     good_with_children = db.Column(db.Boolean)
     good_with_other_animals = db.Column(db.Boolean)
     house_trained = db.Column(db.Boolean)
     special_needs = db.Column(db.Boolean)
-    color = db.Column(db.String)
-    days_on_site = db.Column(db.String)
-    org_name = db.Column(db.String)
-    pet_name = db.Column(db.String)
+    color = db.Column(db.String(50))
+    # days_on_site = db.Column(db.String)
+    # org_name = db.Column(db.String)
+    pet_name = db.Column(db.String(100))
     out_of_town = db.Column(db.Boolean)
 
     user = db.relationship("User", back_populates="saved_searches")
@@ -45,8 +45,8 @@ class SavedSearch(db.Model):
             'houseTrained': self.house_trained,
             'specialNeeds': self.special_needs,
             'color': self.color,
-            'daysOnSite': self.days_on_site,
-            'orgName': self.org_name,
+            # 'daysOnSite': self.days_on_site,
+            # 'orgName': self.org_name,
             'petName': self.pet_name,
             'outOfTown': self.out_of_town
         }

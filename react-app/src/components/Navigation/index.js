@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   // const history = useHistory();
   const { pathname } = useLocation();
-  console.log("🚀 ~ file: index.js:16 ~ Navigation ~ pathname:", pathname);
+  // console.log("🚀 ~ file: index.js:16 ~ Navigation ~ pathname:", pathname);
 
   const heartColor = pathname.endsWith('favorites') ? 'nav__heart-purple' : ''
   // const redirectSignup = () => {
