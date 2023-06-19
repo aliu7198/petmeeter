@@ -32,7 +32,8 @@ function ProfileButton({ user }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(logout())
+      .then(history.push('/'))
   };
 
   const profileClassName = "profile-button" + (showMenu ? " profile-button__open" : " profile-button__closed");
