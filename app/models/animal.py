@@ -26,7 +26,7 @@ class Animal(db.Model):
     good_with_children = db.Column(db.Boolean)
     good_with_other_animals = db.Column(db.Boolean)
     description = db.Column(db.String(2000))
-    adoption_fee = db.Column(db.Integer, nullable=False)
+    adoption_fee = db.Column(db.Numeric(scale=2, asdecimal=True), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
     # is_pet = db.Column(db.Boolean, nullable=False, default=False)

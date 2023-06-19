@@ -1,8 +1,8 @@
 """Create all tables
 
-Revision ID: 1ade22c448c5
+Revision ID: 731df8ab0ea0
 Revises:
-Create Date: 2023-06-19 12:24:58.292468
+Create Date: 2023-06-19 12:44:35.924709
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '1ade22c448c5'
+revision = '731df8ab0ea0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -78,7 +78,7 @@ def upgrade():
     sa.Column('good_with_children', sa.Boolean(), nullable=True),
     sa.Column('good_with_other_animals', sa.Boolean(), nullable=True),
     sa.Column('description', sa.String(length=2000), nullable=True),
-    sa.Column('adoption_fee', sa.Integer(), nullable=False),
+    sa.Column('adoption_fee', sa.Numeric(scale=2), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -133,7 +133,6 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
-
     # ### end Alembic commands ###
 
 
