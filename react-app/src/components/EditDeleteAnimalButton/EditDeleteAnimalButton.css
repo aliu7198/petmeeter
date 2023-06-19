@@ -1,12 +1,26 @@
-.animal-card__btn > button {
+.animal-card__modal-btn > button {
     border:none;
     color: var(--purple);
-    width: 100px;
+    width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: red;
+    background-color: transparent;
 }
 
-.animal-card__btn > button:hover {
+.animal-card__modal-btn > button:hover {
     cursor: pointer;
+    background-color: var(--white);
+}
+
+.animal-card__modal-btn {
+    background-color: hsla(0,0%,100%,.75);
+    border: none;
+    border-radius: 50%;
+    width: fit-content;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--purple);
+    margin-top: 5px;
 }

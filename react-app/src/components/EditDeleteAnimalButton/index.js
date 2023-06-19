@@ -26,7 +26,7 @@ const EditDeleteAnimalButton = ({ animal }) => {
       >
         <i className="fa-solid fa-pen fa-xl"></i>
       </button>
-      <div className="animal-card__btn">
+      <div className="animal-card__modal-btn">
         <OpenModalButton
           buttonText={<i className="fa-solid fa-trash fa-xl" />}
           onItemClick={closeModal}

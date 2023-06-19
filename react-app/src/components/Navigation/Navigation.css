@@ -35,6 +35,10 @@
 }
 
 .nav__heart {
+  color: var(--dark-grey);
+}
+
+.nav__heart-purple {
   color: var(--purple);
 }
 
