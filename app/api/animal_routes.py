@@ -183,12 +183,10 @@ def create_search():
 
             image_dict = new_image.to_dict()
             animal['animalImages'].append(image_dict)
-            # print("🚀 ~ file: animal_routes.py:167 ~ animal:", animal)
 
         return animal
 
     if form.errors:
-        # print("🚀 ~ file: animal_routes.py:168 ~ form.errors:", form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 # UPDATE ANIMAL - NEEDS TESTING

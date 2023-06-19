@@ -28,6 +28,27 @@
     background-color: var(--light-grey);
 }
 
+/* .form-field {
+    border: 1px solid red;
+    height: 4rem;
+    width: 100%;
+    position: relative;
+}
+
+.form-input {
+    height: 100%;
+    width: 100%;
+    padding: 2rem 1rem 0 1rem;
+    font-size: medium;
+}
+
+.form-label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: var(--dark-grey);
+} */
+
 .animal-form__form select,
 .animal-form__form textarea,
 .animal-form__form input,
@@ -40,6 +61,7 @@
     height: 10rem;
     padding: 0.5rem;
     border-radius: 5px;
+    font-size: medium;
 }
 
 .animal-form__form select,

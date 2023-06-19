@@ -35,23 +35,44 @@ const EditAnimalForm = () => {
   );
   const [description, setDescription] = useState(animal?.description);
   const [adoptionFee, setAdoptionFee] = useState(animal?.adoptionFee);
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     const formErrors = {};
-    type || (formErrors.type = "Type is required");
-    name || (formErrors.name = "Name is required");
-    age || (formErrors.age = "Age is required");
-    gender || (formErrors.gender = "Gender is required");
-    size || (formErrors.size = "Size is required");
-    primaryBreed || (formErrors.primaryBreed = "Primary breed is required");
-    adoptionFee >= 1 || (formErrors.adoptionFee = "Adoption fee is required");
+    type || (formErrors.type = "Type is required.");
+    name || (formErrors.name = "Name is required.");
+    name?.length <= 100 ||
+      (formErrors.name = "Maximum 100 characters in name.");
+    age || (formErrors.age = "Age is required.");
+    gender || (formErrors.gender = "Gender is required.");
+    size || (formErrors.size = "Size is required.");
+    primaryBreed || (formErrors.primaryBreed = "Primary breed is required.");
+    primaryBreed?.length <= 50 ||
+      (formErrors.primaryBreed = "Maximum 50 characters in Primary Breed.");
+    secondaryBreed?.length <= 50 ||
+      (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
+    description?.length <= 2000 ||
+      (formErrors.description = "Maximum 2000 characters in description.");
+    adoptionFee >= 1 ||
+      (formErrors.adoptionFee =
+        "Adoption fee is required and cannot be negative.");
     // images.length >= 1 ||
-    //   (formErrors.images = "At least one image is required");
+    //   (formErrors.images = "At least one image is required.");
     setErrors(formErrors);
-  }, [type, name, age, gender, size, primaryBreed, adoptionFee]);
+  }, [
+    type,
+    name,
+    age,
+    gender,
+    size,
+    primaryBreed,
+    secondaryBreed,
+    description,
+    adoptionFee,
+    // images,
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -108,7 +129,7 @@ const EditAnimalForm = () => {
   return (
     <div className="body-white animal-form__outer">
       <div className="animal-form__wrapper">
-        <h1 className="animal-form__title">Update Animal Listing</h1>
+        <h1 className="animal-form__title">List an Animal for Adoption</h1>
         <p className="animal-form__sub">Fields marked with * are required.</p>
         <form className="animal-form__form">
           <label>
@@ -192,6 +213,7 @@ const EditAnimalForm = () => {
               value={secondaryBreed}
               onChange={(e) => setSecondaryBreed(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.secondaryBreed}</p>
           </label>
           <label>
             Color
@@ -200,6 +222,7 @@ const EditAnimalForm = () => {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.color}</p>
           </label>
           <div>
             <label>
@@ -215,7 +238,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={vaccinated}
-                checked={vaccinated}
                 onChange={(e) => setVaccinated(!vaccinated)}
               />
             </label>
@@ -226,7 +248,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={fixed}
-                checked={fixed}
                 onChange={(e) => setFixed(!fixed)}
               />
             </label>
@@ -235,7 +256,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={specialNeeds}
-                checked={specialNeeds}
                 onChange={(e) => setSpecialNeeds(!specialNeeds)}
               />
             </label>
@@ -247,7 +267,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={goodWithCats}
-                checked={goodWithCats}
                 onChange={(e) => setGoodWithCats(!goodWithCats)}
               />
             </label>
@@ -256,7 +275,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={goodWithDogs}
-                checked={goodWithDogs}
                 onChange={(e) => setGoodWithDogs(!goodWithDogs)}
               />
             </label>
@@ -265,7 +283,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={goodWithChildren}
-                checked={goodWithChildren}
                 onChange={(e) => setGoodWithChildren(!goodWithChildren)}
               />
             </label>
@@ -274,7 +291,6 @@ const EditAnimalForm = () => {
               <input
                 type="checkbox"
                 value={goodWithOtherAnimals}
-                checked={goodWithOtherAnimals}
                 onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
               />
             </label>
@@ -285,29 +301,33 @@ const EditAnimalForm = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.description}</p>
           </label>
           <label>
             Adoption Fee*
             <input
-              type="text"
+              type="number"
+              placeholder="$ 0.00"
               value={adoptionFee}
               onChange={(e) => setAdoptionFee(e.target.value)}
             />
             <p className="errors">{hasSubmitted && errors?.adoptionFee}</p>
           </label>
           {/* <div>
-          <p>Add Photos:*</p>
-          <input
-            id="image"
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageChange}
-          />
-          <p className="errors">{hasSubmitted && errors?.images}</p>
-        </div> */}
-          <button className="animal-form__submit-btn" onClick={handleSubmit}>UPDATE ANIMAL</button>
+            <p>Add Photos:*</p>
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+            />
+            <p className="errors">{hasSubmitted && errors?.images}</p>
+          </div> */}
         </form>
+        <button className="animal-form__submit-btn" onClick={handleSubmit}>
+          UPDATE ANIMAL
+        </button>
       </div>
     </div>
   );

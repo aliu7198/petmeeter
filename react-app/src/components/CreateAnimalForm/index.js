@@ -32,17 +32,35 @@ const CreateAnimalForm = () => {
 
   useEffect(() => {
     const formErrors = {};
-    type || (formErrors.type = "Type is required");
-    name.length || (formErrors.name = "Name is required");
-    age || (formErrors.age = "Age is required");
-    gender || (formErrors.gender = "Gender is required");
-    size || (formErrors.size = "Size is required");
-    primaryBreed || (formErrors.primaryBreed = "Primary breed is required");
-    adoptionFee >= 1 || (formErrors.adoptionFee = "Adoption fee is required");
+    type || (formErrors.type = "Type is required.");
+    name.length || (formErrors.name = "Name is required.");
+    name.length <= 100 || (formErrors.name = "Maximum 100 characters in name.");
+    age || (formErrors.age = "Age is required.");
+    gender || (formErrors.gender = "Gender is required.");
+    size || (formErrors.size = "Size is required.");
+    primaryBreed || (formErrors.primaryBreed = "Primary breed is required.");
+    primaryBreed.length <= 50 ||
+      (formErrors.primaryBreed = "Maximum 50 characters in Primary Breed.");
+    secondaryBreed.length <= 50 ||
+      (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
+    description.length <= 2000 ||
+      (formErrors.description = "Maximum 2000 characters in description.");
+    adoptionFee >= 1 || (formErrors.adoptionFee = "Adoption fee is required and cannot be negative.");
     images.length >= 1 ||
-      (formErrors.images = "At least one image is required");
+      (formErrors.images = "At least one image is required.");
     setErrors(formErrors);
-  }, [type, name, age, gender, size, primaryBreed, adoptionFee, images]);
+  }, [
+    type,
+    name,
+    age,
+    gender,
+    size,
+    primaryBreed,
+    secondaryBreed,
+    description,
+    adoptionFee,
+    images,
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +108,7 @@ const CreateAnimalForm = () => {
     if (selectedFiles.length <= 5) {
       setImages(selectedFiles);
     } else {
-      alert(`Maximum 5 images allowed on a post.`);
+      alert(`Maximum 5 images allowed for an animal.`);
       e.target.value = null;
     }
   };
@@ -182,6 +200,7 @@ const CreateAnimalForm = () => {
               value={secondaryBreed}
               onChange={(e) => setSecondaryBreed(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.secondaryBreed}</p>
           </label>
           <label>
             Color
@@ -190,6 +209,7 @@ const CreateAnimalForm = () => {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.color}</p>
           </label>
           <div>
             <label>
@@ -268,11 +288,13 @@ const CreateAnimalForm = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.description}</p>
           </label>
           <label>
             Adoption Fee*
             <input
-              type="text"
+              type="number"
+              placeholder="$ 0.00"
               value={adoptionFee}
               onChange={(e) => setAdoptionFee(e.target.value)}
             />
