@@ -129,7 +129,7 @@ const EditAnimalForm = () => {
   return (
     <div className="body-white animal-form__outer">
       <div className="animal-form__wrapper">
-        <h1 className="animal-form__title">List an Animal for Adoption</h1>
+        <h1 className="animal-form__title">Update Animal Listing</h1>
         <p className="animal-form__sub">Fields marked with * are required.</p>
         <form className="animal-form__form">
           <label>
@@ -224,76 +224,83 @@ const EditAnimalForm = () => {
             />
             <p className="errors">{hasSubmitted && errors?.color}</p>
           </label>
-          <div>
-            <label>
-              House Trained?
-              <input
-                type="checkbox"
-                value={houseTrained}
-                onChange={(e) => setHouseTrained(!houseTrained)}
-              />
-            </label>
-            <label>
-              Vaccinations up to date?
-              <input
-                type="checkbox"
-                value={vaccinated}
-                onChange={(e) => setVaccinated(!vaccinated)}
-              />
-            </label>
+          <div className="animal-form__health">
+            <h3>Health</h3>
+            <div className="animal-form__health-sub">
+              <label className="animal-form__check-label">
+                House Trained?{" "}
+                <input
+                  type="checkbox"
+                  value={houseTrained}
+                  onChange={(e) => setHouseTrained(!houseTrained)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Vaccinations up to date?{" "}
+                <input
+                  type="checkbox"
+                  value={vaccinated}
+                  onChange={(e) => setVaccinated(!vaccinated)}
+                />
+              </label>
+            </div>
+            <div className="animal-form__health-sub">
+              <label className="animal-form__check-label">
+                Spayed/Neutered?{" "}
+                <input
+                  type="checkbox"
+                  value={fixed}
+                  onChange={(e) => setFixed(!fixed)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Special Needs?{" "}
+                <input
+                  type="checkbox"
+                  value={specialNeeds}
+                  onChange={(e) => setSpecialNeeds(!specialNeeds)}
+                />
+              </label>
+            </div>
           </div>
-          <div>
-            <label>
-              Spayed/Neutered?
-              <input
-                type="checkbox"
-                value={fixed}
-                onChange={(e) => setFixed(!fixed)}
-              />
-            </label>
-            <label>
-              Special Needs?
-              <input
-                type="checkbox"
-                value={specialNeeds}
-                onChange={(e) => setSpecialNeeds(!specialNeeds)}
-              />
-            </label>
-          </div>
-          <div>
-            Good With:
-            <label>
-              Cats
-              <input
-                type="checkbox"
-                value={goodWithCats}
-                onChange={(e) => setGoodWithCats(!goodWithCats)}
-              />
-            </label>
-            <label>
-              Dogs
-              <input
-                type="checkbox"
-                value={goodWithDogs}
-                onChange={(e) => setGoodWithDogs(!goodWithDogs)}
-              />
-            </label>
-            <label>
-              Children
-              <input
-                type="checkbox"
-                value={goodWithChildren}
-                onChange={(e) => setGoodWithChildren(!goodWithChildren)}
-              />
-            </label>
-            <label>
-              Other Animals
-              <input
-                type="checkbox"
-                value={goodWithOtherAnimals}
-                onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
-              />
-            </label>
+          <div className="animal-form__good-with">
+            <h3>Good With:</h3>
+            <div className="animal-form__good-with-sub">
+              <label className="animal-form__check-label">
+                Cats{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithCats}
+                  onChange={(e) => setGoodWithCats(!goodWithCats)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Dogs{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithDogs}
+                  onChange={(e) => setGoodWithDogs(!goodWithDogs)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Children{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithChildren}
+                  onChange={(e) => setGoodWithChildren(!goodWithChildren)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Other Animals{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithOtherAnimals}
+                  onChange={(e) =>
+                    setGoodWithOtherAnimals(!goodWithOtherAnimals)
+                  }
+                />
+              </label>
+            </div>
           </div>
           <label>
             Description
