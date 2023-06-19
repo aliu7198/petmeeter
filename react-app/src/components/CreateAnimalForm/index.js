@@ -45,7 +45,9 @@ const CreateAnimalForm = () => {
       (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
     description.length <= 2000 ||
       (formErrors.description = "Maximum 2000 characters in description.");
-    adoptionFee >= 1 || (formErrors.adoptionFee = "Adoption fee is required and cannot be negative.");
+    adoptionFee >= 1 ||
+      (formErrors.adoptionFee =
+        "Adoption fee is required and cannot be negative.");
     images.length >= 1 ||
       (formErrors.images = "At least one image is required.");
     setErrors(formErrors);
@@ -104,12 +106,23 @@ const CreateAnimalForm = () => {
   };
 
   const handleImageChange = (e) => {
+    const allowedExtensions = ["png", "jpg", "jpeg"];
     const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length <= 5) {
-      setImages(selectedFiles);
-    } else {
+    for (let file of selectedFiles) {
+      const fileParts = file.name.split(".");
+      const extension = fileParts[fileParts.length - 1];
+      if (!allowedExtensions.includes(extension)) {
+        alert(
+          'Only files ending in ".png", ".jpg", and ".jpeg" are allowed.'
+        );
+        e.target.value = null;
+      }
+    }
+    if (selectedFiles.length > 5) {
       alert(`Maximum 5 images allowed for an animal.`);
       e.target.value = null;
+    } else {
+      setImages(selectedFiles);
     }
   };
 
