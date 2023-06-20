@@ -194,7 +194,7 @@ const CreateAnimalForm = () => {
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
               <option value="Large">Large</option>
-              <option value="Senior">Senior</option>
+              <option value="Extra Large">Extra Large</option>
             </select>
             <p className="errors">{hasSubmitted && errors?.size}</p>
           </label>

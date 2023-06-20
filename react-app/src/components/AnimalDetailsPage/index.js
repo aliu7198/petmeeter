@@ -23,9 +23,9 @@ function AnimalDetailsPage() {
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
   const animal = animals[animalId];
-  console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
+  // console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
 
-  const isFavorite = animal?.favoritedBy.includes(user?.id);
+  const isFavorite = animal?.favoritedBy ? animal.favoritedBy.includes(user?.id) : false;
   const [favorited, setFavorited] = useState(isFavorite);
 
   useEffect(() => {
@@ -182,7 +182,7 @@ function AnimalDetailsPage() {
           </div>
         )}
       </div>
-      <div>
+      {/* <div>
         <h3>Considering {animal?.name} for adoption?</h3>
         <button
           onClick={(e) => {
@@ -214,7 +214,7 @@ function AnimalDetailsPage() {
         </div>
         {animal?.ownerId !== user?.id && (<FavoriteButton animal={animal} />)}
         {animal?.ownerId === user?.id && (<EditDeleteAnimalButton animal={animal}/>)}
-      </div>
+      </div> */}
     </div>
   );
 }

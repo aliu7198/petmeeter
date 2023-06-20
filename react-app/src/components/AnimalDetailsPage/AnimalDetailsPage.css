@@ -27,7 +27,7 @@
 
 .animal-details__wrapper {
     color: var(--dark-grey);
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .animal-details__footer {
