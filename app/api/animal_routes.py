@@ -9,7 +9,7 @@ from .auth_routes import validation_errors_to_error_messages
 animal_routes = Blueprint('animals', __name__)
 
 # GET ALL ANIMALS
-@animal_routes.route('/')
+@animal_routes.route('')
 def animals():
     """
     Query for all animals and return them in a list of dictionaries

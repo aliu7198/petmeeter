@@ -10,12 +10,12 @@ import AnimalsList from "./components/AnimalsList";
 import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
-import EditAnimalForm from "./components/EditAnimalForm";
 import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
 import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import EditAnimalFormWrapper from "./components/EditAnimalFormWrapper";
+import LandingPage from "./components/LandingPage";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -34,6 +34,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
           <Route exact path="/login">
             <LoginFormPage />
           </Route>

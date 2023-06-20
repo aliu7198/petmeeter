@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimalsThunk } from "../../store/animals";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import "./AnimalsList.css";
 import AnimalCard from "./AnimalCard";
 import Loading from "../Loading";
@@ -14,11 +14,14 @@ function AnimalsList() {
   const animals = useSelector((state) => state.animals.allAnimals);
   const animalsArr = Object.values(animals).filter(animal => animal.ownerId !== user.id)
 
+  const queryString = window.location.search;
+  console.log("🚀 ~ file: index.js:18 ~ AnimalsList ~ queryString:", queryString)
+
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getAnimalsThunk())
+      await dispatch(getAnimalsThunk(queryString))
       setIsLoading(false)
     }
     fetchData()
