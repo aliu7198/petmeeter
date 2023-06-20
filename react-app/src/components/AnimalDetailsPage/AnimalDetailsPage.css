@@ -4,3 +4,19 @@
     object-fit: cover;
     margin: 1rem;
 }
+
+.animal-details__description {
+    word-break: break-word;
+}
+
+.animal-details__nav {
+    background-color: var(--dark-purple);
+    padding: 1rem 3rem;
+}
+
+.animal-details__nav-back {
+    color: var(--white);
+    display: flex;
+    width: fit-content;
+    gap: 1rem;
+}

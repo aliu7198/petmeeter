@@ -71,14 +71,17 @@ function AnimalDetailsPage() {
   if (isLoading) return <Loading />;
 
   return (
-    <>
-      <button
-        onClick={() => {
-          history.push("/animals");
-        }}
-      >
-        Back to search
-      </button>
+    <div className="body">
+      <div className="animal-details__nav">
+        <div className="animal-details__nav-back"
+          onClick={() => {
+            history.push("/animals");
+          }}
+        >
+          <i className="fa-solid fa-chevron-left" />
+          <div>Pet search</div>
+        </div>
+      </div>
       <div className="animal-images">
         {animal.images.length &&
           animal.images.map((image) => (
@@ -136,7 +139,7 @@ function AnimalDetailsPage() {
         {animal.description && (
           <div className="animal-details__4">
             <h2>Meet {animal.name}</h2>
-            <p>{animal.description}</p>
+            <p className="animal-details__description">{animal.description}</p>
           </div>
         )}
       </div>
@@ -154,7 +157,7 @@ function AnimalDetailsPage() {
           </p>
         </div>
       </div> */}
-    </>
+    </div>
   );
 }
 
