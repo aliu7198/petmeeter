@@ -12,10 +12,11 @@ function AnimalsList() {
   // const { searchId } = useParams();
   const user = useSelector(state => state.session.user)
   const animals = useSelector((state) => state.animals.allAnimals);
-  const animalsArr = Object.values(animals).filter(animal => animal.ownerId !== user.id)
+
+  const animalsArr = user ? Object.values(animals).filter(animal => animal.ownerId !== user.id) : Object.values(animals);
 
   const queryString = window.location.search;
-  console.log("🚀 ~ file: index.js:18 ~ AnimalsList ~ queryString:", queryString)
+  // console.log("🚀 ~ file: index.js:18 ~ AnimalsList ~ queryString:", queryString)
 
   const [isLoading, setIsLoading] = useState(true)
 

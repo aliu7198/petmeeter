@@ -47,8 +47,8 @@ function AnimalCard({ animal }) {
     <>
       <div className="animal-card__outer">
         <div className="animal-card__btn-wrapper">
-          {animal.ownerId !== user.id && <FavoriteButton animal={animal} />}
-          {animal.ownerId === user.id && (
+          {animal.ownerId !== user?.id && <FavoriteButton animal={animal} />}
+          {animal.ownerId === user?.id && (
             <EditDeleteAnimalButton animal={animal} />
           )}
         </div>
