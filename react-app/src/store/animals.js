@@ -23,8 +23,8 @@ const deleteAnimalAction = (animalId) => ({
   animalId,
 });
 
-export const getAnimalsThunk = () => async (dispatch) => {
-  const res = await fetch(`/api/animals/`);
+export const getAnimalsThunk = (searchParams="") => async (dispatch) => {
+  const res = await fetch(`/api/animals${searchParams}`);
   if (res.ok) {
     const animals = await res.json();
     // console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)

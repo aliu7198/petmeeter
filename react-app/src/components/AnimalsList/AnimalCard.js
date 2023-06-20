@@ -61,13 +61,17 @@ function AnimalCard({ animal }) {
               className="animal-card__img"
               src={animal.previewImage}
               alt={animal.name}
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://cdn.discordapp.com/attachments/1118675490870399017/1120479857046990958/icon-image-not-found-free-vector.png";
+              }}
             />
           </div>
           <div className="animal-card__info">
             <h3 className="animal-card__name">{animal.name}</h3>
-            <p>
+            <div className="animal-card__sub">
               {getAge()} ‧ {getBreed()}
-            </p>
+            </div>
           </div>
         </div>
       </div>

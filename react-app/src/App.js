@@ -10,10 +10,12 @@ import AnimalsList from "./components/AnimalsList";
 import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
-import EditAnimalForm from "./components/EditAnimalForm";
 import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
 import Loading from "./components/Loading";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import EditAnimalFormWrapper from "./components/EditAnimalFormWrapper";
+import LandingPage from "./components/LandingPage";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -32,6 +34,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
           <Route exact path="/login">
             <LoginFormPage />
           </Route>
@@ -42,21 +47,26 @@ function App() {
             <AnimalsList />
           </Route>
           <Route exact path="/user/animals">
+            <ProtectedRoute />
             <UserAnimalsList />
           </Route>
           <Route exact path="/animals/new">
+            <ProtectedRoute />
             <CreateAnimalForm />
           </Route>
           <Route exact path="/animals/:animalId">
             <AnimalDetailsPage />
           </Route>
           <Route exact path="/animals/:animalId/edit">
-            <EditAnimalForm />
+            <ProtectedRoute />
+            <EditAnimalFormWrapper />
           </Route>
           <Route exact path="/user/favorites">
+            <ProtectedRoute />
             <FavoriteAnimalsList />
           </Route>
           <Route exact path="/user/searches">
+            <ProtectedRoute />
             <SavedSearchesPage />
           </Route>
           <Route exact path="/loading">

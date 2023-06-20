@@ -1,8 +1,8 @@
-"""empty message
+"""Create all tables
 
-Revision ID: 33475b22b449
+Revision ID: 731df8ab0ea0
 Revises:
-Create Date: 2023-06-15 14:44:29.633126
+Create Date: 2023-06-19 12:44:35.924709
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '33475b22b449'
+revision = '731df8ab0ea0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,22 +35,22 @@ def upgrade():
     sa.Column('state', sa.String(length=255), nullable=True),
     sa.Column('adoption_agency', sa.Boolean(), nullable=False),
     sa.Column('org_name', sa.String(length=255), nullable=True),
-    sa.Column('desired_pet', sa.String(), nullable=True),
-    sa.Column('pet_owner', sa.String(), nullable=True),
+    sa.Column('desired_pet', sa.String(length=50), nullable=True),
+    sa.Column('pet_owner', sa.String(length=50), nullable=True),
     sa.Column('kids', sa.Boolean(), nullable=True),
-    sa.Column('owner_type', sa.String(), nullable=True),
-    sa.Column('current_pets', sa.String(), nullable=True),
-    sa.Column('age_pref', sa.String(), nullable=True),
-    sa.Column('gender_pref', sa.String(), nullable=True),
-    sa.Column('size_pref', sa.String(), nullable=True),
+    sa.Column('owner_type', sa.String(length=50), nullable=True),
+    sa.Column('current_pets', sa.String(length=50), nullable=True),
+    sa.Column('age_pref', sa.String(length=10), nullable=True),
+    sa.Column('gender_pref', sa.String(length=10), nullable=True),
+    sa.Column('size_pref', sa.String(length=15), nullable=True),
     sa.Column('special_needs', sa.Boolean(), nullable=True),
-    sa.Column('breed', sa.String(), nullable=True),
-    sa.Column('private_outdoor', sa.String(), nullable=True),
-    sa.Column('shared_outdoor', sa.String(), nullable=True),
+    sa.Column('breed', sa.String(length=100), nullable=True),
+    sa.Column('private_outdoor', sa.String(length=100), nullable=True),
+    sa.Column('shared_outdoor', sa.String(length=100), nullable=True),
     sa.Column('lease_restriction', sa.Boolean(), nullable=True),
-    sa.Column('breed_restriction', sa.String(), nullable=True),
+    sa.Column('breed_restriction', sa.String(length=2000), nullable=True),
     sa.Column('size_restriction', sa.Integer(), nullable=True),
-    sa.Column('activity_level_pref', sa.String(), nullable=True),
+    sa.Column('activity_level_pref', sa.String(length=25), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
@@ -61,14 +61,14 @@ def upgrade():
     op.create_table('animals',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.Column('type', sa.String(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
-    sa.Column('age', sa.String(), nullable=False),
-    sa.Column('gender', sa.String(), nullable=False),
-    sa.Column('size', sa.String(), nullable=False),
-    sa.Column('primary_breed', sa.String(), nullable=False),
-    sa.Column('secondary_breed', sa.String(), nullable=True),
-    sa.Column('color', sa.String(), nullable=True),
+    sa.Column('type', sa.String(length=50), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('age', sa.String(length=10), nullable=False),
+    sa.Column('gender', sa.String(length=10), nullable=False),
+    sa.Column('size', sa.String(length=15), nullable=False),
+    sa.Column('primary_breed', sa.String(length=50), nullable=False),
+    sa.Column('secondary_breed', sa.String(length=50), nullable=True),
+    sa.Column('color', sa.String(length=50), nullable=True),
     sa.Column('house_trained', sa.Boolean(), nullable=True),
     sa.Column('vaccinated', sa.Boolean(), nullable=True),
     sa.Column('fixed', sa.Boolean(), nullable=True),
@@ -78,7 +78,7 @@ def upgrade():
     sa.Column('good_with_children', sa.Boolean(), nullable=True),
     sa.Column('good_with_other_animals', sa.Boolean(), nullable=True),
     sa.Column('description', sa.String(length=2000), nullable=True),
-    sa.Column('adoption_fee', sa.Integer(), nullable=False),
+    sa.Column('adoption_fee', sa.Numeric(scale=2), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -90,22 +90,20 @@ def upgrade():
     op.create_table('saved_searches',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(), nullable=False),
-    sa.Column('type', sa.String(), nullable=False),
-    sa.Column('breed', sa.String(), nullable=True),
-    sa.Column('age', sa.String(), nullable=True),
-    sa.Column('size', sa.String(), nullable=True),
-    sa.Column('gender', sa.String(), nullable=True),
+    sa.Column('title', sa.String(length=100), nullable=False),
+    sa.Column('type', sa.String(length=50), nullable=False),
+    sa.Column('breed', sa.String(length=50), nullable=True),
+    sa.Column('age', sa.String(length=10), nullable=True),
+    sa.Column('size', sa.String(length=15), nullable=True),
+    sa.Column('gender', sa.String(length=10), nullable=True),
     sa.Column('good_with_cats', sa.Boolean(), nullable=True),
     sa.Column('good_with_dogs', sa.Boolean(), nullable=True),
     sa.Column('good_with_children', sa.Boolean(), nullable=True),
     sa.Column('good_with_other_animals', sa.Boolean(), nullable=True),
     sa.Column('house_trained', sa.Boolean(), nullable=True),
     sa.Column('special_needs', sa.Boolean(), nullable=True),
-    sa.Column('color', sa.String(), nullable=True),
-    sa.Column('days_on_site', sa.String(), nullable=True),
-    sa.Column('org_name', sa.String(), nullable=True),
-    sa.Column('pet_name', sa.String(), nullable=True),
+    sa.Column('color', sa.String(length=50), nullable=True),
+    sa.Column('pet_name', sa.String(length=100), nullable=True),
     sa.Column('out_of_town', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

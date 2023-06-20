@@ -25,24 +25,44 @@ const CreateAnimalForm = () => {
   const [goodWithChildren, setGoodWithChildren] = useState(false);
   const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(false);
   const [description, setDescription] = useState("");
-  const [adoptionFee, setAdoptionFee] = useState(0);
+  const [adoptionFee, setAdoptionFee] = useState("");
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     const formErrors = {};
-    type || (formErrors.type = "Type is required");
-    name.length || (formErrors.name = "Name is required");
-    age || (formErrors.age = "Age is required");
-    gender || (formErrors.gender = "Gender is required");
-    size || (formErrors.size = "Size is required");
-    primaryBreed || (formErrors.primaryBreed = "Primary breed is required");
-    adoptionFee >= 1 || (formErrors.adoptionFee = "Adoption fee is required");
+    type || (formErrors.type = "Type is required.");
+    name.length || (formErrors.name = "Name is required.");
+    name.length <= 100 || (formErrors.name = "Maximum 100 characters in name.");
+    age || (formErrors.age = "Age is required.");
+    gender || (formErrors.gender = "Gender is required.");
+    size || (formErrors.size = "Size is required.");
+    primaryBreed || (formErrors.primaryBreed = "Primary breed is required.");
+    primaryBreed.length <= 50 ||
+      (formErrors.primaryBreed = "Maximum 50 characters in Primary Breed.");
+    secondaryBreed.length <= 50 ||
+      (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
+    description.length <= 2000 ||
+      (formErrors.description = "Maximum 2000 characters in description.");
+    adoptionFee >= 1 ||
+      (formErrors.adoptionFee =
+        "Adoption fee is required and cannot be negative.");
     images.length >= 1 ||
-      (formErrors.images = "At least one image is required");
+      (formErrors.images = "At least one image is required.");
     setErrors(formErrors);
-  }, [type, name, age, gender, size, primaryBreed, adoptionFee, images]);
+  }, [
+    type,
+    name,
+    age,
+    gender,
+    size,
+    primaryBreed,
+    secondaryBreed,
+    description,
+    adoptionFee,
+    images,
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,12 +106,21 @@ const CreateAnimalForm = () => {
   };
 
   const handleImageChange = (e) => {
+    const allowedExtensions = ["png", "jpg", "jpeg"];
     const selectedFiles = Array.from(e.target.files);
-    if (selectedFiles.length <= 5) {
-      setImages(selectedFiles);
-    } else {
-      alert(`Maximum 5 images allowed on a post.`);
+    for (let file of selectedFiles) {
+      const fileParts = file.name.split(".");
+      const extension = fileParts[fileParts.length - 1];
+      if (!allowedExtensions.includes(extension)) {
+        alert('Only files ending in ".png", ".jpg", and ".jpeg" are allowed.');
+        e.target.value = null;
+      }
+    }
+    if (selectedFiles.length > 5) {
+      alert(`Maximum 5 images allowed for an animal.`);
       e.target.value = null;
+    } else {
+      setImages(selectedFiles);
     }
   };
 
@@ -182,6 +211,7 @@ const CreateAnimalForm = () => {
               value={secondaryBreed}
               onChange={(e) => setSecondaryBreed(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.secondaryBreed}</p>
           </label>
           <label>
             Color
@@ -190,77 +220,85 @@ const CreateAnimalForm = () => {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.color}</p>
           </label>
-          <div>
-            <label>
-              House Trained?
-              <input
-                type="checkbox"
-                value={houseTrained}
-                onChange={(e) => setHouseTrained(!houseTrained)}
-              />
-            </label>
-            <label>
-              Vaccinations up to date?
-              <input
-                type="checkbox"
-                value={vaccinated}
-                onChange={(e) => setVaccinated(!vaccinated)}
-              />
-            </label>
+          <div className="animal-form__health">
+            <h3>Health</h3>
+            <div className="animal-form__health-sub">
+              <label className="animal-form__check-label">
+                House Trained?{" "}
+                <input
+                  type="checkbox"
+                  value={houseTrained}
+                  onChange={(e) => setHouseTrained(!houseTrained)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Vaccinations up to date?{" "}
+                <input
+                  type="checkbox"
+                  value={vaccinated}
+                  onChange={(e) => setVaccinated(!vaccinated)}
+                />
+              </label>
+            </div>
+            <div className="animal-form__health-sub">
+              <label className="animal-form__check-label">
+                Spayed/Neutered?{" "}
+                <input
+                  type="checkbox"
+                  value={fixed}
+                  onChange={(e) => setFixed(!fixed)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Special Needs?{" "}
+                <input
+                  type="checkbox"
+                  value={specialNeeds}
+                  onChange={(e) => setSpecialNeeds(!specialNeeds)}
+                />
+              </label>
+            </div>
           </div>
-          <div>
-            <label>
-              Spayed/Neutered?
-              <input
-                type="checkbox"
-                value={fixed}
-                onChange={(e) => setFixed(!fixed)}
-              />
-            </label>
-            <label>
-              Special Needs?
-              <input
-                type="checkbox"
-                value={specialNeeds}
-                onChange={(e) => setSpecialNeeds(!specialNeeds)}
-              />
-            </label>
-          </div>
-          <div>
-            Good With:
-            <label>
-              Cats
-              <input
-                type="checkbox"
-                value={goodWithCats}
-                onChange={(e) => setGoodWithCats(!goodWithCats)}
-              />
-            </label>
-            <label>
-              Dogs
-              <input
-                type="checkbox"
-                value={goodWithDogs}
-                onChange={(e) => setGoodWithDogs(!goodWithDogs)}
-              />
-            </label>
-            <label>
-              Children
-              <input
-                type="checkbox"
-                value={goodWithChildren}
-                onChange={(e) => setGoodWithChildren(!goodWithChildren)}
-              />
-            </label>
-            <label>
-              Other Animals
-              <input
-                type="checkbox"
-                value={goodWithOtherAnimals}
-                onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
-              />
-            </label>
+          <div className="animal-form__good-with">
+            <h3>Good With:</h3>
+            <div className="animal-form__good-with-sub">
+              <label className="animal-form__check-label">
+                Cats{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithCats}
+                  onChange={(e) => setGoodWithCats(!goodWithCats)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Dogs{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithDogs}
+                  onChange={(e) => setGoodWithDogs(!goodWithDogs)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Children{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithChildren}
+                  onChange={(e) => setGoodWithChildren(!goodWithChildren)}
+                />
+              </label>
+              <label className="animal-form__check-label">
+                Other Animals{" "}
+                <input
+                  type="checkbox"
+                  value={goodWithOtherAnimals}
+                  onChange={(e) =>
+                    setGoodWithOtherAnimals(!goodWithOtherAnimals)
+                  }
+                />
+              </label>
+            </div>
           </div>
           <label>
             Description
@@ -268,24 +306,27 @@ const CreateAnimalForm = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+            <p className="errors">{hasSubmitted && errors?.description}</p>
           </label>
           <label>
             Adoption Fee*
             <input
-              type="text"
+              type="number"
+              placeholder="$ 0.00"
               value={adoptionFee}
               onChange={(e) => setAdoptionFee(e.target.value)}
             />
             <p className="errors">{hasSubmitted && errors?.adoptionFee}</p>
           </label>
-          <div>
-            <p>Add Photos:*</p>
+          <div className="animal-form__image-upload">
+            <p className="image-upload-label">Add Photos:*</p>
             <input
               id="image"
               type="file"
               accept="image/*"
               multiple
               onChange={handleImageChange}
+              className="image-upload"
             />
             <p className="errors">{hasSubmitted && errors?.images}</p>
           </div>

@@ -28,6 +28,52 @@
     background-color: var(--light-grey);
 }
 
+.animal-form__health {
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.animal-form__health-sub {
+    display: flex;
+    justify-content: space-between;
+}
+
+.animal-form__good-with {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.animal-form__good-with-sub {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .form-field {
+    border: 1px solid red;
+    height: 4rem;
+    width: 100%;
+    position: relative;
+}
+
+.form-input {
+    height: 100%;
+    width: 100%;
+    padding: 2rem 1rem 0 1rem;
+    font-size: medium;
+}
+
+.form-label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: var(--dark-grey);
+} */
+
 .animal-form__form select,
 .animal-form__form textarea,
 .animal-form__form input,
@@ -40,6 +86,7 @@
     height: 10rem;
     padding: 0.5rem;
     border-radius: 5px;
+    font-size: medium;
 }
 
 .animal-form__form select,
@@ -75,4 +122,41 @@
     color: var(--white);
     font-weight: bold;
     font-size: medium;
+}
+
+input[type=checkbox] {
+    accent-color: var(--purple);
+    width: 25px;
+    height: 25px;
+}
+
+.animal-form__check-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.animal-form__image-upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    width: 100%;
+}
+
+input::file-selector-button {
+    border-radius: 30px;
+    border: none;
+    padding: 0.5rem;
+    background-color: var(--purple);
+    color: var(--white);
+}
+
+input::file-selector-button:hover {
+    cursor: pointer;
+}
+
+.image-upload {
+    width: 100%;
 }
