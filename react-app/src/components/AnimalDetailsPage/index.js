@@ -14,7 +14,7 @@ function AnimalDetailsPage() {
   const { animalId } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
-
+  const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
   const animal = animals[animalId];
 
@@ -73,14 +73,28 @@ function AnimalDetailsPage() {
   return (
     <div className="body">
       <div className="animal-details__nav">
-        <div className="animal-details__nav-back"
-          onClick={() => {
-            history.push("/animals");
-          }}
-        >
-          <i className="fa-solid fa-chevron-left" />
-          <div>Pet search</div>
-        </div>
+        {animal.ownerId !== user.id && (
+          <div
+            className="animal-details__nav-back"
+            onClick={() => {
+              history.push("/animals");
+            }}
+          >
+            <i className="fa-solid fa-chevron-left" />
+            <div>Pet search</div>
+          </div>
+        )}
+        {animal.ownerId === user.id && (
+          <div
+            className="animal-details__nav-back"
+            onClick={() => {
+              history.push("/user/animals");
+            }}
+          >
+            <i className="fa-solid fa-chevron-left" />
+            <div>My animals</div>
+          </div>
+        )}
       </div>
       <div className="animal-images">
         {animal.images.length &&

@@ -20,3 +20,7 @@
     width: fit-content;
     gap: 1rem;
 }
+
+.animal-details__nav-back:hover {
+    cursor: pointer;
+}
