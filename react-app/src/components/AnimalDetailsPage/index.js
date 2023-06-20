@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./AnimalDetailsPage.css";
 import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { getAnimalsThunk } from "../../store/animals";
+import {
+  createFavoriteThunk,
+  deleteFavoriteThunk,
+} from "../../store/favorites";
 import Loading from "../Loading";
+import "./AnimalDetailsPage.css";
+import FavoriteButton from "../FavoriteButton";
+import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
 
 function AnimalDetailsPage() {
   const history = useHistory();
@@ -17,6 +23,10 @@ function AnimalDetailsPage() {
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
   const animal = animals[animalId];
+  console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
+
+  const isFavorite = animal?.favoritedBy.includes(user?.id);
+  const [favorited, setFavorited] = useState(isFavorite);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +35,21 @@ function AnimalDetailsPage() {
     };
     fetchData();
   }, [dispatch]);
+
+  const handleFavorite = async () => {
+    if (!user) {
+      return alert("Sign up or log in to add animals to favorites!");
+    } else {
+      if (!favorited) {
+        await dispatch(createFavoriteThunk(animal.id));
+        setFavorited(true);
+      }
+      if (favorited) {
+        await dispatch(deleteFavoriteThunk(animal.id));
+        setFavorited(false);
+      }
+    }
+  };
 
   const getBreed = () => {
     let breed = animal.primaryBreed;
@@ -157,20 +182,39 @@ function AnimalDetailsPage() {
           </div>
         )}
       </div>
-      {/* <div className="animal-card__wrapper">
-        <div className="animal-card__top">
-          <img className="animal-card__img" src={animal.previewImage} alt={animal.name}/>
-          <button className="animal-card__fave">
-            <i className="far fa-heart fa-lg"></i>
-          </button>
+      <div>
+        <h3>Considering {animal?.name} for adoption?</h3>
+        <button
+          onClick={(e) => {
+            alert("Feature coming soon!");
+          }}
+        >
+          START YOUR INQUIRY
+        </button>
+        <div>
+          {favorited ? (
+            <i className="fa-solid fa-heart fa-2xl" />
+          ) : (
+            <i className="fa-regular fa-heart fa-2xl" />
+          )}
+          {favorited ? <div>UNFAVORITE</div> : <div>FAVORITE</div>}
         </div>
-        <div className="animal-card__info">
-          <h3 className="animal-card__name">{animal.name}</h3>
+      </div>
+      <div className="animal-details__footer">
+        <img
+          src={animal?.previewImage}
+          alt={animal?.name}
+          className="animal-details__footer-img"
+        />
+        <div>
+          <p>{animal?.name}</p>
           <p>
-            {animal.age} ‧ {breed}
+            {getBreed()} ‧ {getAge()} ‧ {animal?.gender}
           </p>
         </div>
-      </div> */}
+        {animal?.ownerId !== user?.id && (<FavoriteButton animal={animal} />)}
+        {animal?.ownerId === user?.id && (<EditDeleteAnimalButton animal={animal}/>)}
+      </div>
     </div>
   );
 }
