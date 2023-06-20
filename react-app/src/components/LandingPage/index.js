@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import landingPageImage from "../../assets/landing-page-img.jpg";
+import dogLogo from "../../assets/dog-logo.png";
+import catLogo from "../../assets/cat-logo.png";
+import pawLogo from "../../assets/paw-logo.png";
 import "./LandingPage.css";
-import animalsReducer, { getAnimalsThunk } from "../../store/animals";
-import AnimalsList from "../AnimalsList";
 
 const LandingPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const getDogs = async () => {
-    history.push('/animals?type=Dog');
+    history.push("/animals?type=Dog");
   };
 
   const getCats = async () => {
-    history.push('/animals?type=Cat');
+    history.push("/animals?type=Cat");
   };
 
   const getAllAnimals = async () => {
-    history.push('/animals');
+    history.push("/animals");
   };
 
   return (
@@ -36,14 +37,24 @@ const LandingPage = () => {
             Unsplash
           </a>
         </div>
-        <input
-          className="landing-page__search-bar"
-          onClick={(e) => {
-            alert("Feature coming soon!");
-          }}
-          placeholder="Search"
-          type="search"
-        />
+        <div className="landing-page__search-bar">
+          <input
+            className="landing-page__search-input"
+            onClick={(e) => {
+              alert("Feature coming soon!");
+            }}
+            placeholder="Search"
+            type="search"
+          />
+          <button
+            onClick={(e) => {
+              alert("Feature coming soon!");
+            }}
+            className="landing-page__search-btn"
+          >
+            <i className="fa-solid fa-magnifying-glass fa-lg" />
+          </button>
+        </div>
         <div className="landing-page__header-text">
           <h1 className="landing-page__title">
             Finding a fur-ever home for all our animal friends
@@ -52,10 +63,20 @@ const LandingPage = () => {
         </div>
         <div className="landing-page__animal-types">
           <div className="landing-page__animal-type-card" onClick={getDogs}>
-            Dogs
+            <img src={dogLogo} alt="dog logo" className="landing-page__animal-logo"/>
+            <div>Dogs</div>
           </div>
-          <div className="landing-page__animal-type-card" onClick={getCats}>Cats</div>
-          <div className="landing-page__animal-type-card" onClick={getAllAnimals}>All Animals</div>
+          <div className="landing-page__animal-type-card" onClick={getCats}>
+            <img src={catLogo} alt="cat logo" className="landing-page__animal-logo"/>
+            <div>Cats</div>
+          </div>
+          <div
+            className="landing-page__animal-type-card"
+            onClick={getAllAnimals}
+          >
+            <img src={pawLogo} alt="paw logo" className="landing-page__animal-logo" />
+            <div>All Animals</div>
+          </div>
         </div>
       </div>
     </div>
