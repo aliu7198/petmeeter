@@ -6,7 +6,7 @@ import {
   deleteFavoriteThunk,
 } from "../../store/favorites";
 
-const FavoriteButton = ({ animal }) => {
+const FavoriteButton = ({ animal, location }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const isFavorite = animal.favoritedBy.includes(user?.id);
@@ -35,8 +35,19 @@ const FavoriteButton = ({ animal }) => {
   //     };
   //   }, []);
 
+  const buttonClass = () => {
+    let className = "animal-card__btn";
+    if (location === "animal-details") {
+      className += " purple-fave"
+    } else {
+      className += " white-fave"
+    }
+    return className;
+  }
+
+
   return (
-    <button className="animal-card__btn" onClick={handleFavorite}>
+    <button className={buttonClass()} onClick={handleFavorite}>
       {favorited ? (
         <i className="fa-solid fa-heart fa-2xl" />
       ) : (

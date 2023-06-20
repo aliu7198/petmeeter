@@ -182,7 +182,7 @@ function AnimalDetailsPage() {
           </div>
         )}
       </div>
-      {/* <div>
+      <div>
         <h3>Considering {animal?.name} for adoption?</h3>
         <button
           onClick={(e) => {
@@ -212,9 +212,9 @@ function AnimalDetailsPage() {
             {getBreed()} ‧ {getAge()} ‧ {animal?.gender}
           </p>
         </div>
-        {animal?.ownerId !== user?.id && (<FavoriteButton animal={animal} />)}
-        {animal?.ownerId === user?.id && (<EditDeleteAnimalButton animal={animal}/>)}
-      </div> */}
+        {animal?.ownerId !== user?.id && (<FavoriteButton animal={animal} location="animal-details"/>)}
+        {animal?.ownerId === user?.id && (<EditDeleteAnimalButton animal={animal} location="animal-details"/>)}
+      </div>
     </div>
   );
 }
