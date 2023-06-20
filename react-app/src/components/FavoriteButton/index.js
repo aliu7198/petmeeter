@@ -9,17 +9,25 @@ import {
 const FavoriteButton = ({ animal }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const isFavorite = animal.favoritedBy.includes(user.id);
+  const isFavorite = animal.favoritedBy.includes(user?.id);
+  console.log(
+    "🚀 ~ file: index.js:13 ~ FavoriteButton ~ isFavorite:",
+    isFavorite
+  );
   const [favorited, setFavorited] = useState(isFavorite);
 
   const handleFavorite = async () => {
-    if (!favorited) {
-      await dispatch(createFavoriteThunk(animal.id));
-      setFavorited(true);
-    }
-    if (favorited) {
-      await dispatch(deleteFavoriteThunk(animal.id));
-      setFavorited(false);
+    if (!user) {
+      return alert("Sign up or log in to add animals to favorites!");
+    } else {
+      if (!favorited) {
+        await dispatch(createFavoriteThunk(animal.id));
+        setFavorited(true);
+      }
+      if (favorited) {
+        await dispatch(deleteFavoriteThunk(animal.id));
+        setFavorited(false);
+      }
     }
   };
 

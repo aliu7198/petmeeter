@@ -73,7 +73,7 @@ function AnimalDetailsPage() {
   return (
     <div className="body">
       <div className="animal-details__nav">
-        {animal.ownerId !== user.id && (
+        {animal.ownerId !== user?.id && (
           <div
             className="animal-details__nav-back"
             onClick={() => {
@@ -84,7 +84,7 @@ function AnimalDetailsPage() {
             <div>Pet search</div>
           </div>
         )}
-        {animal.ownerId === user.id && (
+        {animal.ownerId === user?.id && (
           <div
             className="animal-details__nav-back"
             onClick={() => {
