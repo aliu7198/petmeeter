@@ -15,6 +15,7 @@ import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
 import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import EditAnimalFormWrapper from "./components/EditAnimalFormWrapper";
 // import SearchFiltersBar from "./components/SearchFiltersBar";
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
           </Route>
           <Route exact path="/animals/:animalId/edit">
             <ProtectedRoute />
-            <EditAnimalForm />
+            <EditAnimalFormWrapper />
           </Route>
           <Route exact path="/user/favorites">
             <ProtectedRoute />

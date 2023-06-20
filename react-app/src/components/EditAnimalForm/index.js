@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { editAnimalThunk } from "../../store/animals";
+import { editAnimalThunk, getAnimalsThunk } from "../../store/animals";
 import Loading from "../Loading";
 import "../CreateAnimalForm/CreateAnimalForm.css";
 
-const EditAnimalForm = () => {
+const EditAnimalForm = ({animal}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { animalId } = useParams();
-  const user = useSelector((state) => state.session.user);
-  const animals = useSelector((state) => state.animals.allAnimals);
-  const animal = animals[animalId];
+  // const user = useSelector((state) => state.session.user);
 
   const [type, setType] = useState(animal?.type);
   const [name, setName] = useState(animal?.name);
@@ -232,6 +230,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={houseTrained}
+                  checked={houseTrained}
                   onChange={(e) => setHouseTrained(!houseTrained)}
                 />
               </label>
@@ -240,6 +239,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={vaccinated}
+                  checked={vaccinated}
                   onChange={(e) => setVaccinated(!vaccinated)}
                 />
               </label>
@@ -250,6 +250,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={fixed}
+                  checked={fixed}
                   onChange={(e) => setFixed(!fixed)}
                 />
               </label>
@@ -258,6 +259,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={specialNeeds}
+                  checked={specialNeeds}
                   onChange={(e) => setSpecialNeeds(!specialNeeds)}
                 />
               </label>
@@ -271,6 +273,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={goodWithCats}
+                  checked={goodWithCats}
                   onChange={(e) => setGoodWithCats(!goodWithCats)}
                 />
               </label>
@@ -279,6 +282,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={goodWithDogs}
+                  checked={goodWithDogs}
                   onChange={(e) => setGoodWithDogs(!goodWithDogs)}
                 />
               </label>
@@ -287,6 +291,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={goodWithChildren}
+                  checked={goodWithChildren}
                   onChange={(e) => setGoodWithChildren(!goodWithChildren)}
                 />
               </label>
@@ -295,6 +300,7 @@ const EditAnimalForm = () => {
                 <input
                   type="checkbox"
                   value={goodWithOtherAnimals}
+                  checked={goodWithOtherAnimals}
                   onChange={(e) =>
                     setGoodWithOtherAnimals(!goodWithOtherAnimals)
                   }
