@@ -1,6 +1,7 @@
 .landing-page__splash {
     background-image: url("../../assets/landing-page-img.jpg");
     background-size: cover;
+    background-position: center;
     height: 400px;
     border-bottom: 10px solid var(--purple);
     color: var(--white);
