@@ -1,0 +1,98 @@
+.landing-page__splash {
+    background-image: url("../../assets/landing-page-img.jpg");
+    background-size: cover;
+    height: 400px;
+    border-bottom: 10px solid var(--purple);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.landing-page__splash-image {
+    width: 100%;
+}
+
+.landing-page__photo-cred {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.landing-page__photo-cred > a {
+    color: var(--white);
+}
+
+.landing-page__search-bar {
+    position: relative;
+    width: 50%;
+    margin-bottom: 4rem;
+}
+
+.landing-page__search-input {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.landing-page__search-input:hover,
+.landing-page__search-input:focus {
+    outline: var(--purple) 2px solid;
+}
+
+.landing-page__search-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-color: var(--purple);
+    color: var(--white);
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.landing-page__search-btn:hover {
+    cursor: pointer;
+}
+
+.landing-page__slogan,
+.landing-page__title {
+    text-shadow: black 0px 0px 5px;
+    text-align: center;
+}
+
+.landing-page__animal-types {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    bottom: -100px;
+    /* border: 1px solid red; */
+}
+
+.landing-page__animal-type-card {
+    padding: 1rem;
+    background-color: white;
+    color: var(--dark-grey);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-page__animal-type-card:hover {
+    outline: 3px solid var(--purple);
+    cursor: pointer;
+    background-color: var(--light-grey);
+}
+
+.landing-page__animal-logo {
+    width: 6rem;
+    height: 5rem;
+    margin-bottom: 5px;
+    object-fit: cover;
+}

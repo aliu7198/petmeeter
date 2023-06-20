@@ -13,9 +13,9 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   // const history = useHistory();
   const { pathname } = useLocation();
-  console.log("🚀 ~ file: index.js:16 ~ Navigation ~ pathname:", pathname);
+  // console.log("🚀 ~ file: index.js:16 ~ Navigation ~ pathname:", pathname);
 
-  const heartColor = pathname.endsWith('favorites') ? 'nav__heart-purple' : ''
+  const heartColor = pathname.endsWith("favorites") ? "nav__heart-purple" : "";
   // const redirectSignup = () => {
   //   history.push("/signup");
   // };
@@ -28,7 +28,15 @@ function Navigation({ isLoaded }) {
     <ul className="nav">
       <li>
         <NavLink exact to="/">
-          <img className="nav__logo" src={logo} alt="logo" />
+          <img
+            className="nav__logo"
+            src={logo}
+            alt="logo"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://cdn.discordapp.com/attachments/1118675490870399017/1120479857046990958/icon-image-not-found-free-vector.png";
+            }}
+          />
         </NavLink>
       </li>
 

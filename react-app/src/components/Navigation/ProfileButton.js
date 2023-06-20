@@ -32,21 +32,14 @@ function ProfileButton({ user }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(logout())
+      .then(history.push('/'))
   };
 
   const profileClassName = "profile-button" + (showMenu ? " profile-button__open" : " profile-button__closed");
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
-
-  const redirectSavedSearches = () => {
-    history.push("/user/searches");
-  };
-
-  const redirectAnimalForm = () => {
-    history.push("/animals/new");
-  };
 
   return (
     <>
@@ -59,10 +52,11 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user && (
           <>
-            <li>
-              <NavLink exact to="/user/searches">
+            <li className="logout" onClick={(e) => alert("Feature Coming Soon!")}>
+              My Saved Searches
+              {/* <NavLink exact to="/user/searches">
                 My Saved Searches
-              </NavLink>
+              </NavLink> */}
             </li>
             <li>
               <NavLink exact to="/user/animals">My Listed Animals</NavLink>

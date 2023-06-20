@@ -9,7 +9,7 @@ from .auth_routes import validation_errors_to_error_messages
 animal_routes = Blueprint('animals', __name__)
 
 # GET ALL ANIMALS
-@animal_routes.route('/')
+@animal_routes.route('')
 def animals():
     """
     Query for all animals and return them in a list of dictionaries
@@ -141,6 +141,7 @@ def create_search():
     # print("🚀 ~ file: animal_routes.py:127 ~ form.data:", form.data)
 
     if form.validate_on_submit():
+
         new_animal = Animal(
             owner_id = current_user.id,
             type = form.data['type'],
@@ -148,9 +149,9 @@ def create_search():
             age = form.data['age'],
             gender = form.data['gender'],
             size = form.data['size'],
-            primary_breed = form.data['primary_breed'],
-            secondary_breed = form.data['secondary_breed'],
-            color = form.data['color'],
+            primary_breed = form.data['primary_breed'].title(),
+            secondary_breed = form.data['secondary_breed'].title(),
+            color = form.data['color'].title(),
             house_trained = form.data['house_trained'],
             vaccinated = form.data['vaccinated'],
             fixed = form.data['fixed'],
@@ -183,12 +184,10 @@ def create_search():
 
             image_dict = new_image.to_dict()
             animal['animalImages'].append(image_dict)
-            # print("🚀 ~ file: animal_routes.py:167 ~ animal:", animal)
 
         return animal
 
     if form.errors:
-        # print("🚀 ~ file: animal_routes.py:168 ~ form.errors:", form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 # UPDATE ANIMAL - NEEDS TESTING
@@ -210,9 +209,9 @@ def update_animal(id):
         animal.age = form.data['age']
         animal.gender = form.data['gender']
         animal.size = form.data['size']
-        animal.primary_breed = form.data['primary_breed']
-        animal.secondary_breed = form.data['secondary_breed']
-        animal.color = form.data['color']
+        animal.primary_breed = form.data['primary_breed'].title()
+        animal.secondary_breed = form.data['secondary_breed'].title()
+        animal.color = form.data['color'].title()
         animal.house_trained = form.data['house_trained']
         animal.vaccinated = form.data['vaccinated']
         animal.fixed = form.data['fixed']
