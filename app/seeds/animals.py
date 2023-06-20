@@ -85,7 +85,7 @@ def seed_animals():
         size = 'Large',
         primary_breed = 'American Foxhound',
         secondary_breed = 'Beagle',
-        color = 'Tricolor (Brown, Black, & White), Red / Chestnut / Orange',
+        color = 'Tricolor (Brown, Black, & White)',
         house_trained = True,
         vaccinated = True,
         fixed = True,
