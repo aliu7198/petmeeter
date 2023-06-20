@@ -5,7 +5,7 @@ import { editAnimalThunk, getAnimalsThunk } from "../../store/animals";
 import Loading from "../Loading";
 import "../CreateAnimalForm/CreateAnimalForm.css";
 
-const EditAnimalForm = ({animal}) => {
+const EditAnimalForm = ({ animal }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { animalId } = useParams();
@@ -17,8 +17,8 @@ const EditAnimalForm = ({animal}) => {
   const [gender, setGender] = useState(animal?.gender);
   const [size, setSize] = useState(animal?.size);
   const [primaryBreed, setPrimaryBreed] = useState(animal?.primaryBreed);
-  const [secondaryBreed, setSecondaryBreed] = useState(animal?.secondaryBreed);
-  const [color, setColor] = useState(animal?.color);
+  const [secondaryBreed, setSecondaryBreed] = useState(animal.secondaryBreed ? animal.secondaryBreed : "");
+  const [color, setColor] = useState(animal.color ? animal.color : "");
   const [houseTrained, setHouseTrained] = useState(animal?.houseTrained);
   const [vaccinated, setVaccinated] = useState(animal?.vaccinated);
   const [fixed, setFixed] = useState(animal?.fixed);
@@ -31,7 +31,7 @@ const EditAnimalForm = ({animal}) => {
   const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(
     animal?.goodWithOtherAnimals
   );
-  const [description, setDescription] = useState(animal?.description);
+  const [description, setDescription] = useState(animal.description ? animal.description : "");
   const [adoptionFee, setAdoptionFee] = useState(animal?.adoptionFee);
   // const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
@@ -48,9 +48,11 @@ const EditAnimalForm = ({animal}) => {
     size || (formErrors.size = "Size is required.");
     primaryBreed || (formErrors.primaryBreed = "Primary breed is required.");
     primaryBreed?.length <= 50 ||
-      (formErrors.primaryBreed = "Maximum 50 characters in Primary Breed.");
+    (formErrors.primaryBreed = "Maximum 50 characters in Primary Breed.");
     secondaryBreed?.length <= 50 ||
-      (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
+    (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
+    color?.length <= 50 ||
+      (formErrors.color = "Maximum 50 characters in Color.");
     description?.length <= 2000 ||
       (formErrors.description = "Maximum 2000 characters in description.");
     adoptionFee >= 1 ||
@@ -67,6 +69,7 @@ const EditAnimalForm = ({animal}) => {
     size,
     primaryBreed,
     secondaryBreed,
+    color,
     description,
     adoptionFee,
     // images,

@@ -42,7 +42,7 @@ function Navigation({ isLoaded }) {
 
       <div className="nav__right-side">
         {isLoaded && (
-          <li className="nav__favorites">
+          <li className="nav__favorites" onClick={(e) => {if (!sessionUser) return alert('Log in or sign up to favorite animals!')}}>
             <NavLink exact to="/user/favorites">
               <i className={`fas fa-heart fa-2xl nav__heart ${heartColor}`}></i>
             </NavLink>

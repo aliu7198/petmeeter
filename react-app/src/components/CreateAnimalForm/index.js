@@ -39,16 +39,18 @@ const CreateAnimalForm = () => {
     gender || (formErrors.gender = "Gender is required.");
     size || (formErrors.size = "Size is required.");
     primaryBreed || (formErrors.primaryBreed = "Primary breed is required.");
-    primaryBreed.length <= 50 ||
+    primaryBreed?.length <= 50 ||
       (formErrors.primaryBreed = "Maximum 50 characters in Primary Breed.");
-    secondaryBreed.length <= 50 ||
+    secondaryBreed?.length <= 50 ||
       (formErrors.secondaryBreed = "Maximum 50 characters in Secondary Breed.");
+    color?.length <= 50 ||
+      (formErrors.color = "Maximum 50 characters in Color.");
     description.length <= 2000 ||
       (formErrors.description = "Maximum 2000 characters in description.");
     adoptionFee >= 1 ||
       (formErrors.adoptionFee =
         "Adoption fee is required and cannot be negative.");
-    images.length >= 1 ||
+    images?.length >= 1 ||
       (formErrors.images = "At least one image is required.");
     setErrors(formErrors);
   }, [
@@ -59,6 +61,7 @@ const CreateAnimalForm = () => {
     size,
     primaryBreed,
     secondaryBreed,
+    color,
     description,
     adoptionFee,
     images,
