@@ -1,15 +1,30 @@
 .animal-card__modal-btn > button {
-    border:none;
-    color: var(--purple);
+    border: none;
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: transparent;
 }
 
 .animal-card__modal-btn > button:hover {
     cursor: pointer;
+}
+
+.white-delete > button {
+    color: var(--purple);
+    background-color: transparent;
+}
+
+.white-delete > button:hover {
     background-color: var(--white);
+}
+
+.purple-delete > button {
+    color: var(--white);
+    background-color: var(--purple);
+}
+
+.purple-delete > button:hover {
+    background-color: var(--dark-purple);
 }
 
 .animal-card__modal-btn {
@@ -21,6 +36,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--purple);
-    margin-top: 5px;
+}
+
+.edit-delete-btn__wrapper-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edit-delete-btn__wrapper-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
 }

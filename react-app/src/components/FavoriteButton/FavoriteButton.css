@@ -8,11 +8,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--purple);
 }
 
 
 .animal-card__btn:hover {
     cursor: pointer;
+}
+
+.white-fave {
+    color: var(--purple);
+}
+
+.white-fave:hover {
     background-color: var(--white);
+}
+
+.purple-fave {
+    color: var(--white);
+    background-color: var(--purple);
+}
+
+.purple-fave:hover {
+    background-color: var(--dark-purple);
 }
