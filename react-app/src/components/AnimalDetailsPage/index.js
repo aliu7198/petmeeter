@@ -45,12 +45,18 @@ function AnimalDetailsPage() {
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
   const animal = animals[animalId];
-  // console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
 
-  const isFavorite = animal?.favoritedBy
-    ? animal.favoritedBy.includes(user?.id)
-    : false;
-  const [favorited, setFavorited] = useState(isFavorite);
+  // const isFavorite = animal?.favoritedBy
+  // ? animal.favoritedBy.includes(user?.id)
+  // : false;
+  // console.log("🚀 ~ file: index.js:50 ~ AnimalDetailsPage ~ isFavorite:", isFavorite)
+  const [favorited, setFavorited] = useState(
+    animal?.favoritedBy ? animal.favoritedBy.includes(user?.id) : false
+  );
+  console.log(
+    "🚀 ~ file: index.js:53 ~ AnimalDetailsPage ~ favorited:",
+    favorited
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -148,7 +154,7 @@ function AnimalDetailsPage() {
         </div>
         <Carousel
           swipeable={false}
-          draggable={true}
+          draggable={false}
           showDots={true}
           responsive={responsive}
           ssr={true} // means to render carousel on server-side.
@@ -234,7 +240,7 @@ function AnimalDetailsPage() {
               )}
               <div>
                 <h4>ADOPTION FEE</h4>
-                <p>{animal?.adoptionFee}</p>
+                <p>$ {(+animal?.adoptionFee).toFixed(2)}</p>
               </div>
             </div>
             {animal.description && (
@@ -287,7 +293,14 @@ function AnimalDetailsPage() {
           </div>
         </div>
         {animal?.ownerId !== user?.id && (
-          <FavoriteButton animal={animal} location="animal-details" />
+          // <FavoriteButton animal={animal} location="animal-details" />
+          <button className="animal-card__btn purple-fave" onClick={handleFavorite}>
+            {favorited ? (
+              <i className="fa-solid fa-heart fa-2xl" />
+            ) : (
+              <i className="fa-regular fa-heart fa-2xl" />
+            )}
+          </button>
         )}
         {animal?.ownerId === user?.id && (
           <EditDeleteAnimalButton animal={animal} location="animal-details" />

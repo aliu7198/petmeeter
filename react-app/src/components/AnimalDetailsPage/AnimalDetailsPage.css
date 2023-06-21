@@ -157,10 +157,6 @@
     width: 100vw;
 }
 
-.carousel-container:hover {
-    cursor: grab;
-}
-
 .react-multi-carousel-dot-list {
     color: var(--purple);
 }
