@@ -69,6 +69,12 @@
     border-radius: 25px;
 }
 
+.animal-details__inquiry-btn:hover {
+    cursor: pointer;
+    color: var(--white);
+    background-color: var(--dark-purple);
+}
+
 .animal-details__inquiry-fave {
     border-top: 1px solid var(--dark-purple);
     display: flex;
