@@ -17,30 +17,28 @@ const DeleteAnimalModal = ({ animal }) => {
   };
 
   return (
-    <div className="animal-form__wrapper">
-      <h3 className="animal-form__title">
-        Delete animal?{" "}
-        <button
+    <div className="delete-modal__wrapper">
+      <div className="delete-modal__top">
+        <h2 className="delete-modal__title">
+          Delete animal?
+          {/* <button
           className="close-modal animal-form__close-modal"
           onClick={closeModal}
         >
           <i className="fas fa-times fa-lg" />
+        </button> */}
+        </h2>
+        <p className="delete-modal__text">
+          Are you sure you want to remove this animal from your listings?
+        </p>
+      </div>
+      <div className="delete-modal__buttons">
+        <button onClick={closeModal} className="delete-modal__no-btn">
+          Cancel
         </button>
-      </h3>
-      <div className="modal__wrapper">
-        <div className="animal-form__body">
-          <p className="delete-modal__text">
-            Are you sure you want to delete this animal?
-          </p>
-          <div className="delete-modal__buttons">
-            <button onClick={closeModal} className="delete-modal__no-btn">
-              Cancel
-            </button>
-            <button onClick={handleDelete} className="delete-modal__yes-btn">
-              Delete
-            </button>
-          </div>
-        </div>
+        <button onClick={handleDelete} className="delete-modal__yes-btn">
+          {`Yes, ${animal.name} was adopted!`}
+        </button>
       </div>
     </div>
   );
