@@ -13,8 +13,30 @@ import Loading from "../Loading";
 import "./AnimalDetailsPage.css";
 import FavoriteButton from "../FavoriteButton";
 import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 function AnimalDetailsPage() {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1023, min: 464 },
+      items: 3,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3,
+    },
+  };
+
   const history = useHistory();
   const dispatch = useDispatch();
   const { animalId } = useParams();
@@ -26,8 +48,8 @@ function AnimalDetailsPage() {
   // console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
 
   const isFavorite = animal?.favoritedBy
-  ? animal.favoritedBy.includes(user?.id)
-  : false;
+    ? animal.favoritedBy.includes(user?.id)
+    : false;
   const [favorited, setFavorited] = useState(isFavorite);
 
   useEffect(() => {
@@ -124,7 +146,25 @@ function AnimalDetailsPage() {
             </div>
           )}
         </div>
-        <div className="animal-images">
+        <Carousel
+          swipeable={false}
+          draggable={true}
+          showDots={true}
+          responsive={responsive}
+          ssr={true} // means to render carousel on server-side.
+          infinite={true}
+          // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+          autoPlaySpeed={1000}
+          keyBoardControl={true}
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          // deviceType={this.props.deviceType}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item"
+          focusOnSelect={true}
+        >
           {animal?.images.length &&
             animal?.images.map((image) => (
               // console.log(image.imageUrl);
@@ -138,7 +178,23 @@ function AnimalDetailsPage() {
                 }}
               />
             ))}
-        </div>
+        </Carousel>
+        ;
+        {/* <div className="animal-images">
+          {animal?.images.length &&
+            animal?.images.map((image) => (
+              // console.log(image.imageUrl);
+              <img
+                key={image.id}
+                src={image.imageUrl}
+                alt={animal?.name}
+                onError={(e) => {
+                  e.currentTarget.src =
+                    "https://cdn.discordapp.com/attachments/1118675490870399017/1120479857046990958/icon-image-not-found-free-vector.png";
+                }}
+              />
+            ))}
+        </div> */}
         <div className="animal-details__wrapper">
           <div className="animal-details__info">
             <div className="animal-details__1">
@@ -154,27 +210,27 @@ function AnimalDetailsPage() {
             <div className="animal-details__3">
               <h2>About</h2>
               {animal?.houseTrained && (
-                <>
+                <div>
                   <h4>HOUSE-TRAINED</h4>
                   <p>Yes</p>
-                </>
+                </div>
               )}
               {(animal?.vaccinated ||
                 animal?.fixed ||
                 animal?.specialNeeds) && (
-                <>
+                <div>
                   <h4>HEALTH</h4>
                   <p>{createHealthString()}</p>
-                </>
+                </div>
               )}
               {(animal?.goodWithCats ||
                 animal?.goodWithDogs ||
                 animal?.goodWithChildren ||
                 animal?.goodWithOtherAnimals) && (
-                <>
+                <div>
                   <h4>GOOD IN A HOME WITH</h4>
                   <p>{createGoodWith()}</p>
-                </>
+                </div>
               )}
               <div>
                 <h4>ADOPTION FEE</h4>
@@ -202,7 +258,10 @@ function AnimalDetailsPage() {
                 START YOUR INQUIRY
               </button>
             </div>
-            <div onClick={handleFavorite} className="animal-details__inquiry-fave">
+            <div
+              onClick={handleFavorite}
+              className="animal-details__inquiry-fave"
+            >
               {favorited ? (
                 <i className="fa-solid fa-heart fa-2xl" />
               ) : (
