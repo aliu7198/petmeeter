@@ -26,8 +26,8 @@ function AnimalDetailsPage() {
   // console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
 
   const isFavorite = animal?.favoritedBy
-    ? animal.favoritedBy.includes(user?.id)
-    : false;
+  ? animal.favoritedBy.includes(user?.id)
+  : false;
   const [favorited, setFavorited] = useState(isFavorite);
 
   useEffect(() => {
@@ -140,69 +140,76 @@ function AnimalDetailsPage() {
             ))}
         </div>
         <div className="animal-details__wrapper">
-          <div className="animal-details__1">
-            <h1>{animal?.name}</h1>
-            <p>{getBreed()}</p>
-          </div>
-          <div className="animal-details__2">
-            <p>
-              {getAge()} ‧ {animal?.gender} ‧ {animal?.size}{" "}
-              {animal?.color && `‧ ${animal?.color}`}
-            </p>
-          </div>
-          <div className="animal-details__3">
-            <h2>About</h2>
-            {animal?.houseTrained && (
-              <>
-                <h4>HOUSE-TRAINED</h4>
-                <p>Yes</p>
-              </>
-            )}
-            {(animal?.vaccinated || animal?.fixed || animal?.specialNeeds) && (
-              <>
-                <h4>HEALTH</h4>
-                <p>{createHealthString()}</p>
-              </>
-            )}
-            {(animal?.goodWithCats ||
-              animal?.goodWithDogs ||
-              animal?.goodWithChildren ||
-              animal?.goodWithOtherAnimals) && (
-              <>
-                <h4>GOOD IN A HOME WITH</h4>
-                <p>{createGoodWith()}</p>
-              </>
-            )}
-            <div>
-              <h4>ADOPTION FEE</h4>
-              <p>{animal?.adoptionFee}</p>
+          <div className="animal-details__info">
+            <div className="animal-details__1">
+              <h1>{animal?.name}</h1>
+              <p>{getBreed()}</p>
             </div>
-          </div>
-          {animal.description && (
-            <div className="animal-details__4">
-              <h2>Meet {animal?.name}</h2>
-              <p className="animal-details__description">
-                {animal?.description}
+            <div className="animal-details__2">
+              <p>
+                {getAge()} ‧ {animal?.gender} ‧ {animal?.size}{" "}
+                {animal?.color && `‧ ${animal?.color}`}
               </p>
             </div>
-          )}
-        </div>
-        <div>
-          <h3>Considering {animal?.name} for adoption?</h3>
-          <button
-            onClick={(e) => {
-              alert("Feature coming soon!");
-            }}
-          >
-            START YOUR INQUIRY
-          </button>
-          <div>
-            {favorited ? (
-              <i className="fa-solid fa-heart fa-2xl" />
-            ) : (
-              <i className="fa-regular fa-heart fa-2xl" />
+            <div className="animal-details__3">
+              <h2>About</h2>
+              {animal?.houseTrained && (
+                <>
+                  <h4>HOUSE-TRAINED</h4>
+                  <p>Yes</p>
+                </>
+              )}
+              {(animal?.vaccinated ||
+                animal?.fixed ||
+                animal?.specialNeeds) && (
+                <>
+                  <h4>HEALTH</h4>
+                  <p>{createHealthString()}</p>
+                </>
+              )}
+              {(animal?.goodWithCats ||
+                animal?.goodWithDogs ||
+                animal?.goodWithChildren ||
+                animal?.goodWithOtherAnimals) && (
+                <>
+                  <h4>GOOD IN A HOME WITH</h4>
+                  <p>{createGoodWith()}</p>
+                </>
+              )}
+              <div>
+                <h4>ADOPTION FEE</h4>
+                <p>{animal?.adoptionFee}</p>
+              </div>
+            </div>
+            {animal.description && (
+              <div className="animal-details__4">
+                <h2>Meet {animal?.name}</h2>
+                <p className="animal-details__description">
+                  {animal?.description}
+                </p>
+              </div>
             )}
-            {favorited ? <div>UNFAVORITE</div> : <div>FAVORITE</div>}
+          </div>
+          <div className="animal-details__inquiry-card">
+            <div className="animal-details__inquiry-card-top">
+              <h3>Considering {animal?.name} for adoption?</h3>
+              <button
+                className="animal-details__inquiry-btn"
+                onClick={(e) => {
+                  alert("Feature coming soon!");
+                }}
+              >
+                START YOUR INQUIRY
+              </button>
+            </div>
+            <div onClick={handleFavorite} className="animal-details__inquiry-fave">
+              {favorited ? (
+                <i className="fa-solid fa-heart fa-2xl" />
+              ) : (
+                <i className="fa-regular fa-heart fa-2xl" />
+              )}
+              {favorited ? <p>UNFAVORITE</p> : <p>FAVORITE</p>}
+            </div>
           </div>
         </div>
       </div>
