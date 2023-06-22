@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAnimalsThunk } from "../../store/animals";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import AnimalCard from "../AnimalsList/AnimalCard";
-import "../AnimalsList/AnimalsList.css";
 import Loading from "../Loading";
 import { getFavoritesThunk } from "../../store/favorites";
+import "../AnimalsList/AnimalsList.css";
+import "./FavoriteAnimalsList.css";
 
 function FavoriteAnimalsList() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function FavoriteAnimalsList() {
   return (
     <>
       <div className="animals-list__outer body">
-        <h1>My Favorites ({animalsArr.length}) </h1>
+        <h1 className="favorites-page__title">My Favorites ({animalsArr.length}) </h1>
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
             <AnimalCard animal={animal} key={animal.id} />

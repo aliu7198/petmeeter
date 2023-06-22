@@ -53,9 +53,12 @@ def create_favorite(id):
     user = User.query.get(current_user.id)
     animal = Animal.query.get(id)
 
-    user.favorites.append(animal)
-    db.session.commit()
-    return animal.to_dict()
+    if user.id != animal.owner_id:
+        user.favorites.append(animal)
+        db.session.commit()
+        return animal.to_dict()
+
+
 
 # REMOVE ANIMAL FROM FAVORITES
 @favorite_routes.route('/animals/<int:id>', methods=["DELETE"])

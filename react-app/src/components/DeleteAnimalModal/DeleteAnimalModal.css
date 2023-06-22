@@ -1,23 +1,60 @@
 .delete-modal__buttons {
   display: flex;
   justify-content: center;
+  width: 100%;
   border-radius: 1px solid red;
-  gap: 0.5rem;
+}
+
+.delete-modal__no-btn,
+.delete-modal__yes-btn {
+  flex: 1;
+  border: none;
+  padding: 1rem;
 }
 
 .delete-modal__yes-btn {
-  flex: 1;
-  background-color: #1877f2;
+  background-color: var(--purple);
   color: white;
+  border-radius: 0 0 10px 0;
+}
+
+.delete-modal__yes-btn:hover {
+  background-color: var(--dark-purple);
+  cursor: pointer;
 }
 
 .delete-modal__no-btn {
-  flex: 1;
-  background-color: lightgray;
+  background-color: var(--light-grey);
+  border-radius: 0 0 0 10px;
+}
+
+.delete-modal__no-btn:hover {
+  background-color: var(--medium-grey);
+  cursor: pointer;
 }
 
 .delete-modal__text {
   text-align: center;
   font-size: large;
+  color: var(--dark-grey);
+}
+
+.delete-modal__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-modal__title {
+  color: var(--dark-grey);
   margin-bottom: 1rem;
+}
+
+.delete-modal__top {
+  padding: 2rem 2rem 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

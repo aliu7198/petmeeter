@@ -1,0 +1,23 @@
+.auth-form__input-section {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
+.signup-form__email-text-wrapper {
+    font-style: italic;
+    width: 100%;
+    /* font-size: 15px; */
+}
+
+.signup-form__email-text {
+    width: 60%;
+}
+
+#signup-form{
+    width: 50rem;
+}
+
+#signup-btn {
+    width: 20rem;
+}

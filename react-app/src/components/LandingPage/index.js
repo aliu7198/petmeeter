@@ -57,9 +57,9 @@ const LandingPage = () => {
         </div>
         <div className="landing-page__header-text">
           <h1 className="landing-page__title">
-            Finding a fur-ever home for all our animal friends
+            Meet your new best friend
           </h1>
-          <h3 className="landing-page__slogan">Slogan here</h3>
+          <h3 className="landing-page__slogan">Our mission: Finding a fur-ever home for all our animal friends.</h3>
         </div>
         <div className="landing-page__animal-types">
           <div className="landing-page__animal-type-card" onClick={getDogs}>

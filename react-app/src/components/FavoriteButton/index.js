@@ -9,8 +9,11 @@ import {
 const FavoriteButton = ({ animal, location }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const isFavorite = animal.favoritedBy.includes(user?.id);
-  const [favorited, setFavorited] = useState(isFavorite);
+  // const isFavorite = animal.favoritedBy.includes(user?.id);
+  // console.log("🚀 ~ file: index.js:13 ~ FavoriteButton ~ animal.favoritedBy:", animal.favoritedBy)
+  // console.log("🚀 ~ file: index.js:13 ~ FavoriteButton ~ isFavorite:", isFavorite)
+  const [favorited, setFavorited] = useState(animal.favoritedBy.includes(user?.id));
+  console.log("🚀 ~ file: index.js:15 ~ FavoriteButton ~ favorited:", favorited)
 
   const handleFavorite = async () => {
     if (!user) {

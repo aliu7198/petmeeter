@@ -15,6 +15,9 @@ import FavoriteButton from "../FavoriteButton";
 import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import OpenModalButton from "../OpenModalButton";
+import DeleteAnimalModal from "../DeleteAnimalModal";
+import { useModal } from "../../context/Modal";
 
 function AnimalDetailsPage() {
   const responsive = {
@@ -36,7 +39,7 @@ function AnimalDetailsPage() {
       items: 3,
     },
   };
-
+  const { closeModal } = useModal();
   const history = useHistory();
   const dispatch = useDispatch();
   const { animalId } = useParams();
@@ -45,12 +48,10 @@ function AnimalDetailsPage() {
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
   const animal = animals[animalId];
-  // console.log("🚀 ~ file: index.js:25 ~ AnimalDetailsPage ~ animal:", animal);
 
-  const isFavorite = animal?.favoritedBy
-    ? animal.favoritedBy.includes(user?.id)
-    : false;
-  const [favorited, setFavorited] = useState(isFavorite);
+  const [favorited, setFavorited] = useState(
+    animal?.favoritedBy ? animal.favoritedBy.includes(user?.id) : false
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,28 +147,27 @@ function AnimalDetailsPage() {
             </div>
           )}
         </div>
-        <Carousel
-          swipeable={false}
-          draggable={true}
-          showDots={true}
-          responsive={responsive}
-          ssr={true} // means to render carousel on server-side.
-          infinite={true}
-          // autoPlay={this.props.deviceType !== "mobile" ? true : false}
-          autoPlaySpeed={1000}
-          keyBoardControl={true}
-          customTransition="all .5"
-          transitionDuration={500}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          // deviceType={this.props.deviceType}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item"
-          focusOnSelect={true}
-        >
-          {animal?.images.length &&
-            animal?.images.map((image) => (
-              // console.log(image.imageUrl);
+        {animal?.images.length >= 3 && (
+          <Carousel
+            swipeable={false}
+            draggable={false}
+            showDots={true}
+            responsive={responsive}
+            ssr={true} // means to render carousel on server-side.
+            infinite={true}
+            // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+            // autoPlay={true}
+            // autoPlaySpeed={1000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            // deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item"
+          >
+            {animal?.images.map((image) => (
               <img
                 key={image.id}
                 src={image.imageUrl}
@@ -176,25 +176,29 @@ function AnimalDetailsPage() {
                   e.currentTarget.src =
                     "https://cdn.discordapp.com/attachments/1118675490870399017/1120479857046990958/icon-image-not-found-free-vector.png";
                 }}
+                // onClick={e => console.log('CLICK')}
               />
             ))}
-        </Carousel>
-        ;
-        {/* <div className="animal-images">
-          {animal?.images.length &&
-            animal?.images.map((image) => (
-              // console.log(image.imageUrl);
-              <img
-                key={image.id}
-                src={image.imageUrl}
-                alt={animal?.name}
-                onError={(e) => {
-                  e.currentTarget.src =
-                    "https://cdn.discordapp.com/attachments/1118675490870399017/1120479857046990958/icon-image-not-found-free-vector.png";
-                }}
-              />
-            ))}
-        </div> */}
+          </Carousel>
+        )}
+        {animal?.images.length <= 2 && (
+          <div className="animal-images-no-carousel">
+            {animal?.images.length &&
+              animal?.images.map((image) => (
+                <img
+                  className="animal-image-no-carousel"
+                  key={image.id}
+                  src={image.imageUrl}
+                  alt={animal?.name}
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://cdn.discordapp.com/attachments/1118675490870399017/1120479857046990958/icon-image-not-found-free-vector.png";
+                  }}
+                />
+              ))}
+          </div>
+        )}
+
         <div className="animal-details__wrapper">
           <div className="animal-details__info">
             <div className="animal-details__1">
@@ -234,7 +238,7 @@ function AnimalDetailsPage() {
               )}
               <div>
                 <h4>ADOPTION FEE</h4>
-                <p>{animal?.adoptionFee}</p>
+                <p>$ {(+animal?.adoptionFee).toFixed(2)}</p>
               </div>
             </div>
             {animal.description && (
@@ -248,27 +252,79 @@ function AnimalDetailsPage() {
           </div>
           <div className="animal-details__inquiry-card">
             <div className="animal-details__inquiry-card-top">
-              <h3>Considering {animal?.name} for adoption?</h3>
-              <button
-                className="animal-details__inquiry-btn"
-                onClick={(e) => {
-                  alert("Feature coming soon!");
-                }}
-              >
-                START YOUR INQUIRY
-              </button>
-            </div>
-            <div
-              onClick={handleFavorite}
-              className="animal-details__inquiry-fave"
-            >
-              {favorited ? (
-                <i className="fa-solid fa-heart fa-2xl" />
-              ) : (
-                <i className="fa-regular fa-heart fa-2xl" />
+              {animal?.ownerId === user?.id && (
+                <h3>Find the best home for {animal.name}!</h3>
               )}
-              {favorited ? <p>UNFAVORITE</p> : <p>FAVORITE</p>}
+
+              {animal?.ownerId !== user?.id && (
+                <h3>Considering {animal?.name} for adoption?</h3>
+              )}
+
+              {animal?.ownerId !== user?.id && (
+                <button
+                  className="animal-details__inquiry-btn"
+                  onClick={(e) => {
+                    alert("Feature coming soon!");
+                  }}
+                >
+                  START YOUR INQUIRY
+                </button>
+              )}
+
+              {animal?.ownerId === user?.id && (
+                <button
+                  className="animal-details__inquiry-btn"
+                  onClick={(e) => {
+                    alert("Feature coming soon!");
+                  }}
+                >
+                  CHECK INQUIRIES
+                </button>
+              )}
             </div>
+
+            {animal?.ownerId !== user?.id && (
+              <div
+                onClick={handleFavorite}
+                className="animal-details__inquiry-fave"
+              >
+                {favorited ? (
+                  <i className="fa-solid fa-heart fa-2xl" />
+                ) : (
+                  <i className="fa-regular fa-heart fa-2xl" />
+                )}
+                {favorited ? <p>UNFAVORITE</p> : <p>FAVORITE</p>}
+              </div>
+            )}
+
+            {animal?.ownerId === user?.id && (
+              <div
+                onClick={handleFavorite}
+                className="animal-details__inquiry-edit-delete"
+              >
+                <div
+                  onClick={() => {
+                    history.push(`/animals/${animal.id}/edit`);
+                  }}
+                  className="animal-details__inquiry-edit-btn"
+                >
+                  <i className="fa-solid fa-pen fa-xl" />
+                  <div>EDIT</div>
+                </div>
+                <div className="animal-details__inquiry-delete-btn">
+                  <OpenModalButton
+                    buttonText={
+                      <>
+                        <i className="fa-solid fa-trash fa-xl"></i>
+                        <div>DELETE</div>
+                      </>
+                    }
+                    onItemClick={closeModal}
+                    modalComponent={<DeleteAnimalModal animal={animal} />}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -287,7 +343,17 @@ function AnimalDetailsPage() {
           </div>
         </div>
         {animal?.ownerId !== user?.id && (
-          <FavoriteButton animal={animal} location="animal-details" />
+          // <FavoriteButton animal={animal} location="animal-details" />
+          <button
+            className="animal-card__btn purple-fave"
+            onClick={handleFavorite}
+          >
+            {favorited ? (
+              <i className="fa-solid fa-heart fa-2xl" />
+            ) : (
+              <i className="fa-regular fa-heart fa-2xl" />
+            )}
+          </button>
         )}
         {animal?.ownerId === user?.id && (
           <EditDeleteAnimalButton animal={animal} location="animal-details" />
