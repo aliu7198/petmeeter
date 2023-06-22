@@ -28,6 +28,9 @@ function UserAnimalsList() {
   return (
     <>
       <div className="animals-list__outer body">
+        <h1 className="favorites-page__title">
+          My Animal Listings ({animalsArr.length})
+        </h1>
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
             <AnimalCard animal={animal} key={animal.id} />

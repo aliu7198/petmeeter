@@ -124,6 +124,11 @@
     font-size: medium;
 }
 
+.animal-form__submit-btn:hover {
+    background-color: var(--dark-purple);
+    cursor: pointer;
+}
+
 input[type=checkbox] {
     accent-color: var(--purple);
     width: 25px;

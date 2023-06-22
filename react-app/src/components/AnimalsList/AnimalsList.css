@@ -1,22 +1,23 @@
 .animals-list__outer {
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 3rem;
 }
 
 .animals-list__wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    /* display: flex;
+    flex-wrap: wrap; */
+    gap: 2rem;
     justify-items: center;
     align-items: center;
-    width: 90%;
+    width: 100%;
     padding-top: 3rem;
-    /* border: 1px solid green; */
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1120px) {
     .animals-list__wrapper {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
