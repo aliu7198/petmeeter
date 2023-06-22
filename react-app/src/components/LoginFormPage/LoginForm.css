@@ -1,11 +1,11 @@
-.login-form__wrapper {
+.auth-form__wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login-form {
+.auth-form {
     margin: 1rem 0;
     width: 30rem;
     display: flex;

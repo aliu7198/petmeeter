@@ -34,8 +34,8 @@ function LoginFormPage() {
 
   return (
     <div className="body-auth">
-      <div className="login-form__wrapper">
-        <form onSubmit={handleSubmit} className="login-form">
+      <div className="auth-form__wrapper">
+        <form onSubmit={handleSubmit} className="auth-form">
           <h1 className="auth-form__title">Log In</h1>
           <div className="auth-form__input-wrapper">
             <label className="auth-form__input-label" htmlFor="email">
