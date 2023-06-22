@@ -33,38 +33,50 @@ function LoginFormPage() {
   };
 
   return (
-    <div className="body">
+    <div className="body-auth">
       <div className="login-form__wrapper">
         <form onSubmit={handleSubmit} className="login-form">
-          <h1>Log In</h1>
-          <label>
-            Email
+          <h1 className="auth-form__title">Log In</h1>
+          <div className="auth-form__input-wrapper">
+            <label className="auth-form__input-label" htmlFor="email">
+              Email
+            </label>
             <input
+              className="auth-form__input"
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </label>
-          <p className="errors">{errors.email}</p>
-          <label>
-            Password
+            <p className="errors">{errors.email}</p>
+          </div>
+          <div className="auth-form__input-wrapper">
+            <label className="auth-form__input-label" htmlFor="password">
+              Password
+            </label>
             <input
+              className="auth-form__input"
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </label>
-          <p className="errors">{errors.password}</p>
-          <button className="animal-form__submit-btn" type="submit">Log In</button>
+            <p className="errors">{errors.password}</p>
+          </div>
+          <button className="auth-form__submit-btn" type="submit">
+            LOG IN
+          </button>
           <div className="demo-user" onClick={demoUser1}>
             Login as Demo User 1
           </div>
           <div className="demo-user" onClick={demoUser2}>
             Login as Demo User 2
           </div>
-          <div>Need an account? <Link to='/signup'>Sign up</Link></div>
+          <div className="login-form__signup-link">
+            Need an account? <Link to="/signup">Sign up</Link>
+          </div>
         </form>
       </div>
     </div>
