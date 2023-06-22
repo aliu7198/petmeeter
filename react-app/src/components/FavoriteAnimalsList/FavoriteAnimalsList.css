@@ -1,0 +1,7 @@
+.favorites-page__title {
+    width: 100%;
+    /* margin: 2rem 4rem; */
+    color: var(--dark-grey);
+    text-align: center;
+    font-size: 40px;
+}
