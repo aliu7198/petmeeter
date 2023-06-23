@@ -8,11 +8,9 @@ import "./AnimalCard.css";
 import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
 
 function AnimalCard({ animal }) {
-  //   console.log("🚀 ~ file: AnimalCard.js:7 ~ AnimalCard ~ animal:", animal);
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   // const dispatch = useDispatch();
-  // // console.log("🚀 ~ file: index.js:11 ~ SavedAnimalesPage ~ savedAnimales:", savedAnimales)
 
   // useEffect(() => {
   //     dispatch(getAnimalsThunk());

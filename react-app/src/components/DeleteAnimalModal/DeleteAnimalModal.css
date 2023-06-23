@@ -10,6 +10,7 @@
   flex: 1;
   border: none;
   padding: 1rem;
+  font-size: medium;
 }
 
 .delete-modal__yes-btn {

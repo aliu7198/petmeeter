@@ -3,14 +3,14 @@ export const addRecentlyViewedAnimal = (animal, user) => {
     JSON.parse(localStorage.getItem("recentlyViewedAnimals")) || [];
 
   const index = recentlyViewedAnimals.findIndex((a) => {
-    return a.id === animal.id;
+    return a.id === animal?.id;
   });
 
   if (index !== -1) {
     recentlyViewedAnimals.splice(index, 1);
   }
 
-  if (animal.ownerId !== user.id) {
+  if (animal?.ownerId !== user?.id || !user) {
     recentlyViewedAnimals.unshift(animal);
   }
 

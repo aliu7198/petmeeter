@@ -37,7 +37,7 @@ const DeleteAnimalModal = ({ animal }) => {
           Cancel
         </button>
         <button onClick={handleDelete} className="delete-modal__yes-btn">
-          {`Yes, ${animal.name} was adopted!`}
+          Yes, they were adopted!
         </button>
       </div>
     </div>

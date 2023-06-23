@@ -35,12 +35,10 @@ export const getAnimalsThunk =
     const res = await fetch(`/api/animals${searchParams}`);
     if (res.ok) {
       const animals = await res.json();
-      // console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)
       await dispatch(getAnimalsAction(animals));
       return animals;
     } else {
       const errors = await res.json();
-      // console.log("🚀 ~ file: animals.js:18 ~ getAnimalsThunk ~ errors:", errors)
       return errors;
     }
   };

@@ -11,10 +11,10 @@ const Footer = () => {
       </p>
       <div className="footer__right">
         <p>Developer: Adanna Liu</p>
-        <a className="footer__nav-link" href="https://www.linkedin.com/in/adanna-liu-7505161a5/">
+        <a className="footer__nav-link" href="https://www.linkedin.com/in/adanna-liu-7505161a5/" target="_blank" rel="noopener noreferrer">
           <i class="fa-brands fa-linkedin fa-xl"></i>
         </a>
-        <a className="footer__nav-link" href="https://github.com/aliu7198">
+        <a className="footer__nav-link" href="https://github.com/aliu7198" target="_blank" rel="noopener noreferrer">
           <i class="fa-brands fa-github fa-xl"></i>
         </a>
       </div>

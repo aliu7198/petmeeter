@@ -13,10 +13,6 @@ const LandingPage = () => {
 
   const recentlyViewedAnimals =
     JSON.parse(localStorage.getItem("recentlyViewedAnimals")) || [];
-  console.log(
-    "🚀 ~ file: index.js:15 ~ LandingPage ~ recentlyViewedAnimals:",
-    recentlyViewedAnimals.length
-  );
 
   const getDogs = async () => {
     history.push("/animals?type=Dog");
@@ -104,7 +100,7 @@ const LandingPage = () => {
         </h1>
         <div className="landing-page__recently-viewed-cards">
           {recentlyViewedAnimals.map((animal) => (
-            <LandingAnimalCard animal={animal} key={animal.id} />
+            <LandingAnimalCard animal={animal} key={animal?.id} />
           ))}
         </div>
       </div>)}

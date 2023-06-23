@@ -16,7 +16,6 @@ function AnimalsList() {
   const animalsArr = user ? Object.values(animals).filter(animal => animal.ownerId !== user.id) : Object.values(animals);
 
   const queryString = window.location.search;
-  // console.log("🚀 ~ file: index.js:18 ~ AnimalsList ~ queryString:", queryString)
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -29,7 +28,6 @@ function AnimalsList() {
   }, [dispatch])
 
   // const queryParams = new URLSearchParams().toString();
-  // console.log("🚀 ~ file: index.js:21 ~ AnimalsPage ~ queryParams:", queryParams)
   if (isLoading) return <Loading />;
 
   return (
