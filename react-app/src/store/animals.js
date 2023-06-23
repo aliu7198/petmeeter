@@ -2,6 +2,7 @@ const GET_ANIMALS = "animals/getAnimals";
 const SINGLE_ANIMAL = "animals/singleAnimal";
 const CREATE_ANIMAL = "animals/createAnimal";
 const DELETE_ANIMAL = "animals/deleteAnimal";
+// const ADD_ANIMAL_LOCAL_STORAGE = "animal/localStorageAnimal";
 
 const getAnimalsAction = (animals) => ({
   type: GET_ANIMALS,
@@ -23,19 +24,24 @@ const deleteAnimalAction = (animalId) => ({
   animalId,
 });
 
-export const getAnimalsThunk = (searchParams="") => async (dispatch) => {
-  const res = await fetch(`/api/animals${searchParams}`);
-  if (res.ok) {
-    const animals = await res.json();
-    // console.log("🚀 ~ file: animals.js:14 ~ getAnimalsThunk ~ animals:", animals)
-    await dispatch(getAnimalsAction(animals));
-    return animals;
-  } else {
-    const errors = await res.json();
-    // console.log("🚀 ~ file: animals.js:18 ~ getAnimalsThunk ~ errors:", errors)
-    return errors;
-  }
-};
+// const addAnimalLocalStorageAction = (animal) => ({
+//   type: ADD_ANIMAL_LOCAL_STORAGE,
+//   animal,
+// });
+
+export const getAnimalsThunk =
+  (searchParams = "") =>
+  async (dispatch) => {
+    const res = await fetch(`/api/animals${searchParams}`);
+    if (res.ok) {
+      const animals = await res.json();
+      await dispatch(getAnimalsAction(animals));
+      return animals;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  };
 
 export const singleAnimalThunk = (animalId) => async (dispatch) => {
   const res = await fetch(`/api/animals/${animalId}`);
@@ -67,19 +73,19 @@ export const createAnimalThunk = (animal) => async (dispatch) => {
 
 export const editAnimalThunk = (animal, animalId) => async (dispatch) => {
   const res = await fetch(`/api/animals/${animalId}`, {
-    method: 'PUT',
-    body: animal
+    method: "PUT",
+    body: animal,
   });
 
   if (res.ok) {
-    const editedAnimal = await res.json()
+    const editedAnimal = await res.json();
     await dispatch(createAnimalAction(editedAnimal));
     return editedAnimal;
   } else {
     const errors = await res.json();
     return errors;
   }
-}
+};
 
 export const deleteAnimalThunk = (animalId) => async (dispatch) => {
   const res = await fetch(`/api/animals/${animalId}`, {
@@ -122,9 +128,13 @@ const animalsReducer = (state = initialState, action) => {
       return newState;
     }
     case DELETE_ANIMAL: {
-        newState = {...state, allAnimals: {...state.allAnimals}, singleAnimal: {}};
-        delete newState.allAnimals[action.animalId]
-        return newState
+      newState = {
+        ...state,
+        allAnimals: { ...state.allAnimals },
+        singleAnimal: {},
+      };
+      delete newState.allAnimals[action.animalId];
+      return newState;
     }
     default:
       return state;

@@ -18,6 +18,7 @@ import "react-multi-carousel/lib/styles.css";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAnimalModal from "../DeleteAnimalModal";
 import { useModal } from "../../context/Modal";
+import { addRecentlyViewedAnimal } from "../../utils/recentlyViewedAnimals";
 
 function AnimalDetailsPage() {
   const responsive = {
@@ -55,11 +56,15 @@ function AnimalDetailsPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getAnimalsThunk());
+      await dispatch(getAnimalsThunk())
       setIsLoading(false);
     };
-    fetchData();
+    fetchData()
   }, [dispatch]);
+
+  if (animal) {
+    addRecentlyViewedAnimal(animal, user);
+  }
 
   const handleFavorite = async () => {
     if (!user) {
@@ -202,7 +207,7 @@ function AnimalDetailsPage() {
         <div className="animal-details__wrapper">
           <div className="animal-details__info">
             <div className="animal-details__1">
-              <h1>{animal?.name}</h1>
+              <h1 className="animal-details__name">{animal?.name}</h1>
               <p>{getBreed()}</p>
             </div>
             <div className="animal-details__2">
@@ -253,11 +258,11 @@ function AnimalDetailsPage() {
           <div className="animal-details__inquiry-card">
             <div className="animal-details__inquiry-card-top">
               {animal?.ownerId === user?.id && (
-                <h3>Find the best home for {animal.name}!</h3>
+                <h3 className="animal-details__inquiry-card-title">Find the best home for {animal.name}!</h3>
               )}
 
               {animal?.ownerId !== user?.id && (
-                <h3>Considering {animal?.name} for adoption?</h3>
+                <h3 className="animal-details__inquiry-card-title">Considering {animal?.name} for adoption?</h3>
               )}
 
               {animal?.ownerId !== user?.id && (

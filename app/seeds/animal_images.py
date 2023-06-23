@@ -196,7 +196,82 @@ def seed_animal_images():
         image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1118675633048928286/donatello5.jpg'
     )
 
-    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39]
+    image40 = AnimalImage(
+        animal_id = 11,
+        image_url = 'https://cdn.discordapp.com/attachments/1106274559671418943/1107553001960378428/IMG_2981.jpg'
+    )
+
+    image41 = AnimalImage(
+        animal_id = 11,
+        image_url = 'https://cdn.discordapp.com/attachments/1106274559671418943/1107553003201888326/IMG_3710.jpg'
+    )
+
+    image42 = AnimalImage(
+        animal_id = 11,
+        image_url = 'https://cdn.discordapp.com/attachments/1106274559671418943/1107553002258169896/IMG_2938.jpg'
+    )
+
+    image43 = AnimalImage(
+        animal_id = 11,
+        image_url = 'https://cdn.discordapp.com/attachments/1106274559671418943/1107553002535002223/IMG_3347.jpg'
+    )
+
+    image44 = AnimalImage(
+        animal_id = 11,
+        image_url = 'https://cdn.discordapp.com/attachments/1106274559671418943/1107553002878930974/IMG_3674.jpg'
+    )
+
+    image45 = AnimalImage(
+        animal_id = 12,
+        image_url = 'https://media.discordapp.net/attachments/1093738810501763073/1121890700045320342/IMG_1466.jpg?width=503&height=671'
+    )
+
+    image46 = AnimalImage(
+        animal_id = 12,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890703044255834/321A8B08-9502-400E-B513-17504310648D.jpg'
+    )
+
+    image47 = AnimalImage(
+        animal_id = 12,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890701605621772/68762913685__01B9F937-376D-47C0-8FEC-3A711BF487F9.jpg'
+    )
+
+    image48 = AnimalImage(
+        animal_id = 12,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890700749963264/IMG_9968.jpg'
+    )
+
+    image49 = AnimalImage(
+        animal_id = 12,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121891226963161199/70408194541__9CF8AF78-061F-45F0-8F2F-1E18100BCF12.jpg'
+    )
+
+    image50 = AnimalImage(
+        animal_id = 13,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890703522398228/IMG_6620.jpg'
+    )
+
+    image51 = AnimalImage(
+        animal_id = 13,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890701177790474/68817205935__6A608920-F1C7-4083-A4A3-7315C2E09B03.jpg'
+    )
+
+    image52 = AnimalImage(
+        animal_id = 13,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890702012457081/IMG_8306.jpg'
+    )
+
+    image53 = AnimalImage(
+        animal_id = 13,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890702406733885/IMG_8606.jpg'
+    )
+
+    image54 = AnimalImage(
+        animal_id = 13,
+        image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890700397650030/IMG_0833.png'
+    )
+
+    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39,image40,image41,image42,image43,image44, image45,image46,image47,image48,image49,image50,image51,image52,image53,image54]
 
     [db.session.add(image) for image in images]
     db.session.commit()

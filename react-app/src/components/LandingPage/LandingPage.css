@@ -106,3 +106,22 @@
     margin-bottom: 5px;
     object-fit: cover;
 }
+
+.landing-page__recently-viewed-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.landing-page__recently-viewed-title {
+    color: var(--purple);
+    font-size: 40px;
+}
+
+.landing-page__recently-viewed-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 8rem;
+}

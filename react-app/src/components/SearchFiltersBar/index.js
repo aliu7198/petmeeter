@@ -11,10 +11,8 @@ function SearchFiltersBar() {
   const ulRef = useRef();
   const sessionUser = useSelector((state) => state.session.user);
   const [type, setType] = useState("");
-  console.log("🚀 ~ file: index.js:14 ~ SearchFiltersBar ~ type:", type);
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState("");
-  console.log("🚀 ~ file: index.js:17 ~ SearchFiltersBar ~ age:", age);
   const [size, setSize] = useState("");
   const [gender, setGender] = useState("");
   const [goodWithCats, setGoodWithCats] = useState(false);
