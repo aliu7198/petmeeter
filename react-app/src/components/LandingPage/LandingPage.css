@@ -86,7 +86,7 @@
     padding: 1rem;
     background-color: white;
     color: var(--dark-grey);
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;

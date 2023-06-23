@@ -35,6 +35,9 @@ function AnimalsList() {
   return (
     <>
       <div className="animals-list__outer body">
+        {/* <div>
+          <div>{animalsArr.length}</div>
+        </div> */}
         {/* <SearchFiltersBar /> */}
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
