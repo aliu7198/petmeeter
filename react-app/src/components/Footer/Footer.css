@@ -4,5 +4,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 3rem;
+    padding: 1.5rem 3rem;
+}
+
+.footer__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer__nav-link {
+    color: var(--white);
+}
+
+.footer__nav-link:hover {
+    color: var(--light-grey);
 }
