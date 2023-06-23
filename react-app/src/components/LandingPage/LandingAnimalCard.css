@@ -1,0 +1,13 @@
+#landing-animal-card__info {
+    height: 4.5rem;
+}
+
+#landing-animal-card__name {
+    padding: 1rem;
+    font-weight: 600;
+}
+
+#landing-animal-card__wrapper {
+    height: 18rem;
+    width: 14.5rem;
+}

@@ -104,8 +104,6 @@ const EditAnimalForm = ({ animal }) => {
       //     formData.append("images", image);
       // }
 
-      // console.log("🚀 ~ file: index.js:71 ~ handleSubmit ~ formData:", formData.values())
-
       const editedAnimal = await dispatch(editAnimalThunk(formData, animalId));
 
       setErrors({});

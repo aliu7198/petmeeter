@@ -4,6 +4,7 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
+    #1
     demo = User(
         email='demo@aa.io',
         password='password',
@@ -12,6 +13,7 @@ def seed_users():
         zip_code=10280
     )
 
+    #2
     marnie = User(
         email='marnie@aa.io',
         password='password',
@@ -20,6 +22,7 @@ def seed_users():
         zip_code=32811
     )
 
+    #3
     bobbie = User(
         email='bobbie@aa.io',
         password='password',
@@ -28,20 +31,38 @@ def seed_users():
         zip_code=94016
     )
 
+    #4
     adanna = User(
         email='adanna@aa.io',
-        password='password',
+        password='adanna',
         first_name='Adanna',
         last_name='Liu',
         zip_code=32811
     )
 
+    #5
     sam = User(
         email='sam@aa.io',
         password='password',
         first_name='Sam',
         last_name='Spam',
         zip_code=94016
+    )
+
+    #6
+    katie = User(
+        email='ktp@aa.io',
+        password='ktp',
+        first_name='Katie',
+        last_name='Piele'
+    )
+
+    #7
+    tien = User(
+        email='tien@aa.io',
+        password='tien',
+        first_name='Tien',
+        last_name='Hoang'
     )
 
     # sunshineRescue = User(
@@ -73,6 +94,8 @@ def seed_users():
     db.session.add(bobbie)
     db.session.add(adanna)
     db.session.add(sam)
+    db.session.add(katie)
+    db.session.add(tien)
     # db.session.add(sunshineRescue)
     # db.session.add(pawsNWhiskers)
     # db.session.add(creatureCompanions)

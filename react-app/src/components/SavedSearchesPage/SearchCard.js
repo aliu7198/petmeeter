@@ -9,7 +9,6 @@ function SearchCard({search}) {
     const history = useHistory()
     // const dispatch = useDispatch();
     // const savedSearches = useSelector(state => state.searches.allSearches);
-    // // console.log("🚀 ~ file: index.js:11 ~ SavedSearchesPage ~ savedSearches:", savedSearches)
 
     // useEffect(() => {
     //     dispatch(getSearchesThunk());
