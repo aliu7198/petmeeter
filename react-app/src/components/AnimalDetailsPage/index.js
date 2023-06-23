@@ -18,6 +18,7 @@ import "react-multi-carousel/lib/styles.css";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAnimalModal from "../DeleteAnimalModal";
 import { useModal } from "../../context/Modal";
+import { addRecentlyViewedAnimal } from "../../utils/recentlyViewedAnimals";
 
 function AnimalDetailsPage() {
   const responsive = {
@@ -55,8 +56,9 @@ function AnimalDetailsPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getAnimalsThunk());
-      setIsLoading(false);
+      await dispatch(getAnimalsThunk())
+      .then(addRecentlyViewedAnimal(animal, user))
+      .then(setIsLoading(false));
     };
     fetchData();
   }, [dispatch]);
