@@ -76,6 +76,7 @@ def seed_animals():
         adoption_fee = 100.00
     )
 
+
     dog1 = Animal(
         owner_id = 4,
         type = 'Dog',
@@ -182,8 +183,55 @@ def seed_animals():
         adoption_fee = 1.00,
     )
 
+    cat5 = Animal(
+        owner_id = 6,
+        type = 'Cat',
+        name = 'Millie',
+        age = 'Young',
+        gender = 'Female',
+        size = 'Medium',
+        primary_breed = 'Domestic Short Hair',
+        color = 'Tortoiseshell',
+        house_trained = True,
+        fixed = True,
+        good_with_cats = True,
+        description = "Meet Millie, the spirited tortoiseshell adventure cat with a captivating coat of black, orange, and brown. Millie's zest for exploration is unmatched as she fearlessly climbs trees, leaps with agility, and chases after fluttering butterflies. With a loving and affectionate nature, she forms unbreakable bonds with her human companions. Millie's sense of adventure extends to the great outdoors, making her an ideal candidate for leashed walks and supervised explorations. Her playful demeanor and mischievous antics will keep you entertained, while her loving presence fills every moment with joy. If you're ready for an extraordinary journey filled with love and thrilling escapades, Millie is the perfect feline companion for you.",
+        adoption_fee = 150.00
+    )
 
-    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1]
+    cat6 = Animal(
+        owner_id = 7,
+        type = 'Cat',
+        name = 'Wanda Maximoff',
+        age = 'Young',
+        gender = 'Female',
+        size = 'Medium',
+        primary_breed = 'Sphynx',
+        color = 'Pink',
+        house_trained = True,
+        fixed = True,
+        good_with_cats = True,
+        description = "Introducing Wanda Maximoff, the enchanting pink sphynx cat that is as unique as her name suggests. With her hairless coat and striking pink hue, Wanda is a mesmerizing feline companion that will capture your heart. Her captivating gaze reveals a world of mystery and intelligence, as if she possesses hidden powers. Despite her regal appearance, Wanda is a gentle and affectionate companion, always seeking warmth and snuggles. Her playful nature and boundless energy will keep you entertained, as she effortlessly leaps and bounds with grace. Wanda Maximoff is not just a cat; she is a true marvel that will bring endless joy and a touch of magic into your life.",
+        adoption_fee = 150.00
+    )
+
+    cat7 = Animal(
+        owner_id = 7,
+        type = 'Cat',
+        name = 'Yoda Hoang',
+        age = 'Adult',
+        gender = 'Male',
+        size = 'Medium',
+        primary_breed = 'Sphynx',
+        color = 'Brown',
+        house_trained = True,
+        fixed = True,
+        good_with_cats = True,
+        description = "Meet Yoda, the wise and intriguing brown sphynx cat. With his hairless coat and unique appearance, Yoda captures attention wherever he goes. His soulful eyes seem to hold ancient wisdom, as if he possesses the secrets of the universe. Despite his mysterious aura, Yoda has a gentle and affectionate nature. He loves to curl up in your lap, offering comfort and companionship. Yoda's playful spirit shines through as he gracefully explores his surroundings, his agile movements reminiscent of a mystical creature. This extraordinary feline companion is not just a cat, but a wise sage and loyal friend who will bring a touch of magic and tranquility to your life. Embrace the enchantment of Yoda's presence and embark on a unique journey of companionship and enlightenment.",
+        adoption_fee = 150.00
+    )
+
+    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7]
 
     [db.session.add(pet) for pet in pets]
     db.session.commit()

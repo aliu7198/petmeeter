@@ -11,9 +11,8 @@ const LandingPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const recentlyViewedAnimals = JSON.parse(
-    localStorage.getItem("recentlyViewedAnimals")
-  );
+  const recentlyViewedAnimals =
+    JSON.parse(localStorage.getItem("recentlyViewedAnimals")) || [];
   console.log(
     "🚀 ~ file: index.js:15 ~ LandingPage ~ recentlyViewedAnimals:",
     recentlyViewedAnimals.length
@@ -99,15 +98,16 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div className="landing-page__recently-viewed-wrapper">
-        <h1 className="landing-page__recently-viewed-title">Recently Viewed Pets</h1>
+      {recentlyViewedAnimals.length && (<div className="landing-page__recently-viewed-wrapper">
+        <h1 className="landing-page__recently-viewed-title">
+          Recently Viewed Pets
+        </h1>
         <div className="landing-page__recently-viewed-cards">
-          {recentlyViewedAnimals.length &&
-            recentlyViewedAnimals.map((animal) => (
-              <LandingAnimalCard animal={animal} key={animal.id} />
-            ))}
+          {recentlyViewedAnimals.map((animal) => (
+            <LandingAnimalCard animal={animal} key={animal.id} />
+          ))}
         </div>
-      </div>
+      </div>)}
     </div>
   );
 };
