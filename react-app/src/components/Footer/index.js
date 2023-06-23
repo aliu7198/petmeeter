@@ -17,7 +17,6 @@ const Footer = () => {
         <a className="footer__nav-link" href="https://github.com/aliu7198">
           <i class="fa-brands fa-github fa-xl"></i>
         </a>
-        {/* TODO: add linkedin and github icons */}
       </div>
     </footer>
   );
