@@ -57,10 +57,10 @@ function AnimalDetailsPage() {
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getAnimalsThunk())
-      .then(addRecentlyViewedAnimal(animal, user))
-      .then(setIsLoading(false));
+      setIsLoading(false);
     };
-    fetchData();
+    fetchData()
+    .then(addRecentlyViewedAnimal(animal, user))
   }, [dispatch]);
 
   const handleFavorite = async () => {
