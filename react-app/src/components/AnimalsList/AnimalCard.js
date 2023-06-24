@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
-
+import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
 import FavoriteButton from "../FavoriteButton";
-import "./AnimalCard.css";
 import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
+import "./AnimalCard.css";
 
 function AnimalCard({ animal }) {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //     dispatch(getAnimalsThunk());
-  // }, [dispatch])
 
   const getBreed = () => {
     let breed = animal.primaryBreed;

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { login } from "../../store/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import './SavedSearchesPage.css';
+import React from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import './SavedSearchesPage.css';
 
 function SearchCard({search}) {
     const history = useHistory()

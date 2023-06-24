@@ -10,15 +10,14 @@ import {
   deleteFavoriteThunk,
 } from "../../store/favorites";
 import Loading from "../Loading";
-import "./AnimalDetailsPage.css";
-import FavoriteButton from "../FavoriteButton";
 import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAnimalModal from "../DeleteAnimalModal";
 import { useModal } from "../../context/Modal";
 import { addRecentlyViewedAnimal } from "../../utils/recentlyViewedAnimals";
+import "react-multi-carousel/lib/styles.css";
+import "./AnimalDetailsPage.css";
 
 function AnimalDetailsPage() {
   const responsive = {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
 import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./ProfileButton.css";
 
@@ -39,7 +38,7 @@ function ProfileButton({ user }) {
   const profileClassName = "profile-button" + (showMenu ? " profile-button__open" : " profile-button__closed");
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
+  // const closeMenu = () => setShowMenu(false);
 
   return (
     <>

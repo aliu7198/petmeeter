@@ -14,7 +14,6 @@ def animals():
     """
     Query for all animals and return them in a list of dictionaries
     """
-    # print("🚀 ~ file: animal_routes.py:16 ~ current_user:", current_user)
     type = request.args.get('type')
     age = request.args.get('age')
     size = request.args.get('size')
@@ -138,7 +137,6 @@ def create_search():
     """
     form = AnimalForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # print("🚀 ~ file: animal_routes.py:127 ~ form.data:", form.data)
 
     if form.validate_on_submit():
 
@@ -201,7 +199,6 @@ def update_animal(id):
 
     form = AnimalForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("🚀 ~ file: animal_routes.py:193 ~ form:", form.data)
 
     if form.validate_on_submit():
         animal.type = form.data['type']

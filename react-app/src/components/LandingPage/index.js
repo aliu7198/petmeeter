@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import dogLogo from "../../assets/dog-logo.png";
 import catLogo from "../../assets/cat-logo.png";
 import pawLogo from "../../assets/paw-logo.png";
-import "./LandingPage.css";
 import LandingAnimalCard from "./LandingAnimalCard";
+import "./LandingPage.css";
 
 const LandingPage = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const recentlyViewedAnimals =
     JSON.parse(localStorage.getItem("recentlyViewedAnimals")) || [];
