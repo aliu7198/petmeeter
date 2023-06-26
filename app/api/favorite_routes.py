@@ -49,7 +49,6 @@ def create_favorite(id):
     """
     Add an animal to favorites
     """
-    print("🚀 ~ file: favorite_routes.py:52 ~  HITTING BACKEND:")
     user = User.query.get(current_user.id)
     animal = Animal.query.get(id)
 

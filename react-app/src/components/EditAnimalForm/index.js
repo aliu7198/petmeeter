@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { editAnimalThunk, getAnimalsThunk } from "../../store/animals";
+import { editAnimalThunk } from "../../store/animals";
 import Loading from "../Loading";
 import "../CreateAnimalForm/CreateAnimalForm.css";
 

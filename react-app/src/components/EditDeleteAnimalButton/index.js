@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import "./EditDeleteAnimalButton.css";
-import {
-  createFavoriteThunk,
-  deleteFavoriteThunk,
-} from "../../store/favorites";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAnimalModal from "../DeleteAnimalModal";
 import { useModal } from "../../context/Modal";
 
 const EditDeleteAnimalButton = ({ animal, location }) => {
-  const dispatch = useDispatch();
   const { closeModal } = useModal();
   const history = useHistory();
-  const user = useSelector((state) => state.session.user);
 
   const buttonClass = () => {
     let className = "animal-card__btn";

@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import FavoriteButton from "../FavoriteButton";
-import EditDeleteAnimalButton from "../EditDeleteAnimalButton";
 import "../AnimalsList/AnimalCard.css"
 import "./LandingAnimalCard.css"
 
 
 function LandingAnimalCard({ animal }) {
   const history = useHistory();
-  const user = useSelector((state) => state.session.user);
 
   const redirectAnimalDetailPage = () => {
     history.push(`/animals/${animal.id}`);

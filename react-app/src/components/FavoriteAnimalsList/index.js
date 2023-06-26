@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAnimalsThunk } from "../../store/animals";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import AnimalCard from "../AnimalsList/AnimalCard";
 import Loading from "../Loading";
 import { getFavoritesThunk } from "../../store/favorites";
@@ -10,7 +8,6 @@ import "./FavoriteAnimalsList.css";
 
 function FavoriteAnimalsList() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.favorites.allFavorites);
   const animalsArr = Object.values(animals)
   const [isLoading, setIsLoading] = useState(true);

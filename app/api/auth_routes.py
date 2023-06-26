@@ -77,7 +77,6 @@ def sign_up():
             email=form.data['email'],
             password=form.data['password']
         )
-        # print("🚀 ~ file: auth_routes.py:66 ~ user:", user)
         db.session.add(user)
         db.session.commit()
         login_user(user)

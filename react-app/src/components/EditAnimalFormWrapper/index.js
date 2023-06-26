@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getAnimalsThunk } from "../../store/animals";
 import Loading from "../Loading";
 import EditAnimalForm from "../EditAnimalForm";
