@@ -1,27 +1,19 @@
 import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import logo from "../../assets/logo.png";
-import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
+// import OpenModalButton from "../OpenModalButton";
+// import LoginFormModal from "../LoginFormModal";
 
 import "./Navigation.css";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-  // const history = useHistory();
   const { pathname } = useLocation();
 
   const heartColor = pathname.endsWith("favorites") ? "nav__heart-purple" : "";
-  // const redirectSignup = () => {
-  //   history.push("/signup");
-  // };
-
-  // const redirectLogin = () => {
-  //   history.push("/login");
-  // };
 
   return (
     <ul className="nav">
