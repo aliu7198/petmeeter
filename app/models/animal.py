@@ -59,6 +59,7 @@ class Animal(db.Model):
             'goodWithOtherAnimals': self.good_with_other_animals,
             'description': self.description,
             'adoptionFee': self.adoption_fee,
+            'createdAt': self.created_at
 
             # 'isPet': self.is_pet,
             # 'birthDate': self.birth_date,
