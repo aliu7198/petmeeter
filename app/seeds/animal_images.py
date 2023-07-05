@@ -271,7 +271,32 @@ def seed_animal_images():
         image_url = 'https://cdn.discordapp.com/attachments/1093738810501763073/1121890700397650030/IMG_0833.png'
     )
 
-    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39,image40,image41,image42,image43,image44, image45,image46,image47,image48,image49,image50,image51,image52,image53,image54]
+    image55 = AnimalImage(
+        animal_id = 14,
+        image_url = 'https://cdn.discordapp.com/attachments/1124483811032440873/1124484181100089364/IMG_3447.jpeg'
+    )
+
+    image56 = AnimalImage(
+        animal_id = 14,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1125992080452366369/IMG_3329.png'
+    )
+
+    image57 = AnimalImage(
+        animal_id = 14,
+        image_url = 'https://cdn.discordapp.com/attachments/1124483811032440873/1124485196000014416/IMG_1756.jpeg'
+    )
+
+    image58 = AnimalImage(
+        animal_id = 14,
+        image_url = 'https://cdn.discordapp.com/attachments/1124483811032440873/1124484557551439902/322d48b3-fe11-4153-a5b7-7e2b697a4587.jpeg'
+    )
+
+    image59 = AnimalImage(
+        animal_id = 14,
+        image_url = 'https://cdn.discordapp.com/attachments/1124483811032440873/1124484975383818280/IMG_0564.jpeg'
+    )
+
+    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39,image40,image41,image42,image43,image44, image45,image46,image47,image48,image49,image50,image51,image52,image53,image54,image55,image56,image57,image58,image59]
 
     [db.session.add(image) for image in images]
     db.session.commit()

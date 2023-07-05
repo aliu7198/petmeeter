@@ -256,7 +256,27 @@ def seed_animals():
         created_at = random_date(datetime(2022, 1, 1), datetime(2023,6,1))
     )
 
-    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7]
+    dog5 = Animal(
+        owner_id = 7,
+        type = 'Dog',
+        name = 'Charles',
+        age = 'Adult',
+        gender = 'Male',
+        size = 'Small',
+        primary_breed = 'Pomeranian',
+        color = 'Golden',
+        house_trained = True,
+        vaccinated = True,
+        good_with_cats = True,
+        good_with_dogs = True,
+        good_with_children = True,
+        good_with_other_animals = True,
+        description = "Meet Charles, the adventurous Pomeranian who has traveled the world in search of thrilling experiences. With his fluffy golden coat and playful demeanor, Charles captivates hearts wherever he goes. From exploring nature trails to conquering agility courses, he fearlessly embraces every adventure. Despite his small size, Charles possesses a big personality and an infectious joie de vivre. Whether he's making new friends at the dog park or captivating audiences with his playful antics, Charles brings joy and excitement to every moment. Join Charles on his globe-trotting adventures and create cherished memories with this spirited and well-traveled companion.",
+        adoption_fee = 1500.00,
+        created_at = random_date(datetime(2022, 1, 1), datetime(2023,6,1))
+    )
+
+    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7, dog5]
 
     [db.session.add(pet) for pet in pets]
     db.session.commit()
