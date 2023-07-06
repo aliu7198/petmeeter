@@ -7,11 +7,12 @@ import logo from "../../assets/logo.png";
 // import LoginFormModal from "../LoginFormModal";
 
 import "./Navigation.css";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const { pathname } = useLocation();
+  const history = useHistory();
 
   const heartColor = pathname.endsWith("favorites") ? "nav__heart-purple" : "";
 
@@ -33,7 +34,7 @@ function Navigation({ isLoaded }) {
 
       <div className="nav__right-side">
         {isLoaded && (
-          <li className="nav__favorites" onClick={(e) => {if (!sessionUser) return alert('Log in or sign up to favorite animals!')}}>
+          <li className="nav__favorites" onClick={(e) => {if (!sessionUser) history.push('/login')}}>
             <NavLink exact to="/user/favorites">
               <i className={`fas fa-heart fa-2xl nav__heart ${heartColor}`}></i>
             </NavLink>

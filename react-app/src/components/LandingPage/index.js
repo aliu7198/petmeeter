@@ -92,7 +92,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      {recentlyViewedAnimals.length && (<div className="landing-page__recently-viewed-wrapper">
+      {recentlyViewedAnimals?.length > 0 && (<div className="landing-page__recently-viewed-wrapper">
         <h1 className="landing-page__recently-viewed-title">
           Recently Viewed Pets
         </h1>
