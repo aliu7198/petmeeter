@@ -24,7 +24,7 @@ function FavoriteAnimalsList() {
 
   return (
     <>
-      <div className="animals-list__outer body">
+      <div className="animals-list__outer body top-padding">
         <h1 className="favorites-page__title">My Favorites ({animalsArr.length}) </h1>
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (

@@ -26,7 +26,7 @@ function UserAnimalsList() {
 
   return (
     <>
-      <div className="animals-list__outer body">
+      <div className="animals-list__outer body top-padding">
         <h1 className="favorites-page__title">
           My Animal Listings ({animalsArr.length})
         </h1>
