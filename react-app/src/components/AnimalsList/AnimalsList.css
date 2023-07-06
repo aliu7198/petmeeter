@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem;
+    padding: 0 3rem 3rem 3rem;
 }
 
 .animals-list__sort-wrapper {
@@ -10,7 +10,6 @@
     width: 13rem;
     height: 3.5rem;
     margin-left: auto;
-    margin-right: 1.5rem;
 }
 
 .animals-list__sort-label {
@@ -43,9 +42,7 @@
 
 .animals-list__wrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* display: flex;
-    flex-wrap: wrap; */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     justify-items: center;
     align-items: center;
@@ -53,8 +50,21 @@
     padding-top: 3rem;
 }
 
-@media screen and (max-width: 1120px) {
-    .animals-list__wrapper {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
+.animals-list__top-bar {
+    display: flex;
+    width: 100vw;
+    padding: 0.5rem 4rem;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--purple);
+}
+
+.animals-list__top-quantity {
+    color: var(--white);
+    font-size: large;
+}
+
+.animals-list__top-bar-logo {
+    max-width: 60px;
+    margin-right: 1rem;
 }

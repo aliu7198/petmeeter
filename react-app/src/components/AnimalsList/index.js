@@ -4,6 +4,10 @@ import { getAnimalsThunk } from "../../store/animals";
 import "./AnimalsList.css";
 import AnimalCard from "./AnimalCard";
 import Loading from "../Loading";
+import dogNav from "../../assets/dog-nav.png";
+import catNav from "../../assets/cat-nav.png";
+import animalNav from "../../assets/animal-nav.png";
+
 // import SearchFiltersBar from "../SearchFiltersBar";
 
 function AnimalsList() {
@@ -16,6 +20,7 @@ function AnimalsList() {
     ? Object.values(animals).filter((animal) => animal.ownerId !== user.id)
     : Object.values(animals);
 
+  // Sorting
   if (sort === "Randomize") {
     animalsArr.sort(() => (Math.random() > 0.5 ? 1 : -1));
   } else if (sort === "A to Z") {
@@ -46,6 +51,19 @@ function AnimalsList() {
 
   const queryString = window.location.search;
 
+  // Helper Func to get animal count and type
+  const numAnimals = () => {
+    if (queryString.includes("type=Cat")) return `${animalsArr.length} Cats`;
+    if (queryString.includes("type=Dog")) return `${animalsArr.length} Dogs`;
+    return `${animalsArr.length} Animals`;
+  };
+
+  const animalLogo = () => {
+    if (queryString.includes("type=Cat")) return catNav;
+    if (queryString.includes("type=Dog")) return dogNav;
+    return animalNav;
+  }
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -62,26 +80,27 @@ function AnimalsList() {
   return (
     <>
       <div className="animals-list__outer body">
-        {/* <div className="animals-list__nav">
-          <div>{animalsArr.length}</div>
-        </div> */}
-        {/* <SearchFiltersBar /> */}
-        <div className="animals-list__sort-wrapper">
-          <label className="animals-list__sort-label">Sort By:</label>
-          <select
-            className="animals-list__sort-select"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-          >
-            <option value="Randomize" default>
-              Randomize
-            </option>
-            <option value="A to Z">A to Z</option>
-            <option value="Z to A">Z to A</option>
-            <option value="Newest Addition">Newest Addition</option>
-            <option value="Oldest Addition">Oldest Addition</option>
-          </select>
+        <div className="animals-list__top-bar">
+          <img className="animals-list__top-bar-logo" src={animalLogo()} alt={`${numAnimals()} Logo`}></img>
+          <div className="animals-list__top-quantity">{numAnimals()}</div>
+          <div className="animals-list__sort-wrapper">
+            <label className="animals-list__sort-label">Sort By:</label>
+            <select
+              className="animals-list__sort-select"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="Randomize" default>
+                Randomize
+              </option>
+              <option value="A to Z">A to Z</option>
+              <option value="Z to A">Z to A</option>
+              <option value="Newest Addition">Newest Addition</option>
+              <option value="Oldest Addition">Oldest Addition</option>
+            </select>
+          </div>
         </div>
+        {/* <SearchFiltersBar /> */}
         <div className="animals-list__wrapper">
           {animalsArr.map((animal) => (
             <AnimalCard animal={animal} key={animal.id} />
