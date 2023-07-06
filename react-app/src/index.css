@@ -46,3 +46,7 @@ footer {
   min-height: 100vh;
   padding-bottom: 3rem;
 }
+
+.top-padding {
+  padding-top: 3rem;
+}
