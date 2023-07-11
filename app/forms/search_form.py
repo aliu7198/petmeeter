@@ -9,7 +9,7 @@ class SearchForm(FlaskForm):
     age = StringField("Age")
     size = StringField("Size")
     gender = StringField("Gender")
-    color = StringField("Color")
+    # color = StringField("Color")
     # breed = StringField("Breed")
     # good_with_cats = BooleanField("Good With Cats")
     # good_with_dogs = BooleanField("Good With Dogs")

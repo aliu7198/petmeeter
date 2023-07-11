@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import dogLogo from "../../assets/dog-logo.png";
 import catLogo from "../../assets/cat-logo.png";
@@ -8,10 +8,42 @@ import "./LandingPage.css";
 
 const LandingPage = () => {
   const history = useHistory();
+  const [search, setSearch] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  console.log("🚀 ~ file: index.js:12 ~ LandingPage ~ search:", search);
 
-  const recentlyViewedAnimals =
-    JSON.parse(localStorage.getItem("recentlyViewedAnimals")) || [];
+  // Handle showing search results on searchbar focus
+  const searchRef = useRef();
 
+  const openSearchResults = () => {
+    if (showSearchResults) return;
+    setShowSearchResults(true);
+  };
+
+  useEffect(() => {
+    if (!showSearchResults) return;
+
+    const closeSearchResults = (e) => {
+      if (!searchRef.current.contains(e.target)) {
+        setShowSearchResults(false);
+      }
+    };
+
+    document.addEventListener("click", closeSearchResults);
+
+    return () => document.removeEventListener("click", closeSearchResults);
+  }, [showSearchResults]);
+
+  const searchResultsClassName = "landing-page__search-results" + (showSearchResults ? "" : " hidden")
+
+
+  // Handle searchbar queries
+  const launchSearch = () => {
+    return;
+  };
+
+
+  // Handle search queries for animal type buttons
   const getDogs = async () => {
     history.push("/animals?type=Dog");
   };
@@ -23,6 +55,11 @@ const LandingPage = () => {
   const getAllAnimals = async () => {
     history.push("/animals");
   };
+
+
+  // Handle recently viewed animals
+  const recentlyViewedAnimals =
+    JSON.parse(localStorage.getItem("recentlyViewedAnimals")) || [];
 
   return (
     <div className="body">
@@ -38,23 +75,23 @@ const LandingPage = () => {
             Unsplash
           </a>
         </div>
-        <div className="landing-page__search-bar">
-          <input
-            className="landing-page__search-input"
-            onClick={(e) => {
-              alert("Feature coming soon!");
-            }}
-            placeholder="Search"
-            type="search"
-          />
-          <button
-            onClick={(e) => {
-              alert("Feature coming soon!");
-            }}
-            className="landing-page__search-btn"
-          >
-            <i className="fa-solid fa-magnifying-glass fa-lg" />
-          </button>
+        <div className="landing-page__search-wrapper">
+          <div className="landing-page__search-bar">
+            <input
+              className="landing-page__search-input"
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              onClick={openSearchResults}
+              placeholder="Search"
+              type="search"
+              ref={searchRef}
+            />
+            <button onClick={launchSearch} className="landing-page__search-btn">
+              <i className="fa-solid fa-magnifying-glass fa-lg" />
+            </button>
+          </div>
+          {search.length > 0 && (<div className={searchResultsClassName}>RESULT</div>)}
         </div>
         <div className="landing-page__header-text">
           <h1 className="landing-page__title">Meet your new best friend</h1>
@@ -92,16 +129,18 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      {recentlyViewedAnimals?.length > 0 && (<div className="landing-page__recently-viewed-wrapper">
-        <h1 className="landing-page__recently-viewed-title">
-          Recently Viewed Pets
-        </h1>
-        <div className="landing-page__recently-viewed-cards">
-          {recentlyViewedAnimals.map((animal) => (
-            <LandingAnimalCard animal={animal} key={animal?.id} />
-          ))}
+      {recentlyViewedAnimals?.length > 0 && (
+        <div className="landing-page__recently-viewed-wrapper">
+          <h1 className="landing-page__recently-viewed-title">
+            Recently Viewed Pets
+          </h1>
+          <div className="landing-page__recently-viewed-cards">
+            {recentlyViewedAnimals.map((animal) => (
+              <LandingAnimalCard animal={animal} key={animal?.id} />
+            ))}
+          </div>
         </div>
-      </div>)}
+      )}
     </div>
   );
 };
