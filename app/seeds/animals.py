@@ -276,7 +276,24 @@ def seed_animals():
         created_at = random_date(datetime(2022, 1, 1), datetime(2023,6,1))
     )
 
-    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7, dog5]
+    cat8 = Animal(
+        owner_id = 8,
+        type = 'Cat',
+        name = 'Greyson',
+        age = 'Kitten',
+        gender = 'Male',
+        size = 'Small',
+        primary_breed = 'Domestic Short Hair',
+        color = 'Grey, White',
+        house_trained = True,
+        vaccinated = True,
+        good_with_cats = True,
+        description = "Meet Greyson, the enchanting grey kitten with endearing white socks. With his velvety soft fur, ranging in delicate shades of grey, he's a sight to behold. Greyson's captivating appearance, highlighted by his charming white paws, instantly draws attention and melts hearts. His inquisitive nature, gentle demeanor, and playful spirit make him an irresistible delight. Greyson's bright eyes and perky ears add to his undeniable cuteness. He loves cuddles, exploring his surroundings, and playing with toys. This little feline brings joy and happiness to anyone lucky enough to have him.",
+        adoption_fee = 120.00,
+        created_at = random_date(datetime(2022, 1, 1), datetime(2023,6,1))
+    )
+
+    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7, dog5, cat8]
 
     [db.session.add(pet) for pet in pets]
     db.session.commit()
