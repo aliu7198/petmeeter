@@ -75,6 +75,24 @@
     width: 90%;
     border-radius: 5px;
     color: black;
+    z-index: 2;
+    overflow: hidden;
+    /* padding: 1rem; */
+}
+
+.landing-page__search-result {
+    padding: 1rem 2rem;
+}
+
+.landing-page__search-result:hover {
+    cursor: pointer;
+    background-color: var(--light-purple);
+    box-shadow: inset 5px 0 var(--purple);
+}
+
+.landing-page__search-result-none {
+    padding: 1rem;
+    color: var(--dark-grey);
 }
 
 .landing-page__title {

@@ -4,13 +4,13 @@ import dogLogo from "../../assets/dog-logo.png";
 import catLogo from "../../assets/cat-logo.png";
 import pawLogo from "../../assets/paw-logo.png";
 import LandingAnimalCard from "./LandingAnimalCard";
+import { searchResults } from "../../utils/searchResults";
 import "./LandingPage.css";
 
 const LandingPage = () => {
   const history = useHistory();
   const [search, setSearch] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
-  console.log("🚀 ~ file: index.js:12 ~ LandingPage ~ search:", search);
 
   // Handle showing search results on searchbar focus
   const searchRef = useRef();
@@ -21,10 +21,10 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
-    if (!showSearchResults) return;
+    if (!showSearchResults || !searchRef.current) return;
 
     const closeSearchResults = (e) => {
-      if (!searchRef.current.contains(e.target)) {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
         setShowSearchResults(false);
       }
     };
@@ -32,16 +32,56 @@ const LandingPage = () => {
     document.addEventListener("click", closeSearchResults);
 
     return () => document.removeEventListener("click", closeSearchResults);
-  }, [showSearchResults]);
+  }, [showSearchResults, searchRef]);
 
-  const searchResultsClassName = "landing-page__search-results" + (showSearchResults ? "" : " hidden")
-
+  const searchResultsClassName =
+    "landing-page__search-results" + (showSearchResults ? "" : " hidden");
 
   // Handle searchbar queries
-  const launchSearch = () => {
-    return;
+  const filteredSearchResults = searchResults.filter((result) => {
+    const searchArr = search.trim().toLowerCase().split(" ");
+    let includeResult = true;
+    for (let word of searchArr) {
+      if (word === "male" && result.toLowerCase().includes("female")) {
+        includeResult = false;
+        break;
+      }
+      if (!result.toLowerCase().includes(word)) {
+        includeResult = false;
+        break;
+      }
+    }
+    return includeResult;
+  });
+
+  const filteredSearchResults8 = filteredSearchResults.slice(0, 8);
+
+  const launchFirstSearch = () => {
+    const search = filteredSearchResults8[0];
+    const searchArr = search.split(" • ")
+    let query = `/animals?type=${encodeURIComponent(searchArr[0])}`;
+    if (searchArr[1]) {
+      const other = searchArr[1]
+      if (other === "Male" || other === "Female") query += `&gender=${other}`
+      if (other === "Baby" || other === "Young" || other === "Adult" || other === "Senior") query += `&age=${other}`
+      if (other === "Small" || other === "Medium" || other === "Large" || other === "Extra Large") query += `&size=${encodeURIComponent(other)}`
+    }
+    setShowSearchResults(false);
+    history.push(query);
   };
 
+  const handleSearch = (result) => {
+    const searchArr = result.split(" • ")
+    let query = `/animals?type=${encodeURIComponent(searchArr[0])}`;
+    if (searchArr[1]) {
+      const other = searchArr[1]
+      if (other === "Male" || other === "Female") query += `&gender=${other}`
+      if (other === "Baby" || other === "Young" || other === "Adult" || other === "Senior") query += `&age=${other}`
+      if (other === "Small" || other === "Medium" || other === "Large" || other === "Extra Large") query += `&size=${encodeURIComponent(other)}`
+    }
+    setShowSearchResults(false);
+    history.push(query);
+  }
 
   // Handle search queries for animal type buttons
   const getDogs = async () => {
@@ -55,7 +95,6 @@ const LandingPage = () => {
   const getAllAnimals = async () => {
     history.push("/animals");
   };
-
 
   // Handle recently viewed animals
   const recentlyViewedAnimals =
@@ -87,11 +126,23 @@ const LandingPage = () => {
               type="search"
               ref={searchRef}
             />
-            <button onClick={launchSearch} className="landing-page__search-btn">
+            <button onClick={launchFirstSearch} className="landing-page__search-btn" disabled={search.length < 1}>
               <i className="fa-solid fa-magnifying-glass fa-lg" />
             </button>
           </div>
-          {search.length > 0 && (<div className={searchResultsClassName}>RESULT</div>)}
+          {search.length > 0 && (
+            <div className={searchResultsClassName}>
+              {filteredSearchResults.length ? (
+                filteredSearchResults8.map((result) => (
+                  <div className="landing-page__search-result" onClick={() => handleSearch(result)}>{result}</div>
+                ))
+              ) : (
+                <div className="landing-page__search-result-none">
+                  No results found
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="landing-page__header-text">
           <h1 className="landing-page__title">Meet your new best friend</h1>

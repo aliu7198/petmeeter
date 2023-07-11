@@ -211,8 +211,8 @@ function AnimalDetailsPage() {
             </div>
             <div className="animal-details__2">
               <p>
-                {getAge()} ‧ {animal?.gender} ‧ {animal?.size}{" "}
-                {animal?.color && `‧ ${animal?.color}`}
+                {getAge()} • {animal?.gender} • {animal?.size}{" "}
+                {animal?.color && `• ${animal?.color}`}
               </p>
             </div>
             <div className="animal-details__3">
@@ -342,7 +342,7 @@ function AnimalDetailsPage() {
           <div className="animal-details__footer-left-info">
             <p className="animal-details__footer-left-name">{animal?.name}</p>
             <p>
-              {getBreed()} ‧ {getAge()} ‧ {animal?.gender}
+              {getBreed()} • {getAge()} • {animal?.gender}
             </p>
           </div>
         </div>

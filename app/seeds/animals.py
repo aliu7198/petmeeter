@@ -280,7 +280,7 @@ def seed_animals():
         owner_id = 8,
         type = 'Cat',
         name = 'Greyson',
-        age = 'Kitten',
+        age = 'Baby',
         gender = 'Male',
         size = 'Small',
         primary_breed = 'Domestic Short Hair',
