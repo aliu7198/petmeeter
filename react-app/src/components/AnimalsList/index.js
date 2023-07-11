@@ -53,9 +53,11 @@ function AnimalsList() {
 
   // Helper Func to get animal count and type
   const numAnimals = () => {
-    if (queryString.includes("type=Cat")) return `${animalsArr.length} Cats`;
-    if (queryString.includes("type=Dog")) return `${animalsArr.length} Dogs`;
-    return `${animalsArr.length} Animals`;
+    let res = `${animalsArr.length} Animals`
+    if (queryString.includes("type=Cat")) res = `${animalsArr.length} Cats`;
+    if (queryString.includes("type=Dog")) res = `${animalsArr.length} Dogs`;
+    if (animalsArr.length === 1) res = res.slice(0, res.length - 1);
+    return res;
   };
 
   const animalLogo = () => {

@@ -132,7 +132,7 @@ function AnimalDetailsPage() {
             <div
               className="animal-details__nav-back"
               onClick={() => {
-                history.push("/animals");
+                history.goBack()
               }}
             >
               <i className="fa-solid fa-chevron-left" />

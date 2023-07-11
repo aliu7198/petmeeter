@@ -37,8 +37,8 @@ const LandingPage = () => {
   const searchResultsClassName =
     "landing-page__search-results" + (showSearchResults ? "" : " hidden");
 
-  // Handle searchbar queries
-  const filteredSearchResults = searchResults.filter((result) => {
+  // Filter search results
+  const filteredSearchResults = search ? searchResults.filter((result) => {
     const searchArr = search.trim().toLowerCase().split(" ");
     let includeResult = true;
     for (let word of searchArr) {
@@ -52,10 +52,12 @@ const LandingPage = () => {
       }
     }
     return includeResult;
-  });
+  }) : [];
 
   const filteredSearchResults8 = filteredSearchResults.slice(0, 8);
 
+  // Launch first search in filtered results
+  // On clicking search button or pressing enter key
   const launchFirstSearch = useCallback(() => {
     const search = filteredSearchResults8[0];
     const searchArr = search.split(" • ");
@@ -82,6 +84,7 @@ const LandingPage = () => {
     history.push(query);
   }, [filteredSearchResults8, history]);
 
+  // Launch search when clicking a search result
   const handleSearch = (result) => {
     const searchArr = result.split(" • ");
     let query = `/animals?type=${encodeURIComponent(searchArr[0])}`;
@@ -107,6 +110,7 @@ const LandingPage = () => {
     history.push(query);
   };
 
+  // Launch search with enter key
   const searchbar = document.querySelector(".landing-page__search-input");
 
   useEffect(() => {
@@ -116,12 +120,12 @@ const LandingPage = () => {
       if (e.code === "Enter" && filteredSearchResults8.length) {
         launchFirstSearch();
       }
-    }
+    };
 
-    searchbar.addEventListener("keydown", enterSearch);
+    searchbar.addEventListener("keyup", enterSearch);
 
-    return () => document.removeEventListener("keydown", enterSearch);
-  }, [searchbar, filteredSearchResults8, launchFirstSearch])
+    return () => searchbar.removeEventListener("keyup", enterSearch);
+  }, [searchbar, filteredSearchResults8, launchFirstSearch]);
 
   // Handle search queries for animal type buttons
   const getDogs = async () => {
@@ -143,7 +147,6 @@ const LandingPage = () => {
   return (
     <div className="body">
       <div className="landing-page__splash">
-        {/* <img className="landing-page__splash-image" src={landingPageImage} alt="Cat and dog lying in grass" /> */}
         <div className="landing-page__photo-cred">
           Photo by{" "}
           <a href="https://unsplash.com/@krista?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
@@ -181,6 +184,7 @@ const LandingPage = () => {
                   <div
                     className="landing-page__search-result"
                     onClick={() => handleSearch(result)}
+                    key={result}
                   >
                     {result}
                   </div>
