@@ -73,6 +73,14 @@ def seed_users():
         last_name='Kosylak'
     )
 
+    #9
+    raoul = User(
+        email='raoul@aa.io',
+        password='raoul',
+        first_name='Raoul',
+        last_name='Andalis'
+    )
+
     # sunshineRescue = User(
     #     email='sunshinerescue@aa.io',
     #     password='password',
@@ -105,6 +113,7 @@ def seed_users():
     db.session.add(katie)
     db.session.add(tien)
     db.session.add(claudia)
+    db.session.add(raoul)
     # db.session.add(sunshineRescue)
     # db.session.add(pawsNWhiskers)
     # db.session.add(creatureCompanions)
