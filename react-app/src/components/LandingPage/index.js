@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import dogLogo from "../../assets/dog-logo.png";
 import catLogo from "../../assets/cat-logo.png";
@@ -56,32 +56,72 @@ const LandingPage = () => {
 
   const filteredSearchResults8 = filteredSearchResults.slice(0, 8);
 
-  const launchFirstSearch = () => {
+  const launchFirstSearch = useCallback(() => {
     const search = filteredSearchResults8[0];
-    const searchArr = search.split(" • ")
+    const searchArr = search.split(" • ");
     let query = `/animals?type=${encodeURIComponent(searchArr[0])}`;
     if (searchArr[1]) {
-      const other = searchArr[1]
-      if (other === "Male" || other === "Female") query += `&gender=${other}`
-      if (other === "Baby" || other === "Young" || other === "Adult" || other === "Senior") query += `&age=${other}`
-      if (other === "Small" || other === "Medium" || other === "Large" || other === "Extra Large") query += `&size=${encodeURIComponent(other)}`
+      const other = searchArr[1];
+      if (other === "Male" || other === "Female") query += `&gender=${other}`;
+      if (
+        other === "Baby" ||
+        other === "Young" ||
+        other === "Adult" ||
+        other === "Senior"
+      )
+        query += `&age=${other}`;
+      if (
+        other === "Small" ||
+        other === "Medium" ||
+        other === "Large" ||
+        other === "Extra Large"
+      )
+        query += `&size=${encodeURIComponent(other)}`;
+    }
+    setShowSearchResults(false);
+    history.push(query);
+  }, [filteredSearchResults8, history]);
+
+  const handleSearch = (result) => {
+    const searchArr = result.split(" • ");
+    let query = `/animals?type=${encodeURIComponent(searchArr[0])}`;
+    if (searchArr[1]) {
+      const other = searchArr[1];
+      if (other === "Male" || other === "Female") query += `&gender=${other}`;
+      if (
+        other === "Baby" ||
+        other === "Young" ||
+        other === "Adult" ||
+        other === "Senior"
+      )
+        query += `&age=${other}`;
+      if (
+        other === "Small" ||
+        other === "Medium" ||
+        other === "Large" ||
+        other === "Extra Large"
+      )
+        query += `&size=${encodeURIComponent(other)}`;
     }
     setShowSearchResults(false);
     history.push(query);
   };
 
-  const handleSearch = (result) => {
-    const searchArr = result.split(" • ")
-    let query = `/animals?type=${encodeURIComponent(searchArr[0])}`;
-    if (searchArr[1]) {
-      const other = searchArr[1]
-      if (other === "Male" || other === "Female") query += `&gender=${other}`
-      if (other === "Baby" || other === "Young" || other === "Adult" || other === "Senior") query += `&age=${other}`
-      if (other === "Small" || other === "Medium" || other === "Large" || other === "Extra Large") query += `&size=${encodeURIComponent(other)}`
+  const searchbar = document.querySelector(".landing-page__search-input");
+
+  useEffect(() => {
+    if (!searchbar) return;
+
+    const enterSearch = (e) => {
+      if (e.code === "Enter" && filteredSearchResults8.length) {
+        launchFirstSearch();
+      }
     }
-    setShowSearchResults(false);
-    history.push(query);
-  }
+
+    searchbar.addEventListener("keydown", enterSearch);
+
+    return () => document.removeEventListener("keydown", enterSearch);
+  }, [searchbar, filteredSearchResults8, launchFirstSearch])
 
   // Handle search queries for animal type buttons
   const getDogs = async () => {
@@ -122,11 +162,15 @@ const LandingPage = () => {
                 setSearch(e.target.value);
               }}
               onClick={openSearchResults}
-              placeholder="Search"
+              placeholder="Search Cat, Dog, etc."
               type="search"
               ref={searchRef}
             />
-            <button onClick={launchFirstSearch} className="landing-page__search-btn" disabled={search.length < 1}>
+            <button
+              onClick={launchFirstSearch}
+              className="landing-page__search-btn"
+              disabled={search.length < 1}
+            >
               <i className="fa-solid fa-magnifying-glass fa-lg" />
             </button>
           </div>
@@ -134,7 +178,12 @@ const LandingPage = () => {
             <div className={searchResultsClassName}>
               {filteredSearchResults.length ? (
                 filteredSearchResults8.map((result) => (
-                  <div className="landing-page__search-result" onClick={() => handleSearch(result)}>{result}</div>
+                  <div
+                    className="landing-page__search-result"
+                    onClick={() => handleSearch(result)}
+                  >
+                    {result}
+                  </div>
                 ))
               ) : (
                 <div className="landing-page__search-result-none">
