@@ -139,7 +139,7 @@ def seed_animals():
         owner_id = 2,
         type = 'Dog',
         name = 'Honey',
-        age = 'Adult',
+        age = 'Senior',
         gender = 'Female',
         size = 'Small',
         primary_breed = 'Chihuahua',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { getAnimalsThunk } from "../../store/animals";
 import "./AnimalsList.css";
 import AnimalCard from "./AnimalCard";
@@ -14,6 +15,11 @@ function AnimalsList() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
+  const location = useLocation();
+  const queryParams = location.search;
+  // console.log("🚀 ~ file: index.js:20 ~ AnimalsList ~ queryParams:", queryParams)
+  // const queryObj = new URLSearchParams(location.search)
+  // console.log("🚀 ~ file: index.js:21 ~ AnimalsList ~ queryObj:", queryObj.get("type"))
   const [sort, setSort] = useState("Randomize");
 
   const animalsArr = user
@@ -49,20 +55,18 @@ function AnimalsList() {
     });
   }
 
-  const queryString = window.location.search;
-
   // Helper Func to get animal count and type
   const numAnimals = () => {
     let res = `${animalsArr.length} Animals`;
-    if (queryString.includes("type=Cat")) res = `${animalsArr.length} Cats`;
-    if (queryString.includes("type=Dog")) res = `${animalsArr.length} Dogs`;
+    if (queryParams.includes("type=Cat")) res = `${animalsArr.length} Cats`;
+    if (queryParams.includes("type=Dog")) res = `${animalsArr.length} Dogs`;
     if (animalsArr.length === 1) res = res.slice(0, res.length - 1);
     return res;
   };
 
   const animalLogo = () => {
-    if (queryString.includes("type=Cat")) return catNav;
-    if (queryString.includes("type=Dog")) return dogNav;
+    if (queryParams.includes("type=Cat")) return catNav;
+    if (queryParams.includes("type=Dog")) return dogNav;
     return animalNav;
   };
 
@@ -70,13 +74,12 @@ function AnimalsList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getAnimalsThunk(queryString));
+      await dispatch(getAnimalsThunk(queryParams));
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, queryString]);
+  }, [dispatch, queryParams]);
 
-  // const queryParams = new URLSearchParams().toString();
   if (isLoading) return <Loading />;
 
   return (

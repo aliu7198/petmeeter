@@ -14,11 +14,11 @@ function SavedSearchesPage() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="body">
       {searchesArr.map((search) => (
         <SearchCard search={search} key={search.id} />
       ))}
-    </>
+    </div>
   );
 }
 

@@ -11,7 +11,7 @@ import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
 import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
-import Loading from "./components/Loading";
+// import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import EditAnimalFormWrapper from "./components/EditAnimalFormWrapper";
@@ -46,10 +46,6 @@ function App() {
           <Route exact path="/animals">
             <AnimalsList />
           </Route>
-          <Route exact path="/user/animals">
-            <ProtectedRoute />
-            <UserAnimalsList />
-          </Route>
           <Route exact path="/animals/new">
             <ProtectedRoute />
             <CreateAnimalForm />
@@ -61,6 +57,10 @@ function App() {
             <ProtectedRoute />
             <EditAnimalFormWrapper />
           </Route>
+          <Route exact path="/user/animals">
+            <ProtectedRoute />
+            <UserAnimalsList />
+          </Route>
           <Route exact path="/user/favorites">
             <ProtectedRoute />
             <FavoriteAnimalsList />
@@ -69,9 +69,10 @@ function App() {
             <ProtectedRoute />
             <SavedSearchesPage />
           </Route>
-          <Route exact path="/loading">
+          {/* TODO: make 404 page */}
+          {/* <Route exact path="/loading">
             <Loading />
-          </Route>
+          </Route> */}
         </Switch>
       )}
       <Footer isLoaded={isLoaded} />

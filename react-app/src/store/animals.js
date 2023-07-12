@@ -30,9 +30,9 @@ const deleteAnimalAction = (animalId) => ({
 // });
 
 export const getAnimalsThunk =
-  (searchParams = "") =>
+  (queryParams = "") =>
   async (dispatch) => {
-    const res = await fetch(`/api/animals${searchParams}`);
+    const res = await fetch(`/api/animals${queryParams}`);
     if (res.ok) {
       const animals = await res.json();
       await dispatch(getAnimalsAction(animals));

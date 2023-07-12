@@ -21,9 +21,10 @@ def seed_saved_searches():
 
     search3 = SavedSearch(
         user_id = 2,
-        title = "Dogs | Large",
+        title = "Dogs | Large | House trained",
         type = "Dog",
-        size = "Large"
+        size = "Large",
+        house_trained = True
     )
 
     searches = [search1, search2, search3]
