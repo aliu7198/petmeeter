@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired
 from app.models import User
 
 class SearchForm(FlaskForm):
-    title = StringField("Title")
-    type = StringField("Type")
+    title = StringField("Title", validators=[DataRequired()])
+    type = StringField("Type", validators=[DataRequired()])
     age = StringField("Age")
     size = StringField("Size")
     gender = StringField("Gender")
