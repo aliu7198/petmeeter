@@ -92,7 +92,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('type', sa.String(length=50), nullable=False),
-    sa.Column('breed', sa.String(length=50), nullable=True),
+    # sa.Column('breed', sa.String(length=50), nullable=True),
     sa.Column('age', sa.String(length=10), nullable=True),
     sa.Column('size', sa.String(length=15), nullable=True),
     sa.Column('gender', sa.String(length=10), nullable=True),
@@ -102,9 +102,9 @@ def upgrade():
     sa.Column('good_with_other_animals', sa.Boolean(), nullable=True),
     sa.Column('house_trained', sa.Boolean(), nullable=True),
     sa.Column('special_needs', sa.Boolean(), nullable=True),
-    sa.Column('color', sa.String(length=50), nullable=True),
-    sa.Column('pet_name', sa.String(length=100), nullable=True),
-    sa.Column('out_of_town', sa.Boolean(), nullable=True),
+    # sa.Column('color', sa.String(length=50), nullable=True),
+    # sa.Column('pet_name', sa.String(length=100), nullable=True),
+    # sa.Column('out_of_town', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

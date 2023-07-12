@@ -53,7 +53,7 @@ function AnimalsList() {
 
   // Helper Func to get animal count and type
   const numAnimals = () => {
-    let res = `${animalsArr.length} Animals`
+    let res = `${animalsArr.length} Animals`;
     if (queryString.includes("type=Cat")) res = `${animalsArr.length} Cats`;
     if (queryString.includes("type=Dog")) res = `${animalsArr.length} Dogs`;
     if (animalsArr.length === 1) res = res.slice(0, res.length - 1);
@@ -64,7 +64,7 @@ function AnimalsList() {
     if (queryString.includes("type=Cat")) return catNav;
     if (queryString.includes("type=Dog")) return dogNav;
     return animalNav;
-  }
+  };
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -83,7 +83,11 @@ function AnimalsList() {
     <>
       <div className="animals-list__outer body">
         <div className="animals-list__top-bar">
-          <img className="animals-list__top-bar-logo" src={animalLogo()} alt={`${numAnimals()} Logo`}></img>
+          <img
+            className="animals-list__top-bar-logo"
+            src={animalLogo()}
+            alt={`${numAnimals()} Logo`}
+          ></img>
           <div className="animals-list__top-quantity">{numAnimals()}</div>
           <div className="animals-list__sort-wrapper">
             <label className="animals-list__sort-label">Sort By:</label>
@@ -103,11 +107,19 @@ function AnimalsList() {
           </div>
         </div>
         {/* <SearchFiltersBar /> */}
-        <div className="animals-list__wrapper">
-          {animalsArr.map((animal) => (
-            <AnimalCard animal={animal} key={animal.id} />
-          ))}
+        {animalsArr.length > 0 ? (
+          <div className="animals-list__wrapper">
+            {animalsArr.map((animal) => (
+              <AnimalCard animal={animal} key={animal.id} />
+            ))}
+          </div>
+        ) : (
+          // TODO: style this, maybe add buttons to home/search more?
+        <div className="animals-list__no-animals-wrapper">
+          <h1>No animals found matching the given criteria</h1>
+          <h3>More animals coming soon!</h3>
         </div>
+        )}
       </div>
     </>
   );

@@ -13,9 +13,10 @@ def seed_saved_searches():
 
     search2 = SavedSearch(
         user_id = 1,
-        title = "Cats | Female",
+        title = "Cats | Female | Good with dogs",
         type = "Cat",
-        gender = "Female"
+        gender = "Female",
+        good_with_dogs = True
     )
 
     search3 = SavedSearch(
