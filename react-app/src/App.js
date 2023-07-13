@@ -10,7 +10,7 @@ import AnimalsList from "./components/AnimalsList";
 import CreateAnimalForm from "./components/CreateAnimalForm";
 import AnimalDetailsPage from "./components/AnimalDetailsPage";
 import UserAnimalsList from "./components/UserAnimalsList";
-import FavoriteAnimalsList from "./components/FavoriteAnimalsList"
+import FavoriteAnimalsList from "./components/FavoriteAnimalsList";
 // import Loading from "./components/Loading";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -46,29 +46,24 @@ function App() {
           <Route exact path="/animals">
             <AnimalsList />
           </Route>
-          <Route exact path="/animals/new">
-            <ProtectedRoute />
+          <ProtectedRoute exact path="/animals/new">
             <CreateAnimalForm />
-          </Route>
+          </ProtectedRoute>
           <Route exact path="/animals/:animalId">
             <AnimalDetailsPage />
           </Route>
-          <Route exact path="/animals/:animalId/edit">
-            <ProtectedRoute />
+          <ProtectedRoute exact path="/animals/:animalId/edit">
             <EditAnimalFormWrapper />
-          </Route>
-          <Route exact path="/user/animals">
-            <ProtectedRoute />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/user/animals">
             <UserAnimalsList />
-          </Route>
-          <Route exact path="/user/favorites">
-            <ProtectedRoute />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/user/favorites">
             <FavoriteAnimalsList />
-          </Route>
-          <Route exact path="/user/searches">
-            <ProtectedRoute />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/user/searches">
             <SavedSearchesPage />
-          </Route>
+          </ProtectedRoute>
           {/* TODO: make 404 page */}
           {/* <Route exact path="/loading">
             <Loading />

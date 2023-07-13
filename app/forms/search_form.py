@@ -5,7 +5,7 @@ from app.models import User
 
 class SearchForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
-    type = StringField("Type", validators=[DataRequired()])
+    type = StringField("Type")
     age = StringField("Age")
     size = StringField("Size")
     gender = StringField("Gender")

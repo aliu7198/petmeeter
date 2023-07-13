@@ -91,7 +91,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=200), nullable=False),
-    sa.Column('type', sa.String(length=50), nullable=False),
+    sa.Column('type', sa.String(length=50), nullable=True),
     # sa.Column('breed', sa.String(length=50), nullable=True),
     sa.Column('age', sa.String(length=10), nullable=True),
     sa.Column('size', sa.String(length=15), nullable=True),

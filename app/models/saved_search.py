@@ -9,7 +9,7 @@ class SavedSearch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(200), nullable=False)
-    type = db.Column(db.String(50), nullable=False)
+    type = db.Column(db.String(50))
     # breed = db.Column(db.String(50))
     age = db.Column(db.String(10))
     size = db.Column(db.String(15))

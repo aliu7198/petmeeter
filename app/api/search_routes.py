@@ -48,7 +48,10 @@ def create_search():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
-        title = f"{form.data['type']}"
+        if form.data['type']:
+            title = f"{form.data['type']}"
+        else:
+            title = "All Animals"
 
         if form.data['age']:
             title += f" | {form.data['age']}"
