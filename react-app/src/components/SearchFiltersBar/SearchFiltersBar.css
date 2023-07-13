@@ -4,6 +4,14 @@
 }
 
 .search-filter__top-bar {
-    width: 100vw;
-    border: 1px solid red;
+  /* width: 100vw; */
+  /* border: 1px solid red; */
+}
+
+.search-filter__form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 20%;
+  padding-top: 3rem;
 }

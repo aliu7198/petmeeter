@@ -43,18 +43,20 @@
 
 .animals-list__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    gap: 1rem;
     justify-items: center;
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
+    width: 80%;
     padding-top: 3rem;
+    border: 1px solid green;
 }
 
 .animals-list__top-bar {
     display: flex;
     width: 100vw;
-    padding: 0.5rem 4rem;
+    padding: 0.5rem 3rem;
     justify-content: space-around;
     align-items: center;
     background-color: var(--purple);
@@ -68,4 +70,12 @@
 .animals-list__top-bar-logo {
     max-width: 60px;
     margin-right: 1rem;
+}
+
+.animals-list__main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* max-width: 1220px; */
+    border: 1px solid red;
 }
