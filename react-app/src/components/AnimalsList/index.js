@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { getAnimalsThunk } from "../../store/animals";
 import AnimalCard from "./AnimalCard";
 import Loading from "../Loading";
@@ -16,6 +16,7 @@ function AnimalsList() {
   const user = useSelector((state) => state.session.user);
   const animals = useSelector((state) => state.animals.allAnimals);
   const location = useLocation();
+  const history = useHistory();
 
   const queryParams = location.search;
   const queryObj = new URLSearchParams(queryParams);
@@ -111,6 +112,80 @@ function AnimalsList() {
     fetchData();
   }, [dispatch, queryParams]);
 
+  // TODO: add loading circle to animal list only??
+  // otherwise setIsLoading(true) to make it do loading screen
+
+  // Helper functions to handle re-fetching data when search filters are changed
+  const changeType = (e) => {
+    setType(e.target.value)
+    if (e.target.value === "") queryObj.delete("type")
+    else queryObj.set("type", e.target.value)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeAge = (e) => {
+    setAge(e.target.value)
+    if (e.target.value === "") queryObj.delete("age")
+    else queryObj.set("age", e.target.value)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeSize = (e) => {
+    setSize(e.target.value)
+    if (e.target.value === "") queryObj.delete("size")
+    else queryObj.set("size", e.target.value)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeGender = (e) => {
+    setGender(e.target.value)
+    if (e.target.value === "") queryObj.delete("gender")
+    else queryObj.set("gender", e.target.value)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeGoodWithCats = (e) => {
+    setGoodWithCats(!goodWithCats)
+    if (goodWithCatsQuery) queryObj.delete("goodWithCats")
+    else queryObj.set("goodWithCats", true)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeGoodWithDogs = (e) => {
+    setGoodWithDogs(!goodWithDogs)
+    if (goodWithDogsQuery) queryObj.delete("goodWithDogs")
+    else queryObj.set("goodWithDogs", true)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeGoodWithChildren = (e) => {
+    setGoodWithChildren(!goodWithChildren)
+    if (goodWithChildrenQuery) queryObj.delete("goodWithChildren")
+    else queryObj.set("goodWithChildren", true)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeGoodWithOtherAnimals = (e) => {
+    setGoodWithOtherAnimals(!goodWithOtherAnimals)
+    if (goodWithOtherAnimalsQuery) queryObj.delete("goodWithOtherAnimals")
+    else queryObj.set("goodWithOtherAnimals", true)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeHouseTrained = (e) => {
+    setHouseTrained(!houseTrained)
+    if (houseTrainedQuery) queryObj.delete("houseTrained")
+    else queryObj.set("houseTrained", true)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
+  const changeSpecialNeeds = (e) => {
+    setSpecialNeeds(!specialNeeds)
+    if (specialNeedsQuery) queryObj.delete("specialNeeds")
+    else queryObj.set("specialNeeds", true)
+    history.push(`/animals?${queryObj.toString()}`)
+  }
+
   if (isLoading) return <Loading />;
 
   return (
@@ -152,7 +227,7 @@ function AnimalsList() {
               id="search-filter__type"
               className="search-filter__dropdown"
               value={type}
-              onChange={(e) => setType(e.target.value)}
+              onChange={(e) => changeType(e)}
             >
               <option value="">Any</option>
               <option value="Dog">Dog</option>
@@ -169,7 +244,7 @@ function AnimalsList() {
           </label>
           <label>
             AGE
-            <select value={age} onChange={(e) => setAge(e.target.value)}>
+            <select value={age} onChange={(e) => changeAge(e)}>
               <option value="">Any</option>
               <option value="Baby">Baby</option>
               <option value="Young">Young</option>
@@ -179,7 +254,7 @@ function AnimalsList() {
           </label>
           <label>
             SIZE
-            <select value={size} onChange={(e) => setSize(e.target.value)}>
+            <select value={size} onChange={(e) => changeSize(e)}>
               <option value="">Any</option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
@@ -189,7 +264,7 @@ function AnimalsList() {
           </label>
           <label>
             GENDER
-            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+            <select value={gender} onChange={(e) => changeGender(e)}>
               <option value="">Any</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -203,7 +278,7 @@ function AnimalsList() {
                 type="checkbox"
                 value={goodWithCats}
                 checked={goodWithCats}
-                onChange={(e) => setGoodWithCats(!goodWithCats)}
+                onChange={(e) => changeGoodWithCats(e)}
               />
             </label>
             <label className="animal-form__check-label">
@@ -212,7 +287,7 @@ function AnimalsList() {
                 type="checkbox"
                 value={goodWithDogs}
                 checked={goodWithDogs}
-                onChange={(e) => setGoodWithDogs(!goodWithDogs)}
+                onChange={(e) => changeGoodWithDogs(e)}
               />
             </label>
             <label className="animal-form__check-label">
@@ -221,7 +296,7 @@ function AnimalsList() {
                 type="checkbox"
                 value={goodWithChildren}
                 checked={goodWithChildren}
-                onChange={(e) => setGoodWithChildren(!goodWithChildren)}
+                onChange={(e) => changeGoodWithChildren(e)}
               />
             </label>
             <label className="animal-form__check-label">
@@ -230,7 +305,7 @@ function AnimalsList() {
                 type="checkbox"
                 value={goodWithOtherAnimals}
                 checked={goodWithOtherAnimals}
-                onChange={(e) => setGoodWithOtherAnimals(!goodWithOtherAnimals)}
+                onChange={(e) => changeGoodWithOtherAnimals(e)}
               />
             </label>
           </div>
@@ -242,7 +317,7 @@ function AnimalsList() {
                 type="checkbox"
                 value={houseTrained}
                 checked={houseTrained}
-                onChange={(e) => setHouseTrained(!houseTrained)}
+                onChange={(e) => changeHouseTrained(e)}
               />
             </label>
             <label className="animal-form__check-label">
@@ -251,7 +326,7 @@ function AnimalsList() {
                 type="checkbox"
                 value={specialNeeds}
                 checked={specialNeeds}
-                onChange={(e) => setSpecialNeeds(!specialNeeds)}
+                onChange={(e) => changeSpecialNeeds(e)}
               />
             </label>
           </div>

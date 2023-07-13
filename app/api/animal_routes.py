@@ -14,7 +14,6 @@ def animals():
     """
     Query for all animals and return them in a list of dictionaries
     """
-    print("🚀 ~ file: animal_routes.py:18 ~ request.args:", request.args)
     type = request.args.get('type')
     age = request.args.get('age')
     size = request.args.get('size')
@@ -26,17 +25,17 @@ def animals():
     good_with_other_animals = None
     house_trained = None
     special_needs = None
-    if request.args.get('goodWithCats'):
+    if request.args.get('goodWithCats') == 'true':
         good_with_cats = True
-    if request.args.get('goodWithDogs'):
+    if request.args.get('goodWithDogs') == 'true':
         good_with_dogs = True
-    if request.args.get('goodWithChildren'):
+    if request.args.get('goodWithChildren') == 'true':
         good_with_children = True
-    if request.args.get('goodWithOtherAnimals'):
+    if request.args.get('goodWithOtherAnimals') == 'true':
         good_with_other_animals = True
-    if request.args.get('houseTrained'):
+    if request.args.get('houseTrained') == 'true':
         house_trained = True
-    if request.args.get('specialNeeds'):
+    if request.args.get('specialNeeds') == 'true':
         special_needs = True
 
     animals = Animal.query.all()
