@@ -103,10 +103,12 @@ function AnimalsList() {
   };
 
   const [isLoading, setIsLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getAnimalsThunk(queryParams));
+      setListLoading(false);
       setIsLoading(false);
     };
     fetchData();
@@ -120,6 +122,7 @@ function AnimalsList() {
     setType(e.target.value)
     if (e.target.value === "") queryObj.delete("type")
     else queryObj.set("type", e.target.value)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -127,6 +130,7 @@ function AnimalsList() {
     setAge(e.target.value)
     if (e.target.value === "") queryObj.delete("age")
     else queryObj.set("age", e.target.value)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -134,6 +138,7 @@ function AnimalsList() {
     setSize(e.target.value)
     if (e.target.value === "") queryObj.delete("size")
     else queryObj.set("size", e.target.value)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -141,6 +146,7 @@ function AnimalsList() {
     setGender(e.target.value)
     if (e.target.value === "") queryObj.delete("gender")
     else queryObj.set("gender", e.target.value)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -148,6 +154,7 @@ function AnimalsList() {
     setGoodWithCats(!goodWithCats)
     if (goodWithCatsQuery) queryObj.delete("goodWithCats")
     else queryObj.set("goodWithCats", true)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -155,6 +162,7 @@ function AnimalsList() {
     setGoodWithDogs(!goodWithDogs)
     if (goodWithDogsQuery) queryObj.delete("goodWithDogs")
     else queryObj.set("goodWithDogs", true)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -162,6 +170,7 @@ function AnimalsList() {
     setGoodWithChildren(!goodWithChildren)
     if (goodWithChildrenQuery) queryObj.delete("goodWithChildren")
     else queryObj.set("goodWithChildren", true)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -169,6 +178,7 @@ function AnimalsList() {
     setGoodWithOtherAnimals(!goodWithOtherAnimals)
     if (goodWithOtherAnimalsQuery) queryObj.delete("goodWithOtherAnimals")
     else queryObj.set("goodWithOtherAnimals", true)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -176,6 +186,7 @@ function AnimalsList() {
     setHouseTrained(!houseTrained)
     if (houseTrainedQuery) queryObj.delete("houseTrained")
     else queryObj.set("houseTrained", true)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -183,6 +194,7 @@ function AnimalsList() {
     setSpecialNeeds(!specialNeeds)
     if (specialNeedsQuery) queryObj.delete("specialNeeds")
     else queryObj.set("specialNeeds", true)
+    setListLoading(true)
     history.push(`/animals?${queryObj.toString()}`)
   }
 
@@ -331,13 +343,27 @@ function AnimalsList() {
             </label>
           </div>
         </form>
-        {animalsArr.length > 0 ? (
+        {/* {animalsArr.length > 0 ? (
           <div className="animals-list__wrapper">
             {animalsArr.map((animal) => (
               <AnimalCard animal={animal} key={animal.id} />
             ))}
           </div>
         ) : (
+          // TODO: style this, maybe add buttons to home/search more?
+          <div className="animals-list__no-animals-wrapper">
+            <h1>No animals found matching the given criteria</h1>
+            <h3>More animals coming soon!</h3>
+          </div>
+        )} */}
+        {!listLoading && animalsArr.length > 0 && (
+          <div className="animals-list__wrapper">
+            {animalsArr.map((animal) => (
+              <AnimalCard animal={animal} key={animal.id} />
+            ))}
+          </div>
+        )}
+        {!listLoading && animalsArr.length === 0 && (
           // TODO: style this, maybe add buttons to home/search more?
           <div className="animals-list__no-animals-wrapper">
             <h1>No animals found matching the given criteria</h1>
