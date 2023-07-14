@@ -33,17 +33,17 @@ function AnimalsList() {
   const sizeQuery = queryObj.get("size");
   const genderQuery = queryObj.get("gender");
   const goodWithCatsQuery =
-    queryObj.get("goodWithCats") === "true" ? true : false;
+  queryObj.get("goodWithCats") === "true" ? true : false;
   const goodWithDogsQuery =
-    queryObj.get("goodWithDogs") === "true" ? true : false;
+  queryObj.get("goodWithDogs") === "true" ? true : false;
   const goodWithChildrenQuery =
-    queryObj.get("goodWithChildren") === "true" ? true : false;
+  queryObj.get("goodWithChildren") === "true" ? true : false;
   const goodWithOtherAnimalsQuery =
-    queryObj.get("goodWithOtherAnimals") === "true" ? true : false;
+  queryObj.get("goodWithOtherAnimals") === "true" ? true : false;
   const houseTrainedQuery =
-    queryObj.get("houseTrained") === "true" ? true : false;
+  queryObj.get("houseTrained") === "true" ? true : false;
   const specialNeedsQuery =
-    queryObj.get("specialNeeds") === "true" ? true : false;
+  queryObj.get("specialNeeds") === "true" ? true : false;
 
   const [type, setType] = useState(typeQuery ? typeQuery : "");
   const [age, setAge] = useState(ageQuery ? ageQuery : "");
@@ -53,16 +53,29 @@ function AnimalsList() {
   const [goodWithDogs, setGoodWithDogs] = useState(goodWithDogsQuery);
   const [goodWithChildren, setGoodWithChildren] = useState(
     goodWithChildrenQuery
-  );
-  const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(
-    goodWithOtherAnimalsQuery
-  );
-  const [houseTrained, setHouseTrained] = useState(houseTrainedQuery);
-  const [specialNeeds, setSpecialNeeds] = useState(specialNeedsQuery);
+    );
+    const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(
+      goodWithOtherAnimalsQuery
+      );
+      const [houseTrained, setHouseTrained] = useState(houseTrainedQuery);
+      const [specialNeeds, setSpecialNeeds] = useState(specialNeedsQuery);
+
+  // Handle loading for components
+  const [isLoading, setIsLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(getAnimalsThunk(queryParams));
+      setListLoading(false);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [dispatch, queryParams]);
 
   const animalsArr = user
-    ? Object.values(animals).filter((animal) => animal.ownerId !== user.id)
-    : Object.values(animals);
+  ? Object.values(animals).filter((animal) => animal.ownerId !== user.id)
+  : Object.values(animals);
 
   // Sorting
   const [sort, setSort] = useState("Randomize");
@@ -216,18 +229,6 @@ function AnimalsList() {
     }
   };
 
-  // Handle loading for components
-  const [isLoading, setIsLoading] = useState(true);
-  const [listLoading, setListLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(getAnimalsThunk(queryParams));
-      setListLoading(false);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [dispatch, queryParams]);
 
   if (isLoading) return <Loading />;
 

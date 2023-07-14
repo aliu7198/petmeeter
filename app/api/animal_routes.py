@@ -212,7 +212,7 @@ def create_search():
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-# UPDATE ANIMAL - NEEDS TESTING
+# UPDATE ANIMAL
 @animal_routes.route('/<int:id>', methods=["PUT"])
 @login_required
 def update_animal(id):
@@ -250,7 +250,7 @@ def update_animal(id):
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-
+# DELETE ANIMAL
 @animal_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_animal(id):

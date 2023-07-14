@@ -1,5 +1,6 @@
 const GET_SEARCHES = "searches/getSearches";
 const CREATE_SEARCH = "searches/createSearch";
+const DELETE_SEARCH = "searches/deleteSearch";
 
 const getSearchesAction = (searches) => ({
   type: GET_SEARCHES,
@@ -9,6 +10,11 @@ const getSearchesAction = (searches) => ({
 const createSearchAction = (search) => ({
   type: CREATE_SEARCH,
   search,
+});
+
+const deleteSearchAction = (searchId) => ({
+  type: DELETE_SEARCH,
+  searchId,
 });
 
 export const getSearchesThunk = () => async (dispatch) => {
@@ -39,6 +45,21 @@ export const createSearchThunk = (search) => async (dispatch) => {
   }
 };
 
+export const deleteSearchThunk = (searchId) => async (dispatch) => {
+  const res = await fetch(`/api/searches/${searchId}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    const response = await res.json();
+    dispatch(deleteSearchAction(searchId));
+    return response;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
 const initialState = { allSearches: {}, singleSearch: {} };
 const searchesReducer = (state = initialState, action) => {
   let newState = {};
@@ -51,8 +72,21 @@ const searchesReducer = (state = initialState, action) => {
       return newState;
     }
     case CREATE_SEARCH: {
-      newState = { ...state, allSearches: {...state.allSearches}, singleSearch: {} };
+      newState = {
+        ...state,
+        allSearches: { ...state.allSearches },
+        singleSearch: {},
+      };
       newState.allSearches[action.search.id] = action.search;
+      return newState;
+    }
+    case DELETE_SEARCH: {
+      newState = {
+        ...state,
+        allSearches: { ...state.allSearches },
+        singleSearch: {},
+      };
+      delete newState.allSearches[action.searchId];
       return newState;
     }
     default:

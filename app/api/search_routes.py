@@ -102,3 +102,37 @@ def create_search():
 
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+# UPDATE SEARCH
+@search_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_search(id):
+    """
+    Update a search's title
+    """
+    search = SavedSearch.query.get(id)
+
+    form = SearchForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        search.title = form.data['title']
+
+        db.session.commit()
+        return search.to_dict()
+
+    if form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+# DELETE SEARCH
+@search_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_search(id):
+    """
+    Delete a search
+    """
+    search = SavedSearch.query.get(id)
+    db.session.delete(search)
+    db.session.commit()
+    return {'message': 'Saved search successfully deleted'}
