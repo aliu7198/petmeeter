@@ -48,6 +48,7 @@ def create_search():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
+        # Generate a default title based on form fields
         if form.data['type']:
             title = f"{form.data['type']}"
         else:
@@ -72,7 +73,6 @@ def create_search():
         if form.data['special_needs']:
             title += f" | Special needs"
 
-        # TODO: generate a title based on search criteria put in
 
         new_search = SavedSearch(
             user_id = current_user.id,
@@ -97,6 +97,8 @@ def create_search():
 
         db.session.add(new_search)
         db.session.commit()
+
+        return new_search.to_dict()
 
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400

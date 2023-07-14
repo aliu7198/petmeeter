@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { getAnimalsThunk } from "../../store/animals";
 import AnimalCard from "./AnimalCard";
 import Loading from "../Loading";
@@ -9,6 +12,10 @@ import catNav from "../../assets/cat-nav.png";
 import animalNav from "../../assets/animal-nav.png";
 import "./AnimalsList.css";
 import "../SearchFiltersBar/SearchFiltersBar.css";
+import { createSearchThunk } from "../../store/searches";
+import CreatedSearchModal from "../CreatedSearchModal";
+import OpenModalButton from "../OpenModalButton";
+import { useModal } from "../../context/Modal";
 // import SearchFiltersBar from "../SearchFiltersBar";
 
 function AnimalsList() {
@@ -17,6 +24,7 @@ function AnimalsList() {
   const animals = useSelector((state) => state.animals.allAnimals);
   const location = useLocation();
   const history = useHistory();
+  const { closeModal } = useModal();
 
   const queryParams = location.search;
   const queryObj = new URLSearchParams(queryParams);
@@ -87,7 +95,7 @@ function AnimalsList() {
     });
   }
 
-  // Helper Func to get animal count and type
+  // Helper Function to get animal count and type
   const numAnimals = () => {
     let res = `${animalsArr.length} Animals`;
     if (queryParams.includes("type=Cat")) res = `${animalsArr.length} Cats`;
@@ -96,12 +104,119 @@ function AnimalsList() {
     return res;
   };
 
+  // Helper Function to get proper animal logo
   const animalLogo = () => {
     if (queryParams.includes("type=Cat")) return catNav;
     if (queryParams.includes("type=Dog")) return dogNav;
     return animalNav;
   };
 
+  // Helper functions to handle re-fetching data when search filters are changed
+  const changeType = (e) => {
+    setType(e.target.value);
+    if (e.target.value === "") queryObj.delete("type");
+    else queryObj.set("type", e.target.value);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeAge = (e) => {
+    setAge(e.target.value);
+    if (e.target.value === "") queryObj.delete("age");
+    else queryObj.set("age", e.target.value);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeSize = (e) => {
+    setSize(e.target.value);
+    if (e.target.value === "") queryObj.delete("size");
+    else queryObj.set("size", e.target.value);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeGender = (e) => {
+    setGender(e.target.value);
+    if (e.target.value === "") queryObj.delete("gender");
+    else queryObj.set("gender", e.target.value);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeGoodWithCats = (e) => {
+    setGoodWithCats(!goodWithCats);
+    if (goodWithCatsQuery) queryObj.delete("goodWithCats");
+    else queryObj.set("goodWithCats", true);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeGoodWithDogs = (e) => {
+    setGoodWithDogs(!goodWithDogs);
+    if (goodWithDogsQuery) queryObj.delete("goodWithDogs");
+    else queryObj.set("goodWithDogs", true);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeGoodWithChildren = (e) => {
+    setGoodWithChildren(!goodWithChildren);
+    if (goodWithChildrenQuery) queryObj.delete("goodWithChildren");
+    else queryObj.set("goodWithChildren", true);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeGoodWithOtherAnimals = (e) => {
+    setGoodWithOtherAnimals(!goodWithOtherAnimals);
+    if (goodWithOtherAnimalsQuery) queryObj.delete("goodWithOtherAnimals");
+    else queryObj.set("goodWithOtherAnimals", true);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeHouseTrained = (e) => {
+    setHouseTrained(!houseTrained);
+    if (houseTrainedQuery) queryObj.delete("houseTrained");
+    else queryObj.set("houseTrained", true);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  const changeSpecialNeeds = (e) => {
+    setSpecialNeeds(!specialNeeds);
+    if (specialNeedsQuery) queryObj.delete("specialNeeds");
+    else queryObj.set("specialNeeds", true);
+    setListLoading(true);
+    history.push(`/animals?${queryObj.toString()}`);
+  };
+
+  // Handle form submission
+  let newSearch;
+  const handleSubmit = async (e) => {
+    // console.log("🚀 ~ file: index.js:198 ~ handleSubmit ~ e:", e)
+    // e.preventDefault();
+    const formData = new FormData();
+    formData.append("type", type);
+    formData.append("age", age);
+    formData.append("gender", gender);
+    formData.append("size", size);
+    formData.append("house_trained", houseTrained);
+    formData.append("special_needs", specialNeeds);
+    formData.append("good_with_cats", goodWithCats);
+    formData.append("good_with_dogs", goodWithDogs);
+    formData.append("good_with_children", goodWithChildren);
+    formData.append("good_with_other_animals", goodWithOtherAnimals);
+
+    newSearch = await dispatch(createSearchThunk(formData));
+
+    if (newSearch) {
+      console.log("CREATED SEARCH SUCCESSFULLY");
+    }
+  };
+
+  // Handle loading for components
   const [isLoading, setIsLoading] = useState(true);
   const [listLoading, setListLoading] = useState(true);
 
@@ -114,90 +229,6 @@ function AnimalsList() {
     fetchData();
   }, [dispatch, queryParams]);
 
-  // TODO: add loading circle to animal list only??
-  // otherwise setIsLoading(true) to make it do loading screen
-
-  // Helper functions to handle re-fetching data when search filters are changed
-  const changeType = (e) => {
-    setType(e.target.value)
-    if (e.target.value === "") queryObj.delete("type")
-    else queryObj.set("type", e.target.value)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeAge = (e) => {
-    setAge(e.target.value)
-    if (e.target.value === "") queryObj.delete("age")
-    else queryObj.set("age", e.target.value)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeSize = (e) => {
-    setSize(e.target.value)
-    if (e.target.value === "") queryObj.delete("size")
-    else queryObj.set("size", e.target.value)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeGender = (e) => {
-    setGender(e.target.value)
-    if (e.target.value === "") queryObj.delete("gender")
-    else queryObj.set("gender", e.target.value)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeGoodWithCats = (e) => {
-    setGoodWithCats(!goodWithCats)
-    if (goodWithCatsQuery) queryObj.delete("goodWithCats")
-    else queryObj.set("goodWithCats", true)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeGoodWithDogs = (e) => {
-    setGoodWithDogs(!goodWithDogs)
-    if (goodWithDogsQuery) queryObj.delete("goodWithDogs")
-    else queryObj.set("goodWithDogs", true)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeGoodWithChildren = (e) => {
-    setGoodWithChildren(!goodWithChildren)
-    if (goodWithChildrenQuery) queryObj.delete("goodWithChildren")
-    else queryObj.set("goodWithChildren", true)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeGoodWithOtherAnimals = (e) => {
-    setGoodWithOtherAnimals(!goodWithOtherAnimals)
-    if (goodWithOtherAnimalsQuery) queryObj.delete("goodWithOtherAnimals")
-    else queryObj.set("goodWithOtherAnimals", true)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeHouseTrained = (e) => {
-    setHouseTrained(!houseTrained)
-    if (houseTrainedQuery) queryObj.delete("houseTrained")
-    else queryObj.set("houseTrained", true)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
-  const changeSpecialNeeds = (e) => {
-    setSpecialNeeds(!specialNeeds)
-    if (specialNeedsQuery) queryObj.delete("specialNeeds")
-    else queryObj.set("specialNeeds", true)
-    setListLoading(true)
-    history.push(`/animals?${queryObj.toString()}`)
-  }
-
   if (isLoading) return <Loading />;
 
   return (
@@ -209,6 +240,13 @@ function AnimalsList() {
           alt={`${numAnimals()} Logo`}
         ></img>
         <div className="animals-list__top-quantity">{numAnimals()}</div>
+        {/* <button onClick={handleSubmit}>Save Search</button> */}
+        <OpenModalButton
+          onButtonClick={handleSubmit}
+          buttonText="Save Search"
+          onItemClick={closeModal}
+          modalComponent={<CreatedSearchModal search={newSearch} />}
+        />
         <div className="animals-list__sort-wrapper">
           <label htmlFor="sort" className="animals-list__sort-label">
             Sort By:
@@ -232,7 +270,6 @@ function AnimalsList() {
       <div className="animals-list__main">
         {/* <SearchFiltersBar /> */}
         <form className="search-filter__form">
-          <button>Save Search</button>
           <label className="search-filter__input-label">
             TYPE
             <select

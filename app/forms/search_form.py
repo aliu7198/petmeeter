@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 from app.models import User
 
 class SearchForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()])
+    title = StringField("Title")
     type = StringField("Type")
     age = StringField("Age")
     size = StringField("Size")
