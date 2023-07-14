@@ -45,6 +45,22 @@ export const createSearchThunk = (search) => async (dispatch) => {
   }
 };
 
+export const editedSearchThunk = (search, searchId) => async (dispatch) => {
+  const res = await fetch(`/api/searches/${searchId}`, {
+    method: "PUT",
+    body: search,
+  });
+
+  if (res.ok) {
+    const editedSearch = await res.json();
+    await dispatch(createSearchAction(editedSearch));
+    return editedSearch;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
 export const deleteSearchThunk = (searchId) => async (dispatch) => {
   const res = await fetch(`/api/searches/${searchId}`, {
     method: "DELETE",

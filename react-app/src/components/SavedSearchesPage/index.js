@@ -4,6 +4,7 @@ import "./SavedSearchesPage.css";
 import { getSearchesThunk } from "../../store/searches";
 import SearchCard from "./SearchCard";
 import Loading from "../Loading";
+import "./SavedSearchesPage.css";
 
 function SavedSearchesPage() {
   const dispatch = useDispatch();
@@ -17,16 +18,20 @@ function SavedSearchesPage() {
       setIsLoading(false);
     };
     fetchData();
-
   }, [dispatch]);
 
   if (isLoading) return <Loading />;
 
   return (
-    <div className="body">
-      {searchesArr.map((search) => (
-        <SearchCard search={search} key={search.id} />
-      ))}
+    <div className="searches__outer body">
+      <div className="searches__wrapper">
+        <h1 className="searches__title">My Saved Searches</h1>
+        <div className="searches__searches-list">
+          {searchesArr.map((search) => (
+            <SearchCard search={search} key={search.id} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
