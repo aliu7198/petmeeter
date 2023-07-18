@@ -103,6 +103,20 @@
     margin-top: 1rem;
 }
 
+.animals-list__no-animals-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-grey);
+    gap: 2rem;
+    margin-top: 5rem;
+}
+
+.animals-list__logo {
+    margin-top: 3rem;
+}
+
 #saved-search-modal-btn {
     display: none;
 }

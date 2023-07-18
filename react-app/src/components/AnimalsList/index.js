@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import dogNav from "../../assets/dog-nav.png";
 import catNav from "../../assets/cat-nav.png";
 import animalNav from "../../assets/animal-nav.png";
+import pawLogo from "../../assets/paw-logo.png";
 import "./AnimalsList.css";
 import "../SearchFiltersBar/SearchFiltersBar.css";
 import { createSearchThunk } from "../../store/searches";
@@ -431,7 +432,12 @@ function AnimalsList() {
             // TODO: style this, maybe add buttons to home/search more?
             <div className="animals-list__no-animals-wrapper">
               <h1>No animals found matching the given criteria</h1>
-              <h3>More animals coming soon!</h3>
+              <h2>More animals coming soon!</h2>
+              <img
+                className="animals-list__logo"
+                src={pawLogo}
+                alt="Paw Logo"
+              />
             </div>
           )}
         </div>
