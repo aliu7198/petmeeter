@@ -139,7 +139,7 @@ def seed_animals():
         owner_id = 2,
         type = 'Dog',
         name = 'Honey',
-        age = 'Adult',
+        age = 'Senior',
         gender = 'Female',
         size = 'Small',
         primary_breed = 'Chihuahua',
@@ -294,7 +294,24 @@ def seed_animals():
         created_at = random_date(datetime(2022, 1, 1), datetime(2023,6,1))
     )
 
-    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7, dog5, cat8]
+    cat9 = Animal(
+        owner_id = 9,
+        type = 'Cat',
+        name = 'Ham',
+        age = 'Adult',
+        gender = 'Male',
+        size = 'Large',
+        primary_breed = 'Domestic Short Hair',
+        color = 'Orange, White',
+        house_trained = True,
+        vaccinated = True,
+        fixed = True,
+        description = "Meet Ham, a 4 year old cat who sports a vibrant orange and white coat that matches his mischievous personality perfectly. With a twinkle in his eyes and a sly demeanor, he keeps his human companions on their toes. Whether he's playfully pouncing on toys or seeking out hidden treasures, Ham's mischievous charm and playful energy are contagious. Yet, beneath his antics, he possesses a gentle and affectionate side, seeking warm laps and cuddles. With his intelligence and curiosity, Ham brings endless laughter and surprises, brightening each day with his mischievous spirit and undeniable charm.",
+        adoption_fee = 120.00,
+        created_at = random_date(datetime(2022, 1, 1), datetime(2023,6,1))
+    )
+
+    pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7, dog5, cat8, cat9]
 
     [db.session.add(pet) for pet in pets]
     db.session.commit()

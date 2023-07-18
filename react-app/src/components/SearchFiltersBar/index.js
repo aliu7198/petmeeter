@@ -4,7 +4,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { signUp } from "../../store/session";
 import "./SearchFiltersBar.css";
 
-function SearchFiltersBar() {
+const SearchFiltersBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
@@ -21,11 +21,11 @@ function SearchFiltersBar() {
   const [goodWithOtherAnimals, setGoodWithOtherAnimals] = useState(false);
   const [houseTrained, setHouseTrained] = useState(false);
   const [specialNeeds, setSpecialNeeds] = useState(false);
-  const [color, setColor] = useState("");
-  const [daysOnSite, setdaysOnSite] = useState(0);
-  const [orgName, setOrgName] = useState("");
-  const [petName, setPetName] = useState("");
-  const [outOfTown, setOutOfTown] = useState(false);
+  // const [color, setColor] = useState("");
+  // const [daysOnSite, setdaysOnSite] = useState(0);
+  // const [orgName, setOrgName] = useState("");
+  // const [petName, setPetName] = useState("");
+  // const [outOfTown, setOutOfTown] = useState(false);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -54,7 +54,7 @@ function SearchFiltersBar() {
   };
 
   return (
-    <>
+    <div className="search-filter__wrapper">
       <div className="search-filter__top-bar">
         <button onClick={openMenu}>Type</button>
         <ul className={ulClassName} ref={ulRef}>
@@ -105,11 +105,11 @@ function SearchFiltersBar() {
         </ul>
         <button>Save Search</button>
       </div>
-      <form>
-        <label>
+      <form className="search-filter__form">
+        {/* <label>
           BREED
           <input type="text" value={breed} onChange={(e) => setBreed} />
-        </label>
+        </label> */}
         <label>
           AGE
           {/* <button onClick={openMenu}>Any</button>
@@ -182,7 +182,7 @@ function SearchFiltersBar() {
           </select>
         </label>
       </form>
-    </>
+    </div>
   );
 }
 
