@@ -76,6 +76,10 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    /* max-width: 1220px; */
     border: 1px solid red;
+    /* max-width: 1220px; */
+}
+
+#saved-search-modal-btn {
+    display: none;
 }
