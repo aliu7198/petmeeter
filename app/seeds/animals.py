@@ -2,7 +2,64 @@ from app.models import db, Animal, environment, SCHEMA
 from sqlalchemy.sql import text
 from datetime import datetime, timedelta
 
-from random import randint
+from random import randint, choice
+
+age_choices = ["Baby", "Young", "Adult", "Senior"]
+size_choices = ["Small", "Medium", "Large", "Extra Large"]
+gender_choices = ["Male", "Female"]
+bool_choices = [True, False]
+
+dog_breeds = ["Black Labrador Retriever", "Border Collie", "Pit Bull", "Husky", "Dachshund"]
+
+female_dog_names = ["Lola", "Coco", "Bella", "Sadie", "Roxy"]
+female_dog_desc = [
+"This spunky and affectionate pup has a lively spirit that brightens up any room. She loves to play fetch in the park, and her tail wags with excitement whenever she sees her favorite toy. With a heart full of love, she enjoys snuggling up with her human companions, bringing warmth and joy to their lives.",
+"Meet the epitome of elegance and grace. This sophisticated female dog carries herself with poise and charm, making heads turn wherever she goes. Her regal demeanor is matched by her intelligence and quick learning ability. She enjoys leisurely walks, exploring the world around her with a sense of curiosity.",
+"Playful and intelligent, this furry friend is always up for a new adventure. Her boundless energy keeps everyone on their toes, and she's ever ready to try out new tricks. She's a social butterfly, delighting in the company of both humans and other dogs. Her inquisitive nature leads her to explore every nook and cranny of her surroundings.",
+"Gaze into her soulful eyes and feel your heart melt. This gentle and loyal companion has an unbreakable bond with her human family. She's a calm presence, offering comfort during both happy and challenging times. She relishes quiet moments, cherishing every second spent snuggled up in a cozy spot.",
+"If there's a party, you can bet she's the life of it! Full of energy and enthusiasm, this lively female dog brings joy and laughter to everyone around her. She loves to run, play, and engage in games that keep her engaged and entertained. With her playful antics, she keeps the atmosphere vibrant and fun-filled."
+]
+
+male_dog_names = ["Max", "Buddy", "Charlie", "Rocky", "Duke"]
+male_dog_desc = [
+"This pup is full of energy and loves to play fetch in the park. He's an adventurous and curious companion, always eager to explore the world around him. With a wagging tail and a big heart, he brings joy and happiness to his human family.",
+"Meet the epitome of loyalty and affection. This furry friend is deeply devoted to his human companions, making them feel loved and cherished every day. He enjoys long walks and snuggling up for cuddles, creating a strong bond with those he holds dear.",
+"Playful and intelligent, this canine buddy is a quick learner and enjoys engaging in mental challenges. He's social and friendly, making friends wherever he goes. His infectious enthusiasm brings smiles to the faces of everyone he meets.",
+"Gaze into his soulful eyes and feel an instant connection. This gentle and calm pup has a soothing presence, providing comfort and solace to those around him. He's the perfect companion for peaceful moments and is always ready to lend a listening ear.",
+"If there's a party, you can bet he's the life of it! This spirited and lively pup has an abundance of energy and a playful personality. He loves outdoor adventures and enjoys the company of both humans and other dogs. With his charisma, he steals hearts wherever he goes."
+]
+
+rabbit_breeds = ["Bunny Rabbit", "Jersey Wooly", "Lionhead", "Netherland Dwarf", "American", "Bunny Rabbit", "Jersey Wooly", "Lionhead", "Netherland Dwarf", "American"]
+rabbit_names = ["Thumper","Clover","Cottontail","Snowball","Flopsy","Peter","Hazel","Cotton","Bun-Bun","Willow"]
+rabbit_desc = [
+    "Meet the adorable fluffy bunny! This playful and inquisitive rabbit is always on the lookout for new adventures. With its soft fur and cute twitching nose, it's hard to resist falling in love with this little explorer. Whether hopping around the garden or snuggling up for a cuddle, this rabbit's gentle and affectionate nature will warm your heart.",
+    "Introducing the clever and mischievous rabbit! With a keen intellect and a playful spirit, this furry friend is always up to something exciting. Whether it's solving little puzzles or finding hidden treats, this rabbit's curiosity knows no bounds. But don't worry, underneath that mischievous exterior lies a heart of gold, ready to share love and affection with its human companions.",
+    "Say hello to the sweet and friendly rabbit! This lovable companion is a master at making friends, both with humans and fellow animals alike. Its gentle and kind nature makes it the perfect cuddle buddy, and you can always count on this rabbit to brighten your day with its charming personality. Whether it's exploring new places or lounging in a cozy corner, this rabbit is always ready for some fun.",
+    "Behold the energetic whirlwind! This lively rabbit is a bundle of joy, constantly zooming around with boundless energy. Whether it's racing through tunnels, playing with toys, or just being its goofy self, this rabbit's playful antics are sure to bring a smile to your face. But when it's time to wind down, this little ball of energy also enjoys relaxing cuddle sessions with its favorite humans.",
+    "Meet the calm and observant rabbit. With a serene demeanor and a watchful eye, this rabbit is always aware of its surroundings. It enjoys quiet moments, taking in the beauty of nature and the comfort of its home. This rabbit's peaceful presence is a soothing balm to anyone seeking a moment of tranquility. Yet, it's always up for some gentle play and a warm snuggle when the mood strikes.",
+    "Introducing the charming companion! This rabbit's magnetic personality draws people in with ease. Its friendly and sociable nature makes it a delight to be around, and it thrives on human interaction and companionship. Whether it's bonding over shared activities or simply enjoying each other's company, this rabbit's company is a gift that keeps on giving.",
+    "Say hello to the little explorer! With a curious spirit and a thirst for knowledge, this rabbit is always on a quest to uncover the mysteries of its world. It delights in investigating new sights and smells, and its inquisitive nature will keep you entertained for hours. When it's not on its grand adventures, this rabbit enjoys quiet moments of reflection, savoring the wonders of the world around it.",
+    "Introducing the independent spirit! This rabbit is a self-reliant and confident individual, content in its own company while also enjoying the companionship of its humans. With a touch of mysterious allure, this rabbit's enigmatic nature will keep you intrigued. And when it chooses to share its affection, you'll feel incredibly special to have earned the trust of this charming friend.",
+    "Meet the cuddle enthusiast! This affectionate rabbit is a master at snuggling and enjoys nothing more than cozying up with its loved ones. Its loving nature makes it a great companion, always ready to offer comfort and warmth. This rabbit's soft and gentle heart shines through in every interaction, reminding you of the joy and tenderness that comes with having a furry friend by your side.",
+    "Say hello to the social butterfly! This rabbit is a natural charmer, effortlessly making friends wherever it goes. Its outgoing personality and warm demeanor make it a popular guest at any gathering. Whether it's playdates with fellow rabbits or spending quality time with its human family, this rabbit thrives on social interactions and will fill your life with happiness and laughter.",
+]
+
+small_creature_breeds = ["Hamster", "Ferret", "Guinea Pig", "Mouse", "Rat", "Hamster", "Ferret", "Guinea Pig", "Mouse", "Rat"]
+small_creature_names = ["Peanut","Whiskers","Nibbles","Cocoa","Snuggles","Hazel","Chester","Pumpkin","Biscuit","Squeaky"]
+small_creature_desc = [
+    "A playful and curious hamster, always busy exploring its surroundings and stuffing its cheeks with food.",
+    "An affectionate and intelligent ferret, with boundless energy and a mischievous nature.",
+    "A gentle and sociable guinea pig, known for its cheerful squeaks and love for fresh veggies.",
+    "A tiny and agile mouse, with a keen sense of smell and a talent for squeezing through small spaces.",
+    "An intelligent and social rat, forming strong bonds with its rat pack and enjoying interactive toys.",
+    "A busy and energetic hamster, running on its wheel and building intricate nests with bedding.",
+    "A clever and inquisitive ferret, always on the lookout for new adventures and games to play.",
+    "A docile and gentle guinea pig, enjoying the company of its human friends and fellow guinea pigs.",
+    "A quick and nimble mouse, darting around with lightning speed and possessing impressive agility.",
+    "A smart and curious rat, always exploring its environment and learning new tricks with ease.",
+]
+
+
 
 def random_date(start, end):
     """Generate a random datetime between `start` and `end` which
@@ -314,6 +371,95 @@ def seed_animals():
     pets = [cat1, cat2, cat3, cat4, dog1, dog2, dog3, dog4, rabbit1, turtle1, cat5, cat6, cat7, dog5, cat8, cat9]
 
     [db.session.add(pet) for pet in pets]
+
+    for i in range(0, len(female_dog_names)):
+        newDog = Animal(
+            owner_id = randint(1, 5),
+            type = 'Dog',
+            name = female_dog_names[i],
+            age = choice(age_choices),
+            gender = "Female",
+            size = choice(size_choices),
+            primary_breed = dog_breeds[i],
+            house_trained = choice(bool_choices),
+            vaccinated = choice(bool_choices),
+            fixed = choice(bool_choices),
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            special_needs = choice(bool_choices),
+            description = female_dog_desc[i],
+            adoption_fee = randint(100, 1000),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
+
+        db.session.add(newDog)
+
+    for i in range(0, len(male_dog_names)):
+        newDog = Animal(
+            owner_id = randint(1, 5),
+            type = 'Dog',
+            name = male_dog_names[i],
+            age = choice(age_choices),
+            gender = "Male",
+            size = choice(size_choices),
+            primary_breed = dog_breeds[i],
+            house_trained = choice(bool_choices),
+            vaccinated = choice(bool_choices),
+            fixed = choice(bool_choices),
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            special_needs = choice(bool_choices),
+            description = male_dog_desc[i],
+            adoption_fee = randint(100, 1000),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
+
+        db.session.add(newDog)
+
+    for i in range(0, len(rabbit_names)):
+        newRabbit = Animal(
+            owner_id = randint(3, 5),
+            type = 'Rabbit',
+            name = rabbit_names[i],
+            age = choice(age_choices),
+            gender = choice(gender_choices),
+            size = choice(size_choices),
+            primary_breed = rabbit_breeds[i],
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            description = rabbit_desc[i],
+            adoption_fee = randint(10, 100),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
+
+        db.session.add(newRabbit)
+
+    for i in range(0, len(small_creature_names)):
+        newRabbit = Animal(
+            owner_id = randint(3, 5),
+            type = 'Small & Furry',
+            name = small_creature_names[i],
+            age = choice(age_choices),
+            gender = choice(gender_choices),
+            size = choice(size_choices),
+            primary_breed = small_creature_breeds[i],
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            description = small_creature_desc[i],
+            adoption_fee = randint(10, 50),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
+
+        db.session.add(newRabbit)
+
     db.session.commit()
 
 
