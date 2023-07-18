@@ -225,7 +225,7 @@ function AnimalsList() {
     formData.append("good_with_other_animals", goodWithOtherAnimals);
 
     const createdSearch = await dispatch(createSearchThunk(formData));
-    setNewSearch(createdSearch)
+    setNewSearch(createdSearch);
   };
 
   useEffect(() => {
@@ -235,23 +235,26 @@ function AnimalsList() {
         setClicked(true);
       }
       setClicked(false);
-    }
+      setNewSearch(null);
+    };
 
-    clickModalButton()
-  }, [newSearch, clicked])
+    clickModalButton();
+  }, [newSearch, clicked]);
 
   if (isLoading) return <Loading />;
 
   return (
     <div className="animals-list__outer body">
-      <div className="animals-list__top-bar">
-        <img
-          className="animals-list__top-bar-logo"
-          src={animalLogo()}
-          alt={`${numAnimals()} Logo`}
-        ></img>
-        <div className="animals-list__top-quantity">{numAnimals()}</div>
-        <button onClick={handleSubmit}>Save Search</button>
+      <nav className="animals-list__top-bar">
+        <div className="animals-list__top-left">
+          <img
+            className="animals-list__top-bar-logo"
+            src={animalLogo()}
+            alt={`${numAnimals()} Logo`}
+          />
+          <div className="animals-list__top-quantity">{numAnimals()}</div>
+        </div>
+        <button className="animals-list__submit-search-btn" onClick={handleSubmit}>SAVE SEARCH</button>
         <div id="saved-search-modal-btn">
           <OpenModalButton
             // onButtonClick={handleSubmit}
@@ -261,27 +264,9 @@ function AnimalsList() {
             ref={modalButtonRef}
           />
         </div>
-        <div className="animals-list__sort-wrapper">
-          <label htmlFor="sort" className="animals-list__sort-label">
-            Sort By:
-          </label>
-          <select
-            id="sort"
-            className="animals-list__sort-select"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-          >
-            <option value="Randomize" default>
-              Randomize
-            </option>
-            <option value="A to Z">A to Z</option>
-            <option value="Z to A">Z to A</option>
-            <option value="Newest Addition">Newest Addition</option>
-            <option value="Oldest Addition">Oldest Addition</option>
-          </select>
-        </div>
-      </div>
-      <div className="animals-list__main">
+      </nav>
+
+      <div className="animals-list__body">
         {/* <SearchFiltersBar /> */}
         <form className="search-filter__form">
           <label className="search-filter__input-label">
@@ -394,33 +379,41 @@ function AnimalsList() {
             </label>
           </div>
         </form>
-        {/* {animalsArr.length > 0 ? (
-          <div className="animals-list__wrapper">
-            {animalsArr.map((animal) => (
-              <AnimalCard animal={animal} key={animal.id} />
-            ))}
+        <div className="animals-list__main">
+          <div className="animals-list__sort-wrapper">
+            <label htmlFor="sort" className="animals-list__sort-label">
+              Sort By:
+            </label>
+            <select
+              id="sort"
+              className="animals-list__sort-select"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="Randomize" default>
+                Randomize
+              </option>
+              <option value="A to Z">A to Z</option>
+              <option value="Z to A">Z to A</option>
+              <option value="Newest Addition">Newest Addition</option>
+              <option value="Oldest Addition">Oldest Addition</option>
+            </select>
           </div>
-        ) : (
-          // TODO: style this, maybe add buttons to home/search more?
-          <div className="animals-list__no-animals-wrapper">
-            <h1>No animals found matching the given criteria</h1>
-            <h3>More animals coming soon!</h3>
-          </div>
-        )} */}
-        {!listLoading && animalsArr.length > 0 && (
-          <div className="animals-list__wrapper">
-            {animalsArr.map((animal) => (
-              <AnimalCard animal={animal} key={animal.id} />
-            ))}
-          </div>
-        )}
-        {!listLoading && animalsArr.length === 0 && (
-          // TODO: style this, maybe add buttons to home/search more?
-          <div className="animals-list__no-animals-wrapper">
-            <h1>No animals found matching the given criteria</h1>
-            <h3>More animals coming soon!</h3>
-          </div>
-        )}
+          {!listLoading && animalsArr.length > 0 && (
+            <div className="animals-list__wrapper">
+              {animalsArr.map((animal) => (
+                <AnimalCard animal={animal} key={animal.id} />
+              ))}
+            </div>
+          )}
+          {!listLoading && animalsArr.length === 0 && (
+            // TODO: style this, maybe add buttons to home/search more?
+            <div className="animals-list__no-animals-wrapper">
+              <h1>No animals found matching the given criteria</h1>
+              <h3>More animals coming soon!</h3>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
