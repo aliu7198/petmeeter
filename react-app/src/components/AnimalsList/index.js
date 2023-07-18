@@ -254,7 +254,12 @@ function AnimalsList() {
           />
           <div className="animals-list__top-quantity">{numAnimals()}</div>
         </div>
-        <button className="animals-list__submit-search-btn" onClick={handleSubmit}>SAVE SEARCH</button>
+        <button
+          className="animals-list__submit-search-btn"
+          onClick={handleSubmit}
+        >
+          SAVE SEARCH
+        </button>
         <div id="saved-search-modal-btn">
           <OpenModalButton
             // onButtonClick={handleSubmit}
@@ -290,9 +295,13 @@ function AnimalsList() {
               <option value="Barnyard">Barnyard</option>
             </select>
           </label>
-          <label>
+          <label className="search-filter__input-label">
             AGE
-            <select value={age} onChange={(e) => changeAge(e)}>
+            <select
+              value={age}
+              onChange={(e) => changeAge(e)}
+              className="search-filter__dropdown"
+            >
               <option value="">Any</option>
               <option value="Baby">Baby</option>
               <option value="Young">Young</option>
@@ -300,9 +309,13 @@ function AnimalsList() {
               <option value="Senior">Senior</option>
             </select>
           </label>
-          <label>
+          <label className="search-filter__input-label">
             SIZE
-            <select value={size} onChange={(e) => changeSize(e)}>
+            <select
+              value={size}
+              onChange={(e) => changeSize(e)}
+              className="search-filter__dropdown"
+            >
               <option value="">Any</option>
               <option value="Small">Small</option>
               <option value="Medium">Medium</option>
@@ -310,73 +323,81 @@ function AnimalsList() {
               <option value="Extra Large">Extra Large</option>
             </select>
           </label>
-          <label>
+          <label className="search-filter__input-label">
             GENDER
-            <select value={gender} onChange={(e) => changeGender(e)}>
+            <select
+              value={gender}
+              onChange={(e) => changeGender(e)}
+              className="search-filter__dropdown"
+            >
               <option value="">Any</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
           </label>
-          <div className="animal-form__good-with">
-            <h4>GOOD WITH</h4>
-            <label className="animal-form__check-label">
-              CATS
-              <input
-                type="checkbox"
-                value={goodWithCats}
-                checked={goodWithCats}
-                onChange={(e) => changeGoodWithCats(e)}
-              />
-            </label>
-            <label className="animal-form__check-label">
-              DOGS
-              <input
-                type="checkbox"
-                value={goodWithDogs}
-                checked={goodWithDogs}
-                onChange={(e) => changeGoodWithDogs(e)}
-              />
-            </label>
-            <label className="animal-form__check-label">
-              CHILDREN
-              <input
-                type="checkbox"
-                value={goodWithChildren}
-                checked={goodWithChildren}
-                onChange={(e) => changeGoodWithChildren(e)}
-              />
-            </label>
-            <label className="animal-form__check-label">
-              OTHER ANIMALS
-              <input
-                type="checkbox"
-                value={goodWithOtherAnimals}
-                checked={goodWithOtherAnimals}
-                onChange={(e) => changeGoodWithOtherAnimals(e)}
-              />
-            </label>
+          <div className="search-filter__check-outer">
+            <h4 className="search-filter__check-title">GOOD WITH</h4>
+            <div className="search-filter__check-wrapper">
+              <label className="search-filter__check-label">
+                Cats
+                <input
+                  type="checkbox"
+                  value={goodWithCats}
+                  checked={goodWithCats}
+                  onChange={(e) => changeGoodWithCats(e)}
+                />
+              </label>
+              <label className="search-filter__check-label">
+                Dogs
+                <input
+                  type="checkbox"
+                  value={goodWithDogs}
+                  checked={goodWithDogs}
+                  onChange={(e) => changeGoodWithDogs(e)}
+                />
+              </label>
+              <label className="search-filter__check-label">
+                Children
+                <input
+                  type="checkbox"
+                  value={goodWithChildren}
+                  checked={goodWithChildren}
+                  onChange={(e) => changeGoodWithChildren(e)}
+                />
+              </label>
+              <label className="search-filter__check-label">
+                Other Animals
+                <input
+                  type="checkbox"
+                  value={goodWithOtherAnimals}
+                  checked={goodWithOtherAnimals}
+                  onChange={(e) => changeGoodWithOtherAnimals(e)}
+                />
+              </label>
+            </div>
           </div>
-          <div className="animal-form__health">
-            <h4>HEALTH</h4>
-            <label className="animal-form__check-label">
-              HOUSE TRAINED
-              <input
-                type="checkbox"
-                value={houseTrained}
-                checked={houseTrained}
-                onChange={(e) => changeHouseTrained(e)}
-              />
-            </label>
-            <label className="animal-form__check-label">
-              SPECIAL NEEDS
-              <input
-                type="checkbox"
-                value={specialNeeds}
-                checked={specialNeeds}
-                onChange={(e) => changeSpecialNeeds(e)}
-              />
-            </label>
+          <div className="search-filter__check-outer">
+            <h4 className="search-filter__check-title">HEALTH</h4>
+            <div className="search-filter__check-wrapper">
+              <label className="search-filter__check-label">
+                House Trained
+                <input
+                  type="checkbox"
+                  value={houseTrained}
+                  checked={houseTrained}
+                  onChange={(e) => changeHouseTrained(e)}
+                />
+              </label>
+              <label className="search-filter__check-label">
+                Special Needs
+                <input
+                  type="checkbox"
+                  value={specialNeeds}
+                  checked={specialNeeds}
+                  onChange={(e) => changeSpecialNeeds(e)}
+                />
+              </label>
+            </div>
           </div>
         </form>
         <div className="animals-list__main">
