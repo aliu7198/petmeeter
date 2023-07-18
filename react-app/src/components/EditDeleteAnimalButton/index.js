@@ -1,9 +1,9 @@
 import React from "react";
-import "./EditDeleteAnimalButton.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAnimalModal from "../DeleteAnimalModal";
 import { useModal } from "../../context/Modal";
+import "./EditDeleteAnimalButton.css";
 
 const EditDeleteAnimalButton = ({ animal, location }) => {
   const { closeModal } = useModal();

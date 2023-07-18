@@ -9,7 +9,7 @@
   padding: 2rem 0 2rem 4rem;
   color: var(--white);
   z-index: 2;
-  transition: border-bottom 1s
+  transition: border-bottom 1s ease
 }
 
 .profile-dropdown a {

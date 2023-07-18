@@ -103,7 +103,6 @@ const CreateAnimalForm = () => {
       if (newAnimal) {
         history.push(`/animals/${newAnimal.id}`);
       }
-      // history.push(`/animals`)
     }
   };
 

@@ -19,6 +19,24 @@ def animals():
     size = request.args.get('size')
     gender = request.args.get('gender')
     color = request.args.get('color')
+    good_with_cats = None
+    good_with_dogs = None
+    good_with_children = None
+    good_with_other_animals = None
+    house_trained = None
+    special_needs = None
+    if request.args.get('goodWithCats') == 'true':
+        good_with_cats = True
+    if request.args.get('goodWithDogs') == 'true':
+        good_with_dogs = True
+    if request.args.get('goodWithChildren') == 'true':
+        good_with_children = True
+    if request.args.get('goodWithOtherAnimals') == 'true':
+        good_with_other_animals = True
+    if request.args.get('houseTrained') == 'true':
+        house_trained = True
+    if request.args.get('specialNeeds') == 'true':
+        special_needs = True
 
     animals = Animal.query.all()
     filtered_animals = []
@@ -44,7 +62,13 @@ def animals():
             (not type or animal.type == type) and \
             (not size or animal.size == size) and \
             (not gender or animal.gender == gender) and \
-            (not color or animal.color == color):
+            (not color or animal.color == color) and \
+            (not good_with_cats or animal.good_with_cats == good_with_cats) and \
+            (not good_with_dogs or animal.good_with_dogs == good_with_dogs) and \
+            (not good_with_children or animal.good_with_children == good_with_children) and \
+            (not good_with_other_animals or animal.good_with_other_animals == good_with_other_animals) and \
+            (not house_trained or animal.house_trained == house_trained) and \
+            (not special_needs or animal.special_needs == special_needs):
                 filtered_animals.append(animal_dict)
 
     return filtered_animals
@@ -188,7 +212,7 @@ def create_search():
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-# UPDATE ANIMAL - NEEDS TESTING
+# UPDATE ANIMAL
 @animal_routes.route('/<int:id>', methods=["PUT"])
 @login_required
 def update_animal(id):
@@ -226,7 +250,7 @@ def update_animal(id):
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-
+# DELETE ANIMAL
 @animal_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_animal(id):

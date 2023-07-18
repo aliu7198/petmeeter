@@ -321,7 +321,32 @@ def seed_animal_images():
         image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1128344716094734497/greyson.png'
     )
 
-    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39,image40,image41,image42,image43,image44, image45,image46,image47,image48,image49,image50,image51,image52,image53,image54,image55,image56,image57,image58,image59,image60, image61,image62,image63,image64]
+    image65 = AnimalImage(
+        animal_id = 16,
+        image_url = 'https://cdn.discordapp.com/attachments/1128742248385884162/1128743237587324968/69463815502__079DE828-4E4E-4636-A6F3-3318DFCAD337.jpg'
+    )
+
+    image66 = AnimalImage(
+        animal_id = 16,
+        image_url = 'https://cdn.discordapp.com/attachments/1128742248385884162/1128743236987531285/IMG_0282.jpg'
+    )
+
+    image67 = AnimalImage(
+        animal_id = 16,
+        image_url = 'https://cdn.discordapp.com/attachments/1128742248385884162/1128743238363262996/IMG_6624.jpg'
+    )
+
+    image68 = AnimalImage(
+        animal_id = 16,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1128744496486695042/image.png'
+    )
+
+    image69 = AnimalImage(
+        animal_id = 16,
+        image_url = 'https://cdn.discordapp.com/attachments/1118675490870399017/1128743069987115028/image.png'
+    )
+
+    images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39,image40,image41,image42,image43,image44, image45,image46,image47,image48,image49,image50,image51,image52,image53,image54,image55,image56,image57,image58,image59,image60, image61,image62,image63,image64,image65,image66,image67,image68,image69]
 
     [db.session.add(image) for image in images]
     db.session.commit()

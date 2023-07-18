@@ -137,7 +137,7 @@ const LandingPage = () => {
   };
 
   const getAllAnimals = async () => {
-    history.push("/animals");
+    history.push("/animals?");
   };
 
   // Handle recently viewed animals

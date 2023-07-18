@@ -115,7 +115,7 @@
 
 .animal-form__submit-btn {
     width: 100%;
-    padding: 0.75rem;
+    padding: 1rem;
     border-radius: 25px;
     border: none;
     background-color: var(--purple);

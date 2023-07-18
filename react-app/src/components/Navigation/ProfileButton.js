@@ -51,16 +51,15 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user && (
           <>
-            <li className="logout" onClick={(e) => alert("Feature Coming Soon!")}>
-              My Saved Searches
-              {/* <NavLink exact to="/user/searches">
+            <li onClick={() => setShowMenu(false)}>
+              <NavLink exact to="/user/searches">
                 My Saved Searches
-              </NavLink> */}
+              </NavLink>
             </li>
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <NavLink exact to="/user/animals">My Listed Animals</NavLink>
             </li>
-            <li>
+            <li onClick={() => setShowMenu(false)}>
               <NavLink exact to="/animals/new">Post New Animal</NavLink>
             </li>
             <li onClick={handleLogout} className="logout">

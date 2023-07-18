@@ -48,15 +48,37 @@ def create_search():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
-        title = f"{form.data['type']} | "
+        # Generate a default title based on form fields
+        if form.data['type']:
+            title = f"{form.data['type']}"
+        else:
+            title = "All Animals"
 
-        # TODO: generate a title based on search criteria put in
+        if form.data['age']:
+            title += f" | {form.data['age']}"
+        if form.data['size']:
+            title += f" | {form.data['size']}"
+        if form.data['gender']:
+            title += f" | {form.data['gender']}"
+        if form.data['good_with_cats']:
+            title += f" | Good fit with cats"
+        if form.data['good_with_dogs']:
+            title += f" | Good fit with dogs"
+        if form.data['good_with_children']:
+            title += f" | Good fit with children"
+        if form.data['good_with_other_animals']:
+            title += f" | Good fit with other animals"
+        if form.data['house_trained']:
+            title += f" | House trained"
+        if form.data['special_needs']:
+            title += f" | Special needs"
+
 
         new_search = SavedSearch(
             user_id = current_user.id,
             title = title,
             type = form.data['type'],
-            breed = form.data['breed'],
+            # breed = form.data['breed'],
             age = form.data['age'],
             size = form.data['size'],
             gender = form.data['gender'],
@@ -66,15 +88,51 @@ def create_search():
             good_with_other_animals = form.data['good_with_other_animals'],
             house_trained = form.data['house_trained'],
             special_needs = form.data['special_needs'],
-            color = form.data['color'],
-            days_on_site = form.data['days_on_site'],
-            org_name = form.data['org_name'],
-            pet_name = form.data['pet_name'],
-            out_of_town = form.data['out_of_town']
+            # color = form.data['color'],
+            # days_on_site = form.data['days_on_site'],
+            # org_name = form.data['org_name'],
+            # pet_name = form.data['pet_name'],
+            # out_of_town = form.data['out_of_town']
         )
 
         db.session.add(new_search)
         db.session.commit()
 
+        return new_search.to_dict()
+
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+# UPDATE SEARCH
+@search_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_search(id):
+    """
+    Update a search's title
+    """
+    search = SavedSearch.query.get(id)
+
+    form = SearchForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        search.title = form.data['title']
+
+        db.session.commit()
+        return search.to_dict()
+
+    if form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+# DELETE SEARCH
+@search_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_search(id):
+    """
+    Delete a search
+    """
+    search = SavedSearch.query.get(id)
+    db.session.delete(search)
+    db.session.commit()
+    return {'message': 'Saved search successfully deleted'}
