@@ -460,6 +460,8 @@ def seed_animals():
 
         db.session.add(newRabbit)
 
+
+
     db.session.commit()
 
 
