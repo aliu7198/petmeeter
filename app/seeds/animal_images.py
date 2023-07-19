@@ -1,6 +1,43 @@
-from app.models import db, AnimalImage, environment, SCHEMA
+from app.models import db, Animal, AnimalImage, environment, SCHEMA
 from sqlalchemy.sql import text
+from random import shuffle
 
+image_urls = {
+    "Black Labrador Retriever": [
+        "https://images.unsplash.com/photo-1602941953280-ea523175bcfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmxhY2slMjBsYWJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1564665348269-dcea9031b228?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmxhY2slMjBsYWJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1516383074327-ac4841225abf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmxhY2slMjBsYWJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+        ],
+    "Border Collie": [
+        "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9yZGVyJTIwY29sbGllfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1593270379182-fe1b1f6d67e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9yZGVyJTIwY29sbGllfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1511732782465-412b656f2291?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJvcmRlciUyMGNvbGxpZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+        ],
+    "Pit Bull": [
+        "https://images.unsplash.com/photo-1604606363386-dd3f2357ad87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGl0JTIwYnVsbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1604606370896-41bfdc2626d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGl0JTIwYnVsbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+        ],
+    "Husky": [
+        "https://images.unsplash.com/photo-1585072857532-4bffcc57aaee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGh1c2t5fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1616567214738-22fc0c6332b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aHVza3l8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605568427561-40dd23c2acea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGh1c2t5fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+        ],
+    "Dachshund": [
+        "https://images.unsplash.com/photo-1618265341355-d0e2d1fdf26b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZGFjaHNodW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1520038410233-7141be7e6f97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGFjaHNodW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1556796879-160fd67614ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGRhY2hzaHVuZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+        ],
+    "Bunny Rabbit": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130966602532278300/1.png"],
+    "Jersey Wooly": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130967225302536302/1.png"],
+    "Lionhead": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130967769953869864/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130967770264244224/2.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130967770587213995/4.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130967771061166163/5.png"],
+    "Netherland Dwarf": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130968286302056509/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130968286578872350/2.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130968286897655868/3.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130968287228989590/5.png"],
+    "American": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130969142724407366/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130969143013810276/2.png"],
+    "Hamster": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130974797837389965/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130974798105804860/2.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130974798374260906/3.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130974798684618762/4.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130974798986625195/6.png"],
+    "Ferret": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130976857647480872/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130976857983041677/2.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130976858872217620/5.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130976859325218846/4.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130976858498932766/3.png"],
+    "Mouse": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130975727861370990/5.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130975728171745291/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130975729815916655/2.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130975730692534312/4.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130975731485245440/6.png"],
+    "Rat": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130976458219733064/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130976458559455292/1.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130976458836283423/1.png"],
+    "Guinea Pig": ["https://cdn.discordapp.com/attachments/1118675490870399017/1130982556146356326/2.png", "https://cdn.discordapp.com/attachments/1118675490870399017/1130982556544798770/1.png"]
+}
 
 def seed_animal_images():
     image1 = AnimalImage(
@@ -349,6 +386,20 @@ def seed_animal_images():
     images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18,image19,image20,image21,image22,image23,image24,image25,image26,image27,image28,image29,image30,image31,image32,image33,image34,image35,image36,image37,image38,image39,image40,image41,image42,image43,image44, image45,image46,image47,image48,image49,image50,image51,image52,image53,image54,image55,image56,image57,image58,image59,image60, image61,image62,image63,image64,image65,image66,image67,image68,image69]
 
     [db.session.add(image) for image in images]
+
+    otherAnimals = Animal.query.filter(Animal.id > 16).all()
+
+    for animal in otherAnimals:
+        urls = image_urls[animal.primary_breed]
+        shuffle(urls)
+        for url in urls:
+            newImage = AnimalImage(
+                animal_id = animal.id,
+                image_url = url
+            )
+
+            db.session.add(newImage)
+
     db.session.commit()
 
 
