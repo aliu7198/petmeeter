@@ -97,3 +97,10 @@ Check out [Petmeeter](https://petmeeter.onrender.com/)
 
 ### Live Chat with Web Sockets
 * Logged in users can chat with other users regarding potential adoptions.
+
+## Meet the Developer:
+
+### Adanna Liu
+* adanna.c.liu@gmail.com
+* [LinkedIn](https://www.linkedin.com/in/adanna-liu-7505161a5/)
+* [GitHub](https://github.com/aliu7198)

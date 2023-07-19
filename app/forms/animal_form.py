@@ -5,7 +5,7 @@ from flask_wtf.file import FileAllowed
 from ..api.AWS_helpers import ALLOWED_EXTENSIONS
 
 class AnimalForm(FlaskForm):
-    type = SelectField("Type", validators=[DataRequired(message="Type is required.")], choices=["Dog", "Cat", "Rabbit", "Small & Furry", "Horse", "Bird", "Scales, Fins, & Other", "Barnyard"])
+    type = SelectField("Type", validators=[DataRequired(message="Type is required.")], choices=["Dog", "Cat", "Rabbit", "Small & Furry", "Horse", "Bird", "Scales, Fins, & Other"])
     name = StringField("Name", validators=[DataRequired(message="Name is required."), Length(min=1, max=100, message="Maximum 100 characters in name.")])
     age = SelectField("Age", validators=[DataRequired(message="Age is required.")], choices = ["Baby", "Young", "Adult", "Senior"])
     gender = SelectField("Gender", validators=[DataRequired(message="Gender is required.")], choices = ["Male", "Female"])
