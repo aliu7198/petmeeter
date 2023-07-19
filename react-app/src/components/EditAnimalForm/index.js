@@ -146,7 +146,7 @@ const EditAnimalForm = ({ animal }) => {
               <option value="Scales, Fins, & Other">
                 Scales, Fins, & Other
               </option>
-              <option value="Barnyard">Barnyard</option>
+              {/* <option value="Barnyard">Barnyard</option> */}
             </select>
             <p className="errors">{hasSubmitted && errors?.type}</p>
           </label>

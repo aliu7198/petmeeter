@@ -59,6 +59,50 @@ small_creature_desc = [
     "A smart and curious rat, always exploring its environment and learning new tricks with ease.",
 ]
 
+horse_breeds = ["Quarterhorse", "Donkey", "Arabian", "Appaloosa", "Pony", "Quarterhorse", "Donkey", "Arabian", "Appaloosa", "Pony"]
+horse_names = ["Thunderbolt","Starfire","Silver Belle", "Stormy Sky", "Spirit Dancer","Blaze", "Moonshadow","Swift Wind","Starlight","Rusty Firefly"]
+horse_desc = [
+    "A versatile and athletic companion, suitable for various disciplines and leisurely rides.",
+    "A gentle and hardworking friend, known for intelligence and loyalty.",
+    "A majestic and elegant creature, with a spirited personality and graceful movements.",
+    "A unique and striking individual, characterized by a spotted coat pattern and gentle demeanor.",
+    "A small and adorable companion, perfect for children and light riding activities.",
+    "A versatile and athletic companion, suitable for various disciplines and leisurely rides.",
+    "A gentle and hardworking friend, known for intelligence and loyalty.",
+    "A majestic and elegant creature, with a spirited personality and graceful movements.",
+    "A unique and striking individual, characterized by a spotted coat pattern and gentle demeanor.",
+    "A small and adorable companion, perfect for children and light riding activities."
+]
+
+bird_breeds = ["Cockatoo", "Macaw", "Chicken", "Parakeet", "Pigeon", "Cockatoo", "Macaw", "Chicken", "Parakeet", "Pigeon"]
+bird_names = ["Sunny","Skye","Rio","Pippin","Kiwi","Tweety","Phoenix","Buddy","Piper","Feather"]
+bird_desc = [
+    "Meet this enchanting airborne wonder, a true artist of the skies. Its resplendent plumage showcases a dazzling array of colors, shimmering like a living rainbow as it soars through the air. A charismatic performer, it brings joy to all who witness its graceful aerial acrobatics.",
+    "Step into the world of vibrant avian royalty with this regal companion. With majestic feathers that flow like a majestic tapestry, it commands attention wherever it goes. Its confident personality and affectionate nature will make you feel like you're in the presence of avian nobility.",
+    "Introducing the feathered maestro of the barnyard! With its boisterous crow, it heralds the break of dawn with pride. Beyond its musical talents, it's a true companion, providing endless warmth and camaraderie to those it holds dear.",
+    "Behold this small and charming creature, a delightful sprite of the avian realm. Its playful demeanor and melodic chirps will whisk you away to a world of joy and wonder. Keep an ear out, as it may even mimic your own laughter.",
+    "A denizen of the urban landscape, this avian explorer fearlessly navigates the bustling city streets. Its inquisitive nature and lively coos bring a touch of nature's serenity to the heart of the concrete jungle.",
+    "Dive into the world of ethereal beauty with this airborne marvel. With wings that shimmer like precious gemstones, it dances among the clouds with unparalleled grace. Its intelligence and curiosity make every interaction a magical experience.",
+    "Uncover the mysteries of the tropical rainforest with this captivating aerial gem. Its kaleidoscope of colors seems like a living canvas painted by nature's hand. Be enchanted by its playful antics and undeniable charm.",
+    "Venture into the barnyard and be greeted by this charismatic and dignified figure. With its head held high and an air of authority, it rules over its domain with a gentle but firm touch. As a bonus, it generously provides farm-fresh eggs for your delight.",
+    "Embrace the spirit of curiosity and playfulness with this delightful little companion. Its endearing chirps and boundless energy make it an instant source of joy. You'll find yourself entranced by its captivating antics and charming personality.",
+    "Discover the urban enchantment of this city-dwelling marvel. Its harmonious coos create a symphony of tranquility amid the bustling noises of the metropolis. This charming avian friend will add a touch of nature's elegance to your urban life."
+]
+
+scaly_breeds = ["Gecko", "Bearded Dragon", "Frog", "Ball Python", "Turtle", "Gecko", "Bearded Dragon", "Frog", "Ball Python", "Turtle"]
+scaly_names = ["Spike","Zara","Rex","Luna","Draco","Kai","Sasha","Blaze","Nova","Oogway"]
+scaly_desc = [
+    "Meet an adorable reptile looking for a loving home. This little acrobat has magnetic charm that will leave you in awe of its acrobatic skills. It loves exploring and is looking for an adventurous companion to share exciting moments with. Are you ready to bring home this little wall-scaling superstar?",
+    "Introducing a reptile with a majestic beard and a cool demeanor. This reptile is not just a pet; it's a whole vibe! If you want a companion that's both chill and stylish, this one is the perfect match.",
+    "Say hello to a bouncy and cheerful frog. It will bring a melody of croaks to your home and loves to hop around with wide curious eyes. If you're ready for a hopping good time, adopt this adorable creature today!",
+    "Welcome to the ballroom of elegance! This slithery charmer is ready to captivate your heart with its mesmerizing patterns and gentle nature. It loves cuddles and is looking for a warm, loving home to share its grace.",
+    "Slow and steady wins hearts! This wise and charming reptile has a calm and patient demeanor that will bring tranquility to your home. If you're seeking a companion to remind you to take life easy, this one is the perfect fit.",
+    "Get ready for the playfulness of this tiny gecko! It brings joy and laughter wherever it goes, always on the lookout for exciting adventures. If you want a lively and dynamic companion, this little reptile is the one for you.",
+    "This majestic reptile is the epitome of cool and would love to be the star of your home. If you missed the chance before, now's your time to adopt this mesmerizing creature.",
+    "Our adorable froggy friends have returned to bring more hoppy adventures and a symphony of croaks to your life. Don't miss the chance to share your home with these delightful amphibians.",
+    "Slithery enchantment awaits! Each reptile is a unique beauty, ready to become your perfect companion. These mesmerizing creatures are back with more patterns and charm.",
+    "Slow and steady wins hearts once again! These tranquil reptiles are here to remind you to take life easy and appreciate the little joys. Bring home your Zen master today!"
+]
 
 
 def random_date(start, end):
@@ -460,7 +504,70 @@ def seed_animals():
 
         db.session.add(newRabbit)
 
+    for i in range(0, len(horse_names)):
+        newHorse = Animal(
+            owner_id = randint(3, 5),
+            type = 'Horse',
+            name = horse_names[i],
+            age = choice(age_choices),
+            gender = choice(gender_choices),
+            size = choice(size_choices),
+            primary_breed = horse_breeds[i],
+            vaccinated = choice(bool_choices),
+            fixed = choice(bool_choices),
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            special_needs = choice(bool_choices),
+            description = horse_desc[i],
+            adoption_fee = randint(500, 2000),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
 
+        db.session.add(newHorse)
+
+    for i in range(0, len(bird_names)):
+        newBird = Animal(
+            owner_id = randint(3, 5),
+            type = 'Bird',
+            name = bird_names[i],
+            age = choice(age_choices),
+            gender = choice(gender_choices),
+            size = choice(size_choices),
+            primary_breed = bird_breeds[i],
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            special_needs = choice(bool_choices),
+            description = bird_desc[i],
+            adoption_fee = randint(30, 400),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
+
+        db.session.add(newBird)
+
+    for i in range(0, len(scaly_names)):
+        newScaly = Animal(
+            owner_id = randint(3, 5),
+            type = 'Scales, Fins, & Other',
+            name = scaly_names[i],
+            age = choice(age_choices),
+            gender = choice(gender_choices),
+            size = choice(size_choices),
+            primary_breed = scaly_breeds[i],
+            good_with_cats = choice(bool_choices),
+            good_with_dogs = choice(bool_choices),
+            good_with_children = choice(bool_choices),
+            good_with_other_animals = choice(bool_choices),
+            special_needs = choice(bool_choices),
+            description = scaly_desc[i],
+            adoption_fee = randint(20, 100),
+            created_at = random_date(datetime(2021, 1, 1), datetime(2022,1,1))
+        )
+
+        db.session.add(newScaly)
 
     db.session.commit()
 
